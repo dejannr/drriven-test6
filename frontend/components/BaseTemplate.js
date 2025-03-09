@@ -1,6 +1,8 @@
 // components/BaseTemplate.js
 import Link from 'next/link';
 import Sidepanel from './Sidepanel';
+import Rightpanel from './Rightpanel';
+
 
 export default function BaseTemplate({ children }) {
   return (
@@ -12,6 +14,8 @@ export default function BaseTemplate({ children }) {
       <div className="drr-main">
         {children}
       </div>
+
+        <Rightpanel/>
     </div>
   );
 }
