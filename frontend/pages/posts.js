@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import BaseTemplate from '../components/BaseTemplate';
 
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
@@ -61,23 +60,23 @@ export default function PostsPage() {
 
   if (status === 'loading' || loadingPosts) {
     return (
-      <BaseTemplate>
+      <>
         <p>Loading...</p>
-      </BaseTemplate>
+      </>
     );
   }
 
   if (!posts.length) {
     return (
-      <BaseTemplate>
+      <>
         <h1>Posts</h1>
         <p>No posts available. Check that your backend is running and returning posts.</p>
-      </BaseTemplate>
+      </>
     );
   }
 
   return (
-    <BaseTemplate>
+    <>
       <h1>Posts</h1>
       {posts.map((post) => (
         <div key={post.id} style={{ border: '1px solid #ccc', padding: '10px' }}>
@@ -89,6 +88,6 @@ export default function PostsPage() {
           </button>
         </div>
       ))}
-    </BaseTemplate>
+    </>
   );
 }

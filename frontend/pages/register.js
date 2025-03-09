@@ -3,7 +3,6 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
-import BaseTemplate from "../components/BaseTemplate";
 
 export default function Register() {
   const [username, setUsername] = useState("");
@@ -29,7 +28,7 @@ export default function Register() {
   };
 
   return (
-    <BaseTemplate>
+    <>
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -64,6 +63,6 @@ export default function Register() {
       <p>
         Already have an account? <Link href="/login">Login here</Link>.
       </p>
-    </BaseTemplate>
+    </>
   );
 }

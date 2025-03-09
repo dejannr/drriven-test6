@@ -2,7 +2,6 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
-import BaseTemplate from "../components/BaseTemplate";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -27,7 +26,7 @@ export default function Login() {
   };
 
   return (
-    <BaseTemplate>
+    <>
       <h1>Login</h1>
       <form onSubmit={handleSubmit}>
         <div>
@@ -50,6 +49,6 @@ export default function Login() {
         </div>
         <button type="submit">Login</button>
       </form>
-    </BaseTemplate>
+    </>
   );
 }

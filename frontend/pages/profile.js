@@ -2,7 +2,6 @@
 import { useSession, signOut } from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import BaseTemplate from "../components/BaseTemplate";
 
 export default function Profile() {
   const { data: session, status } = useSession();
@@ -29,7 +28,7 @@ export default function Profile() {
   if (!session) return <p>You are not logged in. Please log in.</p>;
 
   return (
-    <BaseTemplate>
+    <>
       <h1>Profile</h1>
       {profile ? (
         <div>
@@ -41,6 +40,6 @@ export default function Profile() {
         <p>Loading profile data...</p>
       )}
     <button onClick={() => signOut({callbackUrl: '/login'})}>Sign out</button>
-    </BaseTemplate>
+    </>
   );
 }
