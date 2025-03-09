@@ -1,48 +1,56 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useSession, signIn } from 'next-auth/react';
-import Link from 'next/link';
+import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import BaseTemplate from '../components/BaseTemplate';
 
 export default function PostsPage() {
   const [posts, setPosts] = useState([]);
-  const [loadingPosts, setLoadingPosts] = useState(true); // New loading state
+  const [loadingPosts, setLoadingPosts] = useState(true);
   const { data: session, status } = useSession();
   const router = useRouter();
 
   useEffect(() => {
-    // Fetch posts from the Django backend
+    // Wait until the session is fully loaded
+    if (status === 'loading') {
+      console.log("Session is still loading...");
+      return;
+    }
+    console.log("Session loaded:", session);
+
+    if (!session?.access) {
+      console.warn("No access token available. Ensure you're logged in and your token refresh mechanism is working.");
+      setLoadingPosts(false);
+      return;
+    }
+
+    console.log("Fetching posts with access token:", session.access);
     axios
       .get('http://localhost:8000/posts/', {
-        headers: {
-          Authorization: session?.access ? `Bearer ${session.access}` : ''
-        }
+        headers: { Authorization: `Bearer ${session.access}` }
       })
       .then((response) => {
+        console.log("Posts fetched successfully:", response.data);
         setPosts(response.data);
-        setLoadingPosts(false); // Set loading to false once posts are loaded
+        setLoadingPosts(false);
       })
       .catch((error) => {
         console.error('Error fetching posts:', error);
-        setLoadingPosts(false); // Set loading to false even if there's an error
+        setLoadingPosts(false);
       });
-  }, [session]);
+  }, [session, status]);
 
   const toggleLike = (postId) => {
-    if (!session) {
+    if (!session?.access) {
       alert('Please log in to like posts.');
       router.push("/login");
       return;
     }
     axios
       .post(`http://localhost:8000/posts/${postId}/like/`, {}, {
-        headers: {
-          Authorization: `Bearer ${session.access}`
-        }
+        headers: { Authorization: `Bearer ${session.access}` }
       })
       .then((response) => {
-        // Update the changed post in state with the new data
         const updatedPost = response.data;
         setPosts((prevPosts) =>
           prevPosts.map((post) => (post.id === updatedPost.id ? updatedPost : post))
@@ -51,8 +59,22 @@ export default function PostsPage() {
       .catch((error) => console.error('Error toggling like:', error));
   };
 
-  // Render a loading indicator if either session or posts are still loading
-  if (status === 'loading' || loadingPosts) return <BaseTemplate><p>Loading...</p></BaseTemplate>;
+  if (status === 'loading' || loadingPosts) {
+    return (
+      <BaseTemplate>
+        <p>Loading...</p>
+      </BaseTemplate>
+    );
+  }
+
+  if (!posts.length) {
+    return (
+      <BaseTemplate>
+        <h1>Posts</h1>
+        <p>No posts available. Check that your backend is running and returning posts.</p>
+      </BaseTemplate>
+    );
+  }
 
   return (
     <BaseTemplate>

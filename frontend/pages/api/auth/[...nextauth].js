@@ -1,21 +1,24 @@
-// frontend/pages/api/auth/[...nextauth].js
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 
+// Function to refresh the access token using the refresh token
 async function refreshAccessToken(token) {
   try {
     const response = await axios.post("http://localhost:8000/auth/jwt/refresh/", {
       refresh: token.refresh,
     });
+    // Assuming your Django endpoint returns a new access token
     return {
       ...token,
       access: response.data.access,
-      // Update the expiration time as needed
-      accessTokenExpires: Date.now() + 15 * 60 * 1000, // example: 15 minutes
+      // Set new expiry time (e.g., 15 minutes from now)
+      accessTokenExpires: Date.now() + 15 * 60 * 1000,
+      // Optionally update the refresh token if provided by your backend
+      refresh: response.data.refresh ?? token.refresh,
     };
   } catch (error) {
-    console.error("Error refreshing access token", error.response?.data || error.message);
+    console.error("Error refreshing access token:", error.response?.data || error.message);
     return {
       ...token,
       error: "RefreshAccessTokenError",
@@ -33,14 +36,14 @@ export default NextAuth({
       },
       async authorize(credentials, req) {
         try {
+          // Call your Django endpoint that returns JWT tokens
           const res = await axios.post("http://localhost:8000/auth/jwt/create/", {
             username: credentials.username,
             password: credentials.password,
           });
           const user = res.data;
-          // Expecting a response like { access: "jwt...", refresh: "jwt...", expires_in: 900 }
+          // Expecting a response like { access: "jwt...", refresh: "jwt..." }
           if (user && user.access) {
-            user.expires_in = user.expires_in || 900;
             return user;
           }
           return null;
@@ -51,33 +54,33 @@ export default NextAuth({
       },
     }),
   ],
-  // Extend session lifespan to 15 days
   session: {
     strategy: "jwt",
-    // 15 days in seconds: 15 days * 24 hours * 60 minutes * 60 seconds = 1296000
-    maxAge: 1296000,
   },
   callbacks: {
-    async jwt({ token, user, account }) {
-      // On first sign in, set the access token and calculate its expiration time
-      if (account && user) {
-        return {
-          access: user.access,
-          refresh: user.refresh,
-          // Calculate expiry time (convert seconds to ms)
-          accessTokenExpires: Date.now() + user.expires_in * 1000,
-        };
+    // This callback is called whenever a JWT is created or updated.
+    async jwt({ token, user }) {
+      // Initial sign in
+      if (user) {
+        token.access = user.access;
+        token.refresh = user.refresh;
+        // Set token expiry time (15 minutes from now, adjust if necessary)
+        token.accessTokenExpires = Date.now() + 15 * 60 * 1000;
+        return token;
       }
-      // If token is still valid, return it
+
+      // Return previous token if the access token has not expired yet.
       if (Date.now() < token.accessTokenExpires) {
         return token;
       }
-      // Otherwise, attempt to refresh the access token
+
+      // Access token has expired, try to update it.
       return await refreshAccessToken(token);
     },
+    // Make the access token available on the client via the session
     async session({ session, token }) {
       session.access = token.access;
-      session.refresh = token.refresh;
+      session.error = token.error;
       return session;
     },
   },
