@@ -1,0 +1,121 @@
+/* Sidepanel styles */
+.drr-sidepanel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100vh; /* full height minus header height */
+  background-color: #0f0f0f; /* Example background color */
+  padding: 20px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.drr-sidepanel > div {
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.drr-sidepanel > div:nth-child(1) {
+
+  height: 20%;
+  justify-content: flex-start;
+
+}
+
+.drr-sidepanel > div:nth-child(2) {
+
+  height: 60%;
+  justify-content: center;
+
+}
+
+.drr-sidepanel > div:nth-child(3) {
+
+  height: 20%;
+  justify-content: flex-end;
+
+}
+
+.drr-sidepanel .logo {
+
+  color: #fff;
+  font-weight: 800;
+  font-size: 34px;
+
+}
+
+.drr-sidepanel .logo span {
+
+  color: #fe6b01;
+  font-weight: 800;
+  font-size: 34px;
+
+}
+
+.drr-sidepanel .links-top {
+
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+
+.drr-sidepanel .links-top a {
+
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 15px 10px;
+  border-radius: 10px;
+  transition-duration: 0.1s;
+
+}
+
+.drr-sidepanel .links-top a:hover {
+
+  background: #333;
+
+}
+
+.drr-sidepanel .links-top a.active {
+
+  background-color: #fff;
+  color: #000;
+
+}
+
+.drr-sidepanel .links-top a i {
+
+  margin-right: 5px;
+
+}
+
+.drr-sidepanel .links-top a.active i {
+
+  color: #fe6b01;
+
+}
+
+
+.drr-sidepanel .links-bottom a {
+
+  display: block;
+  color: #000;
+  text-align: center;
+  background-color: #fff;
+  padding: 15px;
+  border-radius: 10px;
+
+}
+
+.drr-sidepanel .links-bottom a.active {
+
+  background-color: #fe6b01;
+  color: #fff;
+
+}
