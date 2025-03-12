@@ -1,7 +1,9 @@
-// components/Rightpanel.js
+// frontend/components/Rightpanel.js
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+import noUser from '../../photos/nouser.png'; // Import the image
 
 export default function RightPanel({ profile, profileLoading }) {
   const { data: session, status } = useSession();
@@ -10,25 +12,29 @@ export default function RightPanel({ profile, profileLoading }) {
   // While session is loading
   if (status === "loading") {
     return (
-        <aside class="drr-rightpanel">
-          <p>Loading...</p>
-        </aside>
+      <aside className="drr-rightpanel">
+        <p>Loading...</p>
+      </aside>
     );
   }
 
-  // If there's no session, show login/register options.
+  // If there's no session, show login/register options with the image inside .bubble.
   if (!session) {
     return (
       <aside className="drr-rightpanel">
-        <div className="bubble"></div>
-        <div className="down">
+        <div className="bubble">
+          <Image src={noUser} alt="No User"/>
+            <h2>No User</h2>
+        </div>
+        <div className="middle">
           <Link href="/login" className={pathname === "/login" ? "active" : ""}>
-            <i className="fa-solid fa-car"></i> Login
+            <i className="fa-solid fa-right-to-bracket"></i> Login
           </Link>
           <Link href="/register" className={pathname === "/register" ? "active" : ""}>
-            <i className="fa-solid fa-car"></i> Register
+            <i className="fa-solid fa-user-plus"></i> Register
           </Link>
         </div>
+        <div class="down"></div>
       </aside>
     );
   }

@@ -143,6 +143,7 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 
 }
 
@@ -155,10 +156,19 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+  align-items: center;
 
 }
 
-.drr-rightpanel .down a {
+.drr-rightpanel .bubble img {
+
+  width: 100px;
+  height: 100px;
+  border-radius: 100px;
+
+}
+
+.drr-rightpanel .middle a {
 
   display: block;
   font-size: 16px;
@@ -170,22 +180,28 @@
 
 }
 
-.drr-rightpanel .down a.active {
+.drr-rightpanel .middle a.active {
 
   color: #fff;
   background-color: #0f0f0f;
 
 }
 
-.drr-rightpanel .down a i {
+.drr-rightpanel .middle a i {
 
   margin-right: 5px;
 
 }
 
-.drr-rightpanel .down a.active i {
+.drr-rightpanel .middle a.active i {
 
   color: #fe6b01;
+
+}
+
+.drr-rightpanel .down {
+
+
 
 }
 
