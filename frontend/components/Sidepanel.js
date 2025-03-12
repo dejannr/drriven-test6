@@ -1,4 +1,3 @@
-// components/Sidepanel.js
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -7,41 +6,68 @@ import { useSession } from 'next-auth/react';
 export default function Sidepanel({ profile, profileLoading }) {
   const { data: session } = useSession();
   const { pathname } = useRouter();
-  const [popup, setPopup] = useState(null);
-  const popupTimeoutRef = useRef(null);
+  // bubble state now holds an object { target: string, message: string }
+  const [bubble, setBubble] = useState(null);
+  const bubbleTimeoutRef = useRef(null);
 
-  // Clear any existing popup timer
-  const clearPopupTimeout = () => {
-    if (popupTimeoutRef.current) {
-      clearTimeout(popupTimeoutRef.current);
-      popupTimeoutRef.current = null;
+  // Clear any existing bubble timer
+  const clearBubbleTimeout = () => {
+    if (bubbleTimeoutRef.current) {
+      clearTimeout(bubbleTimeoutRef.current);
+      bubbleTimeoutRef.current = null;
     }
   };
 
-  // Show popup message that disappears after 5 seconds
-  const showPopup = (message) => {
-    clearPopupTimeout();
-    setPopup(message);
-    popupTimeoutRef.current = setTimeout(() => {
-      setPopup(null);
-      popupTimeoutRef.current = null;
-    }, 5000);
+  // Show bubble message next to a specific link, then clear after 5 seconds
+  const showBubble = (target, message) => {
+    clearBubbleTimeout();
+    setBubble({ target, message });
+    bubbleTimeoutRef.current = setTimeout(() => {
+      setBubble(null);
+      bubbleTimeoutRef.current = null;
+    }, 2500);
   };
 
-  // Handler that intercepts navigation when not logged in
+  // Handler that intercepts navigation if not allowed.
+  // Allow /news always and /profile when logged in.
   const handleNavigation = (e, targetPath) => {
-    if (!session && targetPath !== '/news') {
-      e.preventDefault();
-      showPopup("You need to login first");
+    if (
+      targetPath === '/news' ||
+      (targetPath === '/profile' && session)
+    ) {
+      // Allow navigation
+      return;
+    }
+    e.preventDefault();
+    if (session) {
+      showBubble(targetPath, "Soon!");
+    } else {
+      showBubble(targetPath, "You need to login first");
     }
   };
 
   // Clear timer on component unmount
   useEffect(() => {
     return () => {
-      clearPopupTimeout();
+      clearBubbleTimeout();
     };
   }, []);
+
+  // Helper to render a link with an inline bubble if needed
+  const renderLink = (href, iconClass, text) => (
+    <div className="link-container">
+      <Link
+        href={href}
+        className={pathname === href ? "active" : ""}
+        onClick={(e) => handleNavigation(e, href)}
+      >
+        <i className={iconClass}></i> {text}
+      </Link>
+      {bubble && bubble.target === href && (
+        <span className="soon-bubble">{bubble.message}</span>
+      )}
+    </div>
+  );
 
   return (
     <aside className="drr-sidepanel">
@@ -52,68 +78,39 @@ export default function Sidepanel({ profile, profileLoading }) {
       </div>
       <div>
         <div className="links-top">
-          <Link
-              href="/feed"
-              className={pathname === "/feed" ? "active" : ""}
-              onClick={(e) => handleNavigation(e, '/feed')}
-          >
-            <i className="fa-solid fa-compass"></i> Feed
-          </Link>
-          <Link
-              href="/inbox"
-              className={pathname === "/inbox" ? "active" : ""}
-              onClick={(e) => handleNavigation(e, '/inbox')}
-          >
-            <i className="fa-solid fa-inbox"></i> Inbox
-          </Link>
-          <Link
+          {renderLink("/feed", "fa-solid fa-compass", "Feed")}
+          {renderLink("/inbox", "fa-solid fa-inbox", "Inbox")}
+          <div className="link-container">
+            <Link
               href="/news"
               className={pathname === "/news" ? "active" : ""}
-          >
-            <i className="fa-solid fa-newspaper"></i> News
-          </Link>
-          <Link
-              href="/forum"
-              className={pathname === "/forum" ? "active" : ""}
-              onClick={(e) => handleNavigation(e, '/forum')}
-          >
-            <i className="fa-solid fa-comments"></i> Forum
-          </Link>
-          <Link
-              href="/events"
-              className={pathname === "/events" ? "active" : ""}
-              onClick={(e) => handleNavigation(e, '/events')}
-          >
-            <i className="fa-solid fa-calendar-alt"></i> Events
-          </Link>
-          <Link
-              href="/spotting"
-              className={pathname === "/spotting" ? "active" : ""}
-              onClick={(e) => handleNavigation(e, '/spotting')}
-          >
-            <i className="fa-solid fa-car"></i> Spotting
-          </Link>
+            >
+              <i className="fa-solid fa-newspaper"></i> News
+            </Link>
+          </div>
+          {renderLink("/forum", "fa-solid fa-comments", "Forum")}
+          {renderLink("/events", "fa-solid fa-calendar-alt", "Events")}
+          {renderLink("/spotting", "fa-solid fa-car", "Spotting")}
         </div>
       </div>
       <div>
         <div className="links-bottom">
           {session && (
+            <div className="link-container">
               <Link
-                  href="/profile"
-                  className={pathname === "/profile" ? "active" : ""}
-                  onClick={(e) => handleNavigation(e, '/profile')}
+                href="/profile"
+                className={pathname === "/profile" ? "active" : ""}
+                onClick={(e) => handleNavigation(e, '/profile')}
               >
                 <i className="fa-solid fa-cog"></i> Settings
               </Link>
+              {bubble && bubble.target === '/profile' && (
+                <span className="soon-bubble">{bubble.message}</span>
+              )}
+            </div>
           )}
         </div>
       </div>
-      {/* Render the custom popup if exists */}
-      {popup && (
-          <div className="custom-popup">
-            {popup}
-          </div>
-      )}
     </aside>
   );
 }

@@ -119,3 +119,29 @@
   color: #fff;
 
 }
+
+/* Container for each link to allow absolute positioning */
+.link-container {
+  position: relative;
+}
+
+/* Ensure the link takes full width */
+.link-container a {
+  display: block;
+}
+
+
+/* Style for the bubble */
+.soon-bubble {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust as needed */
+  transform: translateY(-50%);
+  background: #fe6b01;
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  pointer-events: none;
+}
