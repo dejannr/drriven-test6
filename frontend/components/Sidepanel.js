@@ -42,7 +42,7 @@ export default function Sidepanel({ profile, profileLoading }) {
     if (session) {
       showBubble(targetPath, "Soon!");
     } else {
-      showBubble(targetPath, "You need to login first");
+      showBubble(targetPath, "Login required!");
     }
   };
 
