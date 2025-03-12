@@ -22,45 +22,58 @@ export default function RightPanel({ profile, profileLoading }) {
   if (!session) {
     return (
       <aside className="drr-rightpanel">
-          <div>
-              <div className="bubble">
-                  <Image src={noUser} alt="No User"/>
-                  <h2>No User</h2>
-              </div>
+        <div>
+          <div className="bubble">
+            <Image src={noUser} alt="No User" />
+            <h2>No User</h2>
           </div>
-          <div>
-              <div className="middle">
-                  <Link href="/login" className={pathname === "/login" ? "active" : ""}>
-                      <i className="fa-solid fa-right-to-bracket"></i> Login
-                  </Link>
-                  <Link href="/register" className={pathname === "/register" ? "active" : ""}>
-                      <i className="fa-solid fa-user-plus"></i> Register
-                  </Link>
-              </div>
+        </div>
+        <div>
+          <div className="middle">
+            <Link href="/login" className={pathname === "/login" ? "active" : ""}>
+              <i className="fa-solid fa-right-to-bracket"></i> Login
+            </Link>
+            <Link href="/register" className={pathname === "/register" ? "active" : ""}>
+              <i className="fa-solid fa-user-plus"></i> Register
+            </Link>
           </div>
-          <div>
-              <div class="down"></div>
-          </div>
+        </div>
+        <div>
+          <div className="down"></div>
+        </div>
       </aside>
     );
   }
 
-    // If profile is still being fetched
-    if (profileLoading) {
-        return (
-            <aside className="drr-rightpanel">
-                <p>Loading profile...</p>
-            </aside>
-        );
-    }
-
-    // Once profile is loaded, display the profile info.
+  // If profile is still being fetched
+  if (profileLoading) {
     return (
-        <aside className="drr-rightpanel">
-            <div>
-                <h2>Profile Info</h2>
-                <div>
-                <p>Username: {profile?.username}</p>
+      <aside className="drr-rightpanel">
+        <p>Loading profile...</p>
+      </aside>
+    );
+  }
+
+  // console.log(profile.image);
+
+  // Once profile is loaded, display the profile info including the photo.
+  return (
+    <aside className="drr-rightpanel">
+      <div>
+        <h2>Profile Info</h2>
+        {profile?.image ? (
+          <Image
+            src={`data:image/jpeg;base64,${profile.image}`}
+            alt="Profile Photo"
+            width={100}
+            height={100}
+            unoptimized
+          />
+        ) : (
+          <Image src={noUser} alt="No User" width={100} height={100} />
+        )}
+        <div>
+          <p>Username: {profile?.username}</p>
           <p>Email: {profile?.email}</p>
         </div>
       </div>
