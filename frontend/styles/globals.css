@@ -48,6 +48,34 @@
   justify-content: space-between;
 }
 
+.drr-sidepanel > div {
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.drr-sidepanel > div:nth-child(1) {
+
+  height: 20%;
+  justify-content: flex-start;
+
+}
+
+.drr-sidepanel > div:nth-child(2) {
+
+  height: 60%;
+  justify-content: center;
+
+}
+
+.drr-sidepanel > div:nth-child(3) {
+
+  height: 20%;
+  justify-content: flex-end;
+
+}
+
 .drr-sidepanel .logo {
 
   color: #fff;
@@ -66,7 +94,6 @@
 
 .drr-sidepanel .links-top {
 
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -144,6 +171,32 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
+}
+
+.drr-rightpanel > div {
+
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.drr-rightpanel > div:nth-child(1) {
+
+  justify-content: flex-start;
+
+}
+
+.drr-rightpanel > div:nth-child(2) {
+
+  justify-content: center;
+
+}
+
+.drr-rightpanel > div:nth-child(3) {
+
+  justify-content: flex-end;
 
 }
 
