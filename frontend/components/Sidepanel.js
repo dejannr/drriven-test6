@@ -18,7 +18,7 @@ export default function Sidepanel({ profile, profileLoading }) {
     }
   };
 
-  // Show bubble message next to a specific link, then clear after 5 seconds
+  // Show bubble message next to a specific link, then clear after 2.5 seconds
   const showBubble = (target, message) => {
     clearBubbleTimeout();
     setBubble({ target, message });
@@ -29,13 +29,10 @@ export default function Sidepanel({ profile, profileLoading }) {
   };
 
   // Handler that intercepts navigation if not allowed.
-  // Allow /news always and /profile when logged in.
-  const handleNavigation = (e, targetPath) => {
-    if (
-      targetPath === '/news' ||
-      (targetPath === '/profile' && session)
-    ) {
-      // Allow navigation
+  // The parameter "canJoin" indicates if the link should be accessible by anyone.
+  const handleNavigation = (e, targetPath, canJoin = false) => {
+    // Allow navigation if the link is open to all or if it's /profile and user is logged in.
+    if (canJoin || (targetPath === '/profile' && session)) {
       return;
     }
     e.preventDefault();
@@ -54,12 +51,13 @@ export default function Sidepanel({ profile, profileLoading }) {
   }, []);
 
   // Helper to render a link with an inline bubble if needed
-  const renderLink = (href, iconClass, text) => (
+  // The parameter "canJoin" (default false) determines if anyone can access the link.
+  const renderLink = (href, iconClass, text, canJoin = false) => (
     <div className="link-container">
       <Link
         href={href}
         className={pathname === href ? "active" : ""}
-        onClick={(e) => handleNavigation(e, href)}
+        onClick={(e) => handleNavigation(e, href, canJoin)}
       >
         <i className={iconClass}></i> {text}
       </Link>
@@ -80,14 +78,8 @@ export default function Sidepanel({ profile, profileLoading }) {
         <div className="links-top">
           {renderLink("/feed", "fa-solid fa-compass", "Feed")}
           {renderLink("/inbox", "fa-solid fa-inbox", "Inbox")}
-          <div className="link-container">
-            <Link
-              href="/news"
-              className={pathname === "/news" ? "active" : ""}
-            >
-              <i className="fa-solid fa-newspaper"></i> News
-            </Link>
-          </div>
+          {/* Here, News is accessible by everyone */}
+          {renderLink("/news", "fa-solid fa-newspaper", "News", true)}
           {renderLink("/forum", "fa-solid fa-comments", "Forum")}
           {renderLink("/events", "fa-solid fa-calendar-alt", "Events")}
           {renderLink("/spotting", "fa-solid fa-car", "Spotting")}
@@ -95,20 +87,7 @@ export default function Sidepanel({ profile, profileLoading }) {
       </div>
       <div>
         <div className="links-bottom">
-          {session && (
-            <div className="link-container">
-              <Link
-                href="/profile"
-                className={pathname === "/profile" ? "active" : ""}
-                onClick={(e) => handleNavigation(e, '/profile')}
-              >
-                <i className="fa-solid fa-cog"></i> Settings
-              </Link>
-              {bubble && bubble.target === '/profile' && (
-                <span className="soon-bubble">{bubble.message}</span>
-              )}
-            </div>
-          )}
+          {session && renderLink("/profile", "fa-solid fa-cog", "Settings")}
         </div>
       </div>
     </aside>
