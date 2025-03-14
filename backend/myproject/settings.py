@@ -77,7 +77,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # or adjust as needed
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=15),  # or adjust as needed
     'REFRESH_TOKEN_LIFETIME': timedelta(days=15),      # or a longer period if you prefer
     'ROTATE_REFRESH_TOKENS': False,                    # Set to True if you want a new refresh token on each refresh
     'BLACKLIST_AFTER_ROTATION': True,                  # Ensure expired tokens are blacklisted if using rotation

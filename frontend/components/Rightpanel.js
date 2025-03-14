@@ -92,6 +92,10 @@ export default function RightPanel({ profile, profileLoading }) {
             </div>
           </div>
         </div>
+        <div class="bubble bubble-garage">
+          <h2>Garage</h2>
+          <div class="line"></div>
+        </div>
       </div>
     </aside>
   );

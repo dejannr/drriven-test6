@@ -6,7 +6,7 @@ import Sidepanel from './Sidepanel';
 import Rightpanel from './Rightpanel';
 
 export default function BaseTemplate({ children }) {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
   const [profile, setProfile] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
 
@@ -20,13 +20,18 @@ export default function BaseTemplate({ children }) {
   useEffect(() => {
     if (session?.access) {
       setProfileLoading(true);
-      axios
-        .get("http://localhost:8000/users/profile/", {
-          headers: {
-            Authorization: `Bearer ${session.access}`,
-          },
-        })
-        .then((response) => {
+      const fetchProfile = axios.get("http://localhost:8000/users/profile/", {
+        headers: {
+          Authorization: `Bearer ${session.access}`,
+        },
+      });
+
+      // Create a promise that resolves after 2 seconds
+      const delay = new Promise(resolve => setTimeout(resolve, 2000));
+
+      // Wait for both the profile fetch and the delay promise to resolve
+      Promise.all([fetchProfile, delay])
+        .then(([response]) => {
           setProfile(response.data);
           setProfileLoading(false);
         })
@@ -39,6 +44,15 @@ export default function BaseTemplate({ children }) {
         });
     }
   }, [session]);
+
+  if (profileLoading) {
+    return (
+      <div className="loading-screen">
+        <div className="spinner"></div>
+        <p>Loading your profile...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="base-container">
