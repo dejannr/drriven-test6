@@ -8,6 +8,7 @@ class UserDetails(models.Model):
         related_name='details'
     )
     image = models.BinaryField()
+    cover_image = models.BinaryField(null=True, blank=True)
 
     def __str__(self):
         return f"Details for {self.user.username}"

@@ -10,16 +10,20 @@ User = get_user_model()
 
 class UserDetailsForm(forms.ModelForm):
     image_upload = forms.FileField(required=False, help_text="Upload a photo.")
+    cover_image_upload = forms.FileField(required=False, help_text="Upload a cover image.")
 
     class Meta:
         model = UserDetails
-        fields = ('image_upload',)
+        fields = ('image_upload', 'cover_image_upload',)
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        uploaded_file = self.cleaned_data.get('image_upload')
-        if uploaded_file:
-            instance.image = uploaded_file.read()
+        uploaded_image = self.cleaned_data.get('image_upload')
+        if uploaded_image:
+            instance.image = uploaded_image.read()
+        uploaded_cover = self.cleaned_data.get('cover_image_upload')
+        if uploaded_cover:
+            instance.cover_image = uploaded_cover.read()
         if commit:
             instance.save()
         return instance
@@ -29,7 +33,7 @@ class UserDetailsInline(admin.StackedInline):
     form = UserDetailsForm
     can_delete = False
     verbose_name_plural = 'User Details'
-    readonly_fields = ('image_preview',)
+    readonly_fields = ('image_preview', 'cover_image_preview',)
 
     def image_preview(self, instance):
         if instance.image:
@@ -37,6 +41,13 @@ class UserDetailsInline(admin.StackedInline):
             return mark_safe(f'<img src="data:image/jpeg;base64,{encoded}" width="100" />')
         return "No image"
     image_preview.short_description = "Current Photo"
+
+    def cover_image_preview(self, instance):
+        if instance.cover_image:
+            encoded = base64.b64encode(instance.cover_image).decode('utf-8')
+            return mark_safe(f'<img src="data:image/jpeg;base64,{encoded}" width="100" />')
+        return "No cover image"
+    cover_image_preview.short_description = "Current Cover Image"
 
 # Unregister the existing User admin if registered
 try:
