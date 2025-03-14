@@ -11,19 +11,30 @@ User = get_user_model()
 class UserDetailsForm(forms.ModelForm):
     image_upload = forms.FileField(required=False, help_text="Upload a photo.")
     cover_image_upload = forms.FileField(required=False, help_text="Upload a cover image.")
+    clear_image = forms.BooleanField(required=False, label="Clear current photo")
+    clear_cover_image = forms.BooleanField(required=False, label="Clear current cover image")
 
     class Meta:
         model = UserDetails
-        fields = ('image_upload', 'cover_image_upload',)
+        fields = ('image_upload', 'cover_image_upload', 'clear_image', 'clear_cover_image',)
 
     def save(self, commit=True):
         instance = super().save(commit=False)
-        uploaded_image = self.cleaned_data.get('image_upload')
-        if uploaded_image:
-            instance.image = uploaded_image.read()
-        uploaded_cover = self.cleaned_data.get('cover_image_upload')
-        if uploaded_cover:
-            instance.cover_image = uploaded_cover.read()
+        # Check if clear option is set, otherwise process upload
+        if self.cleaned_data.get('clear_image'):
+            instance.image = None
+        else:
+            uploaded_image = self.cleaned_data.get('image_upload')
+            if uploaded_image:
+                instance.image = uploaded_image.read()
+
+        if self.cleaned_data.get('clear_cover_image'):
+            instance.cover_image = None
+        else:
+            uploaded_cover = self.cleaned_data.get('cover_image_upload')
+            if uploaded_cover:
+                instance.cover_image = uploaded_cover.read()
+
         if commit:
             instance.save()
         return instance

@@ -7,7 +7,7 @@ class UserDetails(models.Model):
         on_delete=models.CASCADE,
         related_name='details'
     )
-    image = models.BinaryField()
+    image = models.BinaryField(null=True, blank=True)
     cover_image = models.BinaryField(null=True, blank=True)
 
     def __str__(self):
