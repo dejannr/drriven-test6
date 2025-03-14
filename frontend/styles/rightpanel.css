@@ -15,7 +15,7 @@
 
 }
 
-.drr-rightpanel > div {
+.drr-rightpanel .out > div {
 
   height: 100%;
   display: flex;
@@ -23,25 +23,25 @@
 
 }
 
-.drr-rightpanel > div:nth-child(1) {
+.drr-rightpanel .out > div:nth-child(1) {
 
   justify-content: flex-start;
 
 }
 
-.drr-rightpanel > div:nth-child(2) {
+.drr-rightpanel .out > div:nth-child(2) {
 
   justify-content: center;
 
 }
 
-.drr-rightpanel > div:nth-child(3) {
+.drr-rightpanel .out > div:nth-child(3) {
 
   justify-content: flex-end;
 
 }
 
-.drr-rightpanel .bubble {
+.drr-rightpanel .out .bubble {
 
   background: #fff;
   padding: 20px;
@@ -54,7 +54,7 @@
 
 }
 
-.drr-rightpanel .bubble img {
+.drr-rightpanel .out .bubble img {
 
   width: 100px;
   height: 100px;
@@ -62,7 +62,7 @@
 
 }
 
-.drr-rightpanel .middle a {
+.drr-rightpanel .out .middle a {
 
   display: block;
   font-size: 16px;
@@ -75,33 +75,79 @@
 
 }
 
-.drr-rightpanel .middle a:hover {
+.drr-rightpanel .out .middle a:hover {
 
   background: #ddd;
 
 }
 
-.drr-rightpanel .middle a.active {
+.drr-rightpanel .out .middle a.active {
 
   color: #fff;
   background-color: #0f0f0f;
 
 }
 
-.drr-rightpanel .middle a i {
+.drr-rightpanel .out .middle a i {
 
   margin-right: 5px;
 
 }
 
-.drr-rightpanel .middle a.active i {
+.drr-rightpanel .out .middle a.active i {
 
   color: #fe6b01;
 
 }
 
-.drr-rightpanel .down {
+.drr-rightpanel .out .down {
 
 
+
+}
+
+/*RIGHTPANEL IN*/
+
+.drr-rightpanel .in .bubble {
+
+  background: #fff;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  align-items: center;
+
+}
+
+.drr-rightpanel .in .cover {
+
+  width: 100%;
+  height: 100px;
+  background-color: #fe6b01;
+  background-image: linear-gradient(62deg, #fe6b01 0%, #ffb200 100%);
+  border-radius: 10px;
+
+}
+
+.drr-rightpanel .in .under-cover {
+
+  position: relative;
+  bottom: 45px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+}
+
+.drr-rightpanel .in .under-cover img {
+
+  border-radius: 100px;
+  height: 90px;
+  width: 90px;
+  border: 5px solid #fff;
+  box-sizing: border-box;
+  object-fit: cover;
 
 }
