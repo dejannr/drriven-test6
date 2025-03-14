@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'email', 'image', 'cover_image')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'image', 'cover_image')
 
     def get_image(self, obj):
         # Check if the user has associated details and an image exists.

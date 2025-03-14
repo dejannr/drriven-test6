@@ -85,10 +85,10 @@ export default function RightPanel({ profile, profileLoading }) {
           ) : (
               <Image src={noUser} alt="No User" width={100} height={100}/>
           )}
-          <div>
-            <p>{profile?.username}</p>
-            <p>{profile?.email}</p>
-          </div>
+            <div className="info-container">
+              <h2>{profile?.first_name} {profile?.last_name}</h2>
+              <p>@{profile?.username}</p>
+            </div>
           </div>
         </div>
       </div>

@@ -117,20 +117,21 @@
   flex-direction: column;
   margin-bottom: 20px;
   align-items: center;
+  position: relative;
 
 }
 
-.drr-rightpanel .in .cover {
+.drr-rightpanel .in .bubble .cover {
 
   width: 100%;
   height: 100px;
-  background-color: #fe6b01;
-  background-image: linear-gradient(62deg, #fe6b01 0%, #ffb200 100%);
+  background-color: #FFE53B;
+  background-image: linear-gradient(147deg, #FFE53B 0%, #FF2525 74%);
   border-radius: 10px;
 
 }
 
-.drr-rightpanel .in .cover img {
+.drr-rightpanel .in .bubble .cover img {
 
   object-fit: cover;
   width: 100%;
@@ -139,18 +140,30 @@
 
 }
 
-.drr-rightpanel .in .under-cover {
+.drr-rightpanel .in .bubble .under-cover {
 
+  width: 100%;
   position: relative;
   bottom: 45px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  overflow: hidden;
 
 }
 
-.drr-rightpanel .in .under-cover img {
+.drr-rightpanel .in .bubble .under-cover .info-container {
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+
+}
+
+.drr-rightpanel .in .bubble .under-cover img {
 
   border-radius: 100px;
   height: 90px;
@@ -160,3 +173,22 @@
   object-fit: cover;
 
 }
+
+.drr-rightpanel .in .bubble .under-cover h2 {
+
+  display: inline-block;
+  font-weight: 500;
+  padding: 5px 0;
+
+}
+
+.drr-rightpanel .in .bubble .under-cover p {
+
+  display: inline-block;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+}
+
