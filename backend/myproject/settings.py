@@ -18,11 +18,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
     'rest_framework',
     'djoser',
     'corsheaders',  # Added here
     'users',
-    'posts'
+    'posts',
+    'drr'
 ]
 
 # Add CorsMiddleware at the top

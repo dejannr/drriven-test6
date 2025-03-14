@@ -20,44 +20,42 @@ export default function BaseTemplate({ children }) {
   useEffect(() => {
     if (session?.access) {
       setProfileLoading(true);
-      const fetchProfile = axios.get("http://localhost:8000/users/profile/", {
+      axios.get("http://localhost:8000/users/profile/", {
         headers: {
           Authorization: `Bearer ${session.access}`,
         },
+      })
+      .then((response) => {
+        setProfile(response.data);
+        setProfileLoading(false);
+      })
+      .catch((error) => {
+        console.error(
+          "Error fetching profile:",
+          error.response?.data || error.message
+        );
+        setProfileLoading(false);
       });
-
-      // Create a promise that resolves after 2 seconds
-      const delay = new Promise(resolve => setTimeout(resolve, 2000));
-
-      // Wait for both the profile fetch and the delay promise to resolve
-      Promise.all([fetchProfile, delay])
-        .then(([response]) => {
-          setProfile(response.data);
-          setProfileLoading(false);
-        })
-        .catch((error) => {
-          console.error(
-            "Error fetching profile:",
-            error.response?.data || error.message
-          );
-          setProfileLoading(false);
-        });
     }
   }, [session]);
 
-if (profileLoading) {
-  return (
-    <div className="square-loading-screen">
-      <div className="square-spinner">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+  // Temporarily disabled loading screen:
+  // To re-enable, uncomment the block below.
+  /*
+  if (profileLoading) {
+    return (
+      <div className="square-loading-screen">
+        <div className="square-spinner">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+        <p>Loading your profile...</p>
       </div>
-      <p>Loading your profile...</p>
-    </div>
-  );
-}
+    );
+  }
+  */
 
   return (
     <div className="base-container">

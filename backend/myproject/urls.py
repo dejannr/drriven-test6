@@ -9,4 +9,5 @@ urlpatterns = [
     # Custom user endpoint (example: profile)
     path('users/', include('users.urls')),
     path('posts/', include('posts.urls')),  # Include posts endpoints
+    path('api/drr/', include('drr.urls')),
 ]
