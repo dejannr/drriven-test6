@@ -62,7 +62,8 @@ export default function RightPanel({ profile, profileLoading }) {
     <aside className="drr-rightpanel">
       <div className="in">
         <div className="bubble">
-          {/*<h2>Profile Info</h2>*/}
+          <h2>Profile Info</h2>
+          <div class="line"></div>
           <div className="cover">
             {profile?.cover_image && (
                 <Image

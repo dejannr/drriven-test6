@@ -6,7 +6,7 @@
 /* Main container styles */
 .drr-main {
   width: calc(100% - 600px);
-  margin-left: 300px; /* space for sidepanel */
+  margin-left: 250px; /* space for sidepanel */
   padding: 20px;
   box-sizing: border-box;
 }
