@@ -1,6 +1,8 @@
 # backend/myproject/settings.py
 import os
 from pathlib import Path
+from datetime import timedelta
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -73,6 +75,16 @@ AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator', },
     { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),  # or adjust as needed
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=15),      # or a longer period if you prefer
+    'ROTATE_REFRESH_TOKENS': False,                    # Set to True if you want a new refresh token on each refresh
+    'BLACKLIST_AFTER_ROTATION': True,                  # Ensure expired tokens are blacklisted if using rotation
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    # Other settings as required...
+}
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
