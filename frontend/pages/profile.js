@@ -10,7 +10,7 @@ export default function Profile() {
   useEffect(() => {
     if (session && session.access) {
       axios
-        .get("http://localhost:8000/users/profile/", {
+        .get("http://localhost:8000/api/users/profile/", {
           headers: {
             Authorization: `Bearer ${session.access}`,
           },

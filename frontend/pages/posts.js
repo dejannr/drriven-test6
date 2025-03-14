@@ -25,7 +25,7 @@ export default function PostsPage() {
 
     console.log("Fetching posts with access token:", session.access);
     axios
-      .get('http://localhost:8000/posts/', {
+      .get('http://localhost:8000/api/posts/', {
         headers: { Authorization: `Bearer ${session.access}` }
       })
       .then((response) => {
@@ -46,7 +46,7 @@ export default function PostsPage() {
       return;
     }
     axios
-      .post(`http://localhost:8000/posts/${postId}/like/`, {}, {
+      .post(`http://localhost:8000/api/posts/${postId}/like/`, {}, {
         headers: { Authorization: `Bearer ${session.access}` }
       })
       .then((response) => {

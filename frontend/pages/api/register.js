@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
     try {
       // Call Django's registration endpoint (Djoser's /auth/users/)
-      const response = await axios.post("http://localhost:8000/auth/users/", {
+      const response = await axios.post("http://localhost:8000/api/auth/users/", {
         username,
         email,
         password,
