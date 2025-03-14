@@ -45,14 +45,19 @@ export default function BaseTemplate({ children }) {
     }
   }, [session]);
 
-  if (profileLoading) {
-    return (
-      <div className="loading-screen">
-        <div className="spinner"></div>
-        <p>Loading your profile...</p>
+if (profileLoading) {
+  return (
+    <div className="square-loading-screen">
+      <div className="square-spinner">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-    );
-  }
+      <p>Loading your profile...</p>
+    </div>
+  );
+}
 
   return (
     <div className="base-container">
