@@ -8,12 +8,12 @@ async function refreshAccessToken(token) {
     const response = await axios.post("http://localhost:8000/auth/jwt/refresh/", {
       refresh: token.refresh,
     });
-    // Assuming your Django endpoint returns a new access token
+    // Assuming your Django endpoint returns a new access token (and optionally a new refresh token)
     return {
       ...token,
       access: response.data.access,
-      // Set new expiry time (e.g., 15 minutes from now)
-      accessTokenExpires: Date.now() + 15 * 60 * 1000,
+      // Set new expiry time to 15 days from now
+      accessTokenExpires: Date.now() + 15 * 24 * 60 * 60 * 1000,
       // Optionally update the refresh token if provided by your backend
       refresh: response.data.refresh ?? token.refresh,
     };
@@ -60,24 +60,23 @@ export default NextAuth({
   callbacks: {
     // This callback is called whenever a JWT is created or updated.
     async jwt({ token, user }) {
-      // Initial sign in
+      // Initial sign in: set token expiry to 15 days
       if (user) {
         token.access = user.access;
         token.refresh = user.refresh;
-        // Set token expiry time (15 minutes from now, adjust if necessary)
-        token.accessTokenExpires = Date.now() + 15 * 60 * 1000;
+        token.accessTokenExpires = Date.now() + 15 * 24 * 60 * 60 * 1000; // 15 days from now
         return token;
       }
 
-      // Return previous token if the access token has not expired yet.
+      // If token hasn't expired yet, just return it.
       if (Date.now() < token.accessTokenExpires) {
         return token;
       }
 
-      // Access token has expired, try to update it.
+      // Token has expired; try to refresh it.
       return await refreshAccessToken(token);
     },
-    // Make the access token available on the client via the session
+    // Make the access token and error available on the client via the session.
     async session({ session, token }) {
       session.access = token.access;
       session.error = token.error;
@@ -86,64 +85,3 @@ export default NextAuth({
   },
   secret: "your-secret-key",
 });
-
-
-// OLD SETTINGS
-// import NextAuth from "next-auth";
-// import CredentialsProvider from "next-auth/providers/credentials";
-// import axios from "axios";
-//
-// export default NextAuth({
-//   // Configure one or more authentication providers
-//   providers: [
-//     CredentialsProvider({
-//       name: "Credentials",
-//       credentials: {
-//         username: { label: "Username", type: "text", placeholder: "Your username" },
-//         password: { label: "Password", type: "password" },
-//       },
-//       async authorize(credentials, req) {
-//         try {
-//           // Call your Django endpoint that returns JWT tokens
-//           const res = await axios.post("http://localhost:8000/auth/jwt/create/", {
-//             username: credentials.username,
-//             password: credentials.password,
-//           });
-//
-//           const user = res.data;
-//           // Expecting a response like { access: "jwt...", refresh: "jwt..." }
-//           if (user && user.access) {
-//             // Return the user object which will be saved in the token
-//             return user;
-//           }
-//           return null;
-//         } catch (error) {
-//           console.error("Error in authorize:", error.response?.data || error.message);
-//           return null;
-//         }
-//       },
-//     }),
-//   ],
-//   // Use JWT-based sessions (stored as HTTP-only cookies)
-//   session: {
-//     strategy: "jwt",
-//   },
-//   callbacks: {
-//     // When the user signs in, store the JWT tokens in the token
-//     async jwt({ token, user }) {
-//       if (user) {
-//         token.access = user.access;
-//         token.refresh = user.refresh;
-//       }
-//       return token;
-//     },
-//     // Make the tokens available on the client via session
-//     async session({ session, token }) {
-//       session.access = token.access;
-//       session.refresh = token.refresh;
-//       return session;
-//     },
-//   },
-//   // Set a secret in production via env var NEXTAUTH_SECRET
-//   secret: "your-secret-key",
-// });

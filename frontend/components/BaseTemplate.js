@@ -1,5 +1,5 @@
 // components/BaseTemplate.js
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidepanel from './Sidepanel';
@@ -9,6 +9,13 @@ export default function BaseTemplate({ children }) {
   const { data: session, status } = useSession();
   const [profile, setProfile] = useState(null);
   const [profileLoading, setProfileLoading] = useState(false);
+
+  // Auto sign out if session has error "SessionExpired"
+  useEffect(() => {
+    if (session?.error === "SessionExpired") {
+      signOut({ callbackUrl: '/login' });
+    }
+  }, [session]);
 
   useEffect(() => {
     if (session?.access) {
@@ -35,15 +42,10 @@ export default function BaseTemplate({ children }) {
 
   return (
     <div className="base-container">
-      {/* Pass profile and loading state to Sidepanel */}
       <Sidepanel profile={profile} profileLoading={profileLoading} />
-
-      {/* Main Content */}
       <div className="drr-main">
         {children}
       </div>
-
-      {/* Pass profile and loading state to Rightpanel */}
       <Rightpanel profile={profile} profileLoading={profileLoading} />
     </div>
   );
