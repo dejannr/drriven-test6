@@ -39,9 +39,9 @@ export default function RightPanel({ profile, profileLoading }) {
               </Link>
             </div>
           </div>
-          <div>
-            <div className="down"></div>
-          </div>
+          {/*<div>*/}
+          {/*  <div className="down"></div>*/}
+          {/*</div>*/}
         </div>
       </aside>
     );
