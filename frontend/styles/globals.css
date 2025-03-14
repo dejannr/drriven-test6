@@ -15,7 +15,7 @@
   position: fixed;
   bottom: 20px;
   left: 20px;
-  background-color: #f44336; /* Red background */
+  background-color: #fe6b01; /* Red background */
   color: #fff;
   padding: 15px 20px;
   border-radius: 10px;
@@ -45,7 +45,7 @@
 .square-spinner div {
   width: 20px;
   height: 20px;
-  background-color: #f44336;
+  background-color: #fe6b01;
   animation: squareFade 1.2s infinite ease-in-out;
 }
 
