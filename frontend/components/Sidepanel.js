@@ -56,7 +56,7 @@ export default function Sidepanel({ profile, profileLoading }) {
     <div className="link-container">
       <Link
         href={href}
-        className={pathname === href ? "active" : ""}
+        className={pathname.startsWith(href) ? "active" : ""}
         onClick={(e) => handleNavigation(e, href, canJoin)}
       >
         <i className={iconClass}></i> {text}
