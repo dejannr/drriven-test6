@@ -36,11 +36,11 @@ export default function News() {
 
   return (
       <>
-          <h1 className="drr-breadcrump">Home / News</h1>
+          <h1 className="drr-breadcrump">Home {'>'} News</h1>
           <div class="drr-blog-header">
               <div class="left">
                   <h2>Blog.</h2>
-                  <p>Sveobuhvatan prikaz dešavanja, analiza i inovacija u automobilskoj industriji.</p>
+                  <p>Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u automobilskoj industriji.</p>
               </div>
               <div class="right">
                 <img src={porscheImg.src} alt="Porsche"/>
