@@ -53,7 +53,7 @@ export default function News() {
 
   return (
     <>
-      <h1 className="drr-breadcrump">Home {'>'} News</h1>
+      <h1 className="drr-breadcrump">Početna {'>'} Blog</h1>
       <div className="drr-blog-header">
         <div className="left">
           <h2>Blog.</h2>
@@ -119,7 +119,7 @@ export default function News() {
             </div>
           ))
         ) : (
-          <p>No blog posts available. Check that your backend is running and returning posts.</p>
+          <p>Trenutno nema dostupnih blog postova.</p>
         )}
       </div>
     </>
