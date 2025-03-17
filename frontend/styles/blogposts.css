@@ -72,6 +72,42 @@
 
 }
 
+.drr-blog-categories {
+
+
+
+}
+
+.drr-blog-categories .top {
+
+
+
+}
+
+.drr-blog-categories .top > .cont {
+
+    display: flex;
+    align-items: center;
+
+}
+
+.drr-blog-categories .top h2 {
+
+    font-size: 24px;
+    font-weight: 400;
+    margin: 20px 0;
+
+}
+
+.drr-blog-categories .top .line {
+
+    width: 30px;
+    height: 2px;
+    background-color: #fe6b01;
+    margin-right: 10px;
+
+}
+
 .drr-blogpost-container {
 
     background-color: #eee;

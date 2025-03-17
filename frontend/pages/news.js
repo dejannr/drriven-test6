@@ -46,6 +46,14 @@ export default function News() {
                 <img src={porscheImg.src} alt="Porsche"/>
               </div>
           </div>
+          <div class="drr-blog-categories">
+              <div class="top">
+                  <div class='cont'>
+                      <div class="line"></div>
+                      <h2>Kategorije</h2>
+                  </div>
+              </div>
+          </div>
           {/*TEMP*/}
           <div style={{marginTop: 200 + 'vh'}}></div>
           {posts.map((post) => (
