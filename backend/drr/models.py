@@ -17,3 +17,10 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+class BlogPostCategory(models.Model):
+    name = models.CharField(max_length=255)
+    blog_posts = models.ManyToManyField(BlogPost, related_name='categories', blank=True)
+
+    def __str__(self):
+        return self.name
