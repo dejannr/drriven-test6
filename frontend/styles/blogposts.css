@@ -128,9 +128,9 @@
     height: 125px;
     border-radius: 200px 200px 0 0;
     overflow: hidden;
+    cursor: pointer;
 }
 
-/* The background image element with grayscale filter */
 .drr-blog-categories .bot .category-item .category-bg {
     position: absolute;
     top: 0;
@@ -139,11 +139,18 @@
     height: 100%;
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     filter: grayscale(100%);
     z-index: 0;
+    transition-duration: 0.1s;
 }
 
-/* The gradient overlay using a pseudo-element */
+.drr-blog-categories .bot .category-item:hover .category-bg {
+
+    transform: scale(1.05);
+
+}
+
 .drr-blog-categories .bot .category-item::after {
     content: "";
     position: absolute;
