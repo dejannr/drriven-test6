@@ -76,41 +76,45 @@ export default function News() {
         <div className="bot">
           {/* "All" category */}
           <div
-            key="all"
-            className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
-            onClick={() => toggleCategory("all")}
-            style={{
-              backgroundImage: `url('${allCategoryImg.src}')`
-            }}
+              key="all"
+              className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
+              onClick={() => toggleCategory("all")}
           >
+            <div
+                className="category-bg"
+                style={{
+                  backgroundImage: `url('${allCategoryImg.src}')`,
+                  filter: 'grayscale(100%)'
+                }}
+            ></div>
             <h3>Sve</h3>
           </div>
           {categories.map((category) => (
-            <div
-              key={category.id}
-              className={`category-item ${activeCategories.includes(category.id) ? 'active' : ''}`}
-              onClick={() => toggleCategory(category.id)}
-            >
-              {category.image && (
-                <div
-                  className="category-bg"
-                  style={{
-                    backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
-                  }}
-                ></div>
-              )}
-              <h3>{category.name}</h3>
-            </div>
+              <div
+                  key={category.id}
+                  className={`category-item ${activeCategories.includes(category.id) ? 'active' : ''}`}
+                  onClick={() => toggleCategory(category.id)}
+              >
+                {category.image && (
+                    <div
+                        className="category-bg"
+                        style={{
+                          backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
+                        }}
+                    ></div>
+                )}
+                <h3>{category.name}</h3>
+              </div>
           ))}
         </div>
       </div>
       <div className="drr-blogposts-container">
         {posts.length > 0 ? (
-          posts.map((post) => (
-            <div key={post.id} className="drr-blogpost-container">
-              <h2>{post.title}</h2>
-              <div dangerouslySetInnerHTML={{ __html: post.content }} />
-              <p>
+            posts.map((post) => (
+                <div key={post.id} className="drr-blogpost-container">
+                  <h2>{post.title}</h2>
+                  <div dangerouslySetInnerHTML={{__html: post.content}}/>
+                  <p>
                 Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
               </p>
               <Link href={`/news/${post.slug}`}>
