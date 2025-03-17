@@ -113,9 +113,8 @@ export default function News() {
           ))}
         </div>
       </div>
-      {/* TEMP spacing */}
-      <div style={{ marginTop: '200vh' }}></div>
-      {posts.map((post) => (
+      <div class="drr-blogposts-container">
+        {posts.map((post) => (
         <div key={post.id} className="drr-blogpost-container">
           <h2>{post.title}</h2>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
@@ -127,6 +126,7 @@ export default function News() {
           </Link>
         </div>
       ))}
+      </div>
     </>
   );
 }
