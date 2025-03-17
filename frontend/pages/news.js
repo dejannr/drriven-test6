@@ -61,15 +61,14 @@ export default function News() {
         </div>
         <div className="bot">
           {categories.map((category) => (
-            <div key={category.id} className="category-item">
-              <h3>{category.name}</h3>
-              <i className={category.icon ? category.icon : "fa fa-car"}></i>
-            </div>
+              <div key={category.id} className="category-item">
+                  <h3>{category.name}</h3>
+              </div>
           ))}
         </div>
       </div>
-      {/* TEMP spacing */}
-      <div style={{ marginTop: '200vh' }}></div>
+        {/* TEMP spacing */}
+        <div style={{ marginTop: '200vh' }}></div>
       {posts.map((post) => (
         <div key={post.id} className="drr-blogpost-container">
           <h2>{post.title}</h2>
