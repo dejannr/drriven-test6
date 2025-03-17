@@ -79,7 +79,7 @@ export default function Sidepanel({ profile, profileLoading }) {
           {renderLink("/feed", "fa-solid fa-compass", "Feed")}
           {renderLink("/inbox", "fa-solid fa-inbox", "Inbox")}
           {/* Here, News is accessible by everyone */}
-          {renderLink("/news", "fa-solid fa-newspaper", "News", true)}
+          {renderLink("/news", "fa-solid fa-newspaper", "Blog", true)}
           {renderLink("/forum", "fa-solid fa-comments", "Forum")}
           {renderLink("/events", "fa-solid fa-calendar-alt", "Events")}
           {renderLink("/spotting", "fa-solid fa-car", "Spotting")}
