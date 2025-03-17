@@ -17,6 +17,14 @@ class BlogPostSerializer(serializers.ModelSerializer):
         ]
 
 class BlogPostCategorySerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()  # New field for the image
+
     class Meta:
         model = BlogPostCategory
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'image']
+
+    def get_image(self, obj):
+        # Check if the category has an image and encode it to base64
+        if obj.image:
+            return base64.b64encode(obj.image).decode('utf-8')
+        return None

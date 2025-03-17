@@ -20,7 +20,8 @@ class BlogPost(models.Model):
 
 class BlogPostCategory(models.Model):
     name = models.CharField(max_length=255)
-    blog_posts = models.ManyToManyField(BlogPost, related_name='categories', blank=True)
+    image = models.BinaryField(null=True, blank=True)  # New image field
+    blog_posts = models.ManyToManyField('BlogPost', related_name='categories', blank=True)
 
     def __str__(self):
         return self.name
