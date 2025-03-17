@@ -51,7 +51,7 @@ export default function News() {
                   </p>
               </div>
               <div className="right">
-                  <Image src={porscheImg} alt="Porsche"/>
+                  <img src={porscheImg.src} alt="Porsche"/>
               </div>
           </div>
           <div className="drr-blog-categories">
