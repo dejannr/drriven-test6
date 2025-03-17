@@ -20,6 +20,7 @@ class BlogPost(models.Model):
 
 class BlogPostCategory(models.Model):
     name = models.CharField(max_length=255)
+    icon = models.TextField(null=True, blank=True)
     blog_posts = models.ManyToManyField(BlogPost, related_name='categories', blank=True)
 
     def __str__(self):

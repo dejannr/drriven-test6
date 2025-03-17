@@ -17,8 +17,6 @@ class BlogPostSerializer(serializers.ModelSerializer):
         ]
 
 class BlogPostCategorySerializer(serializers.ModelSerializer):
-
-
     class Meta:
         model = BlogPostCategory
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'icon']

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
-import Image from 'next/image';
 import porscheImg from "../../photos/porsche.png";
 
 export default function News() {
@@ -45,7 +44,9 @@ export default function News() {
       <div className="drr-blog-header">
         <div className="left">
           <h2>Blog.</h2>
-          <p>Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u automobilskoj industriji.</p>
+          <p>
+            Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u automobilskoj industriji.
+          </p>
         </div>
         <div className="right">
           <img src={porscheImg.src} alt="Porsche" />
@@ -62,7 +63,7 @@ export default function News() {
           {categories.map((category) => (
             <div key={category.id} className="category-item">
               <h3>{category.name}</h3>
-              {/* Image removed */}
+              <i className={category.icon ? category.icon : "fa fa-car"}></i>
             </div>
           ))}
         </div>
@@ -74,8 +75,7 @@ export default function News() {
           <h2>{post.title}</h2>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
           <p>
-            Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on:{' '}
-            {new Date(post.updated_at).toLocaleDateString()}
+            Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
           </p>
           <Link href={`/news/${post.slug}`}>
             Read More
