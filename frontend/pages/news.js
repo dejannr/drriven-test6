@@ -51,15 +51,6 @@ export default function News() {
     return <p>Loading...</p>;
   }
 
-  if (!posts.length) {
-    return (
-      <>
-        <h1>News</h1>
-        <p>No blog posts available. Check that your backend is running and returning posts.</p>
-      </>
-    );
-  }
-
   return (
     <>
       <h1 className="drr-breadcrump">Home {'>'} News</h1>
@@ -92,7 +83,7 @@ export default function News() {
               backgroundImage: `url('${allCategoryImg.src}')`
             }}
           >
-            <h3>All</h3>
+            <h3>Sve</h3>
           </div>
           {categories.map((category) => (
             <div
@@ -113,19 +104,23 @@ export default function News() {
           ))}
         </div>
       </div>
-      <div class="drr-blogposts-container">
-        {posts.map((post) => (
-        <div key={post.id} className="drr-blogpost-container">
-          <h2>{post.title}</h2>
-          <div dangerouslySetInnerHTML={{ __html: post.content }} />
-          <p>
-            Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
-          </p>
-          <Link href={`/news/${post.slug}`}>
-            Read More
-          </Link>
-        </div>
-      ))}
+      <div className="drr-blogposts-container">
+        {posts.length > 0 ? (
+          posts.map((post) => (
+            <div key={post.id} className="drr-blogpost-container">
+              <h2>{post.title}</h2>
+              <div dangerouslySetInnerHTML={{ __html: post.content }} />
+              <p>
+                Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
+              </p>
+              <Link href={`/news/${post.slug}`}>
+                Read More
+              </Link>
+            </div>
+          ))
+        ) : (
+          <p>No blog posts available. Check that your backend is running and returning posts.</p>
+        )}
       </div>
     </>
   );

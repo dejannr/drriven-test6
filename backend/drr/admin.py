@@ -38,6 +38,12 @@ class BlogPostAdminForm(forms.ModelForm):
             self.save_m2m = lambda: instance.categories.set(self.cleaned_data['categories'])
         return instance
 
+@admin.register(BlogPost)
+class BlogPostAdmin(admin.ModelAdmin):
+    form = BlogPostAdminForm
+    list_display = ('title', 'slug', 'created_at', 'published')
+    prepopulated_fields = {'slug': ('title',)}
+
 class BlogPostCategoryForm(forms.ModelForm):
     image_upload = forms.FileField(required=False, help_text="Upload an image.")
     clear_image = forms.BooleanField(required=False, label="Clear current image")
