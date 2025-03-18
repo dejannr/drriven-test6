@@ -212,13 +212,13 @@
 
     height: 100%;
     border-radius: 100px;
+    margin-right: 5px;
 
 }
 
 .drr-blogposts-container .creator-info p {
 
     font-size: 14px;
-    padding-left: 10px;
 
 }
 

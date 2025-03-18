@@ -65,7 +65,7 @@ export default function News() {
     return (
       <div className="creator-info">
         <img src={imageSrc} alt="Creator" className="creator-image" />
-        <p>Kreator: {name}</p>
+        <p>{name}</p>
       </div>
     );
   };
@@ -127,7 +127,7 @@ export default function News() {
       </div>
       <div className="drr-blogpost-title">
         <div className="line"></div>
-        <h2>Najnovije</h2>
+        <h2>Najnoviji Blogovi</h2>
       </div>
       <div className="drr-blogposts-container">
         {sortedPosts.length > 0 ? (
@@ -150,7 +150,7 @@ export default function News() {
                     Objavljeno: {new Date(newestPost.created_at).toLocaleDateString()}
                   </p>
                   <Link href={`/news/${newestPost.slug}`}>
-                    <i class="fa-solid fa-arrow-right"></i> Ceo tekst
+                      <i class="fa-solid fa-angles-right"></i> Ceo tekst
                   </Link>
                 </div>
               )}
@@ -175,9 +175,9 @@ export default function News() {
                     <p>
                       Objavljeno: {new Date(post.created_at).toLocaleDateString()}
                     </p>
-                    <Link href={`/news/${post.slug}`}>
-                      <i class="fa-solid fa-arrow-right"></i> Ceo tekst
-                    </Link>
+                      <Link href={`/news/${post.slug}`}>
+                          <i class="fa-solid fa-angles-right"></i> Ceo tekst
+                      </Link>
                   </div>
                 </div>
               ))}
