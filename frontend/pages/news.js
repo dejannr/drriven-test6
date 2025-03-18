@@ -51,89 +51,122 @@ export default function News() {
     return <p>Loading...</p>;
   }
 
+  // Sort posts by published_at in descending order
+  const sortedPosts = [...posts].sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+  const newestPost = sortedPosts[0];
+  const nextPosts = sortedPosts.slice(1, 4);
+
   return (
-    <>
-      <h1 className="drr-breadcrump">Početna {'>'} Blog</h1>
-      <div className="drr-blog-header">
-        <div className="left">
-          <h2>Blog.</h2>
-          <p>
-            Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u
-            automobilskoj industriji.
-          </p>
-        </div>
-        <div className="right">
-          <img src={porscheImg.src} alt="Porsche"/>
-        </div>
-      </div>
-      <div className="drr-blog-categories">
-        <div className="top">
-          <div className="cont">
-            <div className="line"></div>
-            <h2>Kategorije</h2>
+      <>
+        <h1 className="drr-breadcrump">Početna {'>'} Blog</h1>
+        <div className="drr-blog-header">
+          <div className="left">
+            <h2>Blog.</h2>
+            <p>
+              Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u
+              automobilskoj industriji.
+            </p>
+          </div>
+          <div className="right">
+            <img src={porscheImg.src} alt="Porsche"/>
           </div>
         </div>
-        <div className="bot">
-          {/* "All" category */}
-          <div
-              key="all"
-              className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
-              onClick={() => toggleCategory("all")}
-          >
+        <div className="drr-blogpost-title">
+          <div className="line"></div>
+          <h2>Kategorije</h2>
+        </div>
+        <div className="drr-blog-categories">
+          <div className="bot">
+            {/* "All" category */}
             <div
-                className="category-bg"
-                style={{
-                  backgroundImage: `url('${allCategoryImg.src}')`,
-                  filter: 'grayscale(100%)'
-                }}
-            ></div>
-            <h3>Sve</h3>
-          </div>
-          {categories.map((category) => (
+                key="all"
+                className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
+                onClick={() => toggleCategory("all")}
+            >
               <div
-                  key={category.id}
-                  className={`category-item ${activeCategories.includes(category.id) ? 'active' : ''}`}
-                  onClick={() => toggleCategory(category.id)}
-              >
-                {category.image && (
-                    <div
-                        className="category-bg"
-                        style={{
-                          backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
-                        }}
-                    ></div>
-                )}
-                <h3>{category.name}</h3>
-              </div>
-          ))}
-        </div>
-      </div>
-      <div className="drr-blogposts-container">
-        {posts.length > 0 ? (
-            posts.map((post) => (
-                <div key={post.id} className="drr-blogpost-container">
-                  {post.cover_photo && (
-                    <Image
-                      src={`data:image/jpeg;base64,${post.cover_photo}`}
-                      alt="Cover Image"
-                      width={300}
-                      height={150}
-                      unoptimized
-                    />
+                  className="category-bg"
+                  style={{
+                    backgroundImage: `url('${allCategoryImg.src}')`,
+                    filter: 'grayscale(100%)'
+                  }}
+              ></div>
+              <h3>Sve</h3>
+            </div>
+            {categories.map((category) => (
+                <div
+                    key={category.id}
+                    className={`category-item ${activeCategories.includes(category.id) ? 'active' : ''}`}
+                    onClick={() => toggleCategory(category.id)}
+                >
+                  {category.image && (
+                      <div
+                          className="category-bg"
+                          style={{
+                            backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
+                          }}
+                      ></div>
                   )}
-                  <h2>{post.title}</h2>
-                  <p>
-                    Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
-                  </p>
-                  <Link href={`/news/${post.slug}`}>
-                    Read More
-                  </Link>
+                  <h3>{category.name}</h3>
                 </div>
-            ))
-        ) : (
-          <p>Trenutno nema dostupnih blog postova.</p>
-        )}
-      </div>
-    </>
+            ))}
+          </div>
+        </div>
+        <div className="drr-blogpost-title">
+          <div className="line"></div>
+          <h2>Najnovije</h2>
+        </div>
+        <div className="drr-blogposts-container">
+          {sortedPosts.length > 0 ? (
+              <>
+                <div className="first">
+                  {newestPost && (
+                      <div key={newestPost.id} className="drr-blogpost-container">
+                        {newestPost.cover_photo && (
+                            <img
+                                src={`data:image/jpeg;base64,${newestPost.cover_photo}`}
+                                alt="Cover"
+                            />
+                        )}
+                        <h2>{newestPost.title}</h2>
+                        <p>
+                          Created on: {new Date(newestPost.created_at).toLocaleDateString()} | Updated
+                          on: {new Date(newestPost.updated_at).toLocaleDateString()}
+                        </p>
+                        <Link href={`/news/${newestPost.slug}`}>
+                          Read More
+                        </Link>
+                      </div>
+                  )}
+                </div>
+                <div className="next">
+                  {nextPosts.map((post) => (
+                      <div key={post.id} className="drr-blogpost-container">
+                        <div class="left">
+                          {post.cover_photo && (
+                              <img
+                                  src={`data:image/jpeg;base64,${post.cover_photo}`}
+                                  alt="Cover"
+                              />
+                          )}
+                        </div>
+                        <div class="right">
+                          <h2>{post.title}</h2>
+                          <p>
+                            Created on: {new Date(post.created_at).toLocaleDateString()} | Updated
+                            on: {new Date(post.updated_at).toLocaleDateString()}
+                          </p>
+                          <Link href={`/news/${post.slug}`}>
+                            Read More
+                          </Link>
+                        </div>
+                      </div>
+                  ))}
+                </div>
+              </>
+          ) : (
+              <p>Trenutno nema dostupnih blog postova.</p>
+          )}
+        </div>
+      </>
   );
 }
