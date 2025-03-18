@@ -127,7 +127,7 @@ export default function News() {
       </div>
       <div className="drr-blogpost-title">
         <div className="line"></div>
-        <h2>Najnoviji Blogovi</h2>
+        <h2>Najnovije</h2>
       </div>
       <div className="drr-blogposts-container">
         {sortedPosts.length > 0 ? (
