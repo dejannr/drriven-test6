@@ -59,13 +59,13 @@ export default function News() {
   // Helper to render creator information
   const renderCreatorInfo = (creator) => {
     // If a creator exists, use their details; otherwise, fallback to unknown.
-    const name = creator ? `${creator.first_name} ${creator.last_name}` : "Unknown User";
+    const name = creator ? `${creator.first_name} ${creator.last_name}` : "Nepoznato";
     const imageSrc = creator && creator.image ? `data:image/jpeg;base64,${creator.image}` : noUser.src;
 
     return (
       <div className="creator-info">
         <img src={imageSrc} alt="Creator" className="creator-image" />
-        <p>By: {name}</p>
+        <p>Kreator: {name}</p>
       </div>
     );
   };
@@ -147,10 +147,10 @@ export default function News() {
                   {/* Render creator info */}
                   {renderCreatorInfo(newestPost.creator)}
                   <p>
-                    Created on: {new Date(newestPost.created_at).toLocaleDateString()}
+                    Objavljeno: {new Date(newestPost.created_at).toLocaleDateString()}
                   </p>
                   <Link href={`/news/${newestPost.slug}`}>
-                    Read More
+                    <i class="fa-solid fa-arrow-right"></i> Ceo tekst
                   </Link>
                 </div>
               )}
@@ -173,10 +173,10 @@ export default function News() {
                     {/* Render creator info */}
                     {renderCreatorInfo(post.creator)}
                     <p>
-                      Created on: {new Date(post.created_at).toLocaleDateString()}
+                      Objavljeno: {new Date(post.created_at).toLocaleDateString()}
                     </p>
                     <Link href={`/news/${post.slug}`}>
-                      Read More
+                      <i class="fa-solid fa-arrow-right"></i> Ceo tekst
                     </Link>
                   </div>
                 </div>
