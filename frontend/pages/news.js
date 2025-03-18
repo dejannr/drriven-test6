@@ -51,8 +51,7 @@ export default function News() {
     return <p>Loading...</p>;
   }
 
-  // Sort posts by published_at in descending order
-  const sortedPosts = [...posts].sort((a, b) => new Date(b.published_at) - new Date(a.published_at));
+  const sortedPosts = [...posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const newestPost = sortedPosts[0];
   const nextPosts = sortedPosts.slice(1, 4);
 
