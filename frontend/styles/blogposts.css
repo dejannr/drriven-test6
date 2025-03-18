@@ -345,3 +345,43 @@
     font-weight: 500;
 
 }
+
+.drr-blogposts-container .first .cover-image-container {
+
+    width: 100%;
+
+}
+
+.drr-blogposts-container .next .cover-image-container {
+
+    width: 50%;
+
+}
+
+.drr-blogposts-container .cover-overlay {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.drr-blogposts-container .cover-category {
+
+    padding: 5px 10px;
+    background-color: rgba(254, 107, 1, 0.8);
+    border-radius: 6px;
+    font-size: 14px;
+    color: #fff;
+
+}
+
+.drr-blogposts-container .next .cover-category {
+
+    font-size: 10px;
+
+}

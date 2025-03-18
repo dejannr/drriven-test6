@@ -10,10 +10,9 @@ export default function News() {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeCategories, setActiveCategories] = useState(["all"]); // start with "All" active
+  const [activeCategories, setActiveCategories] = useState(["all"]);
 
   useEffect(() => {
-    // Fetch posts and categories concurrently
     Promise.all([
       axios.get('http://localhost:8000/api/drr/blogposts/'),
       axios.get('http://localhost:8000/api/drr/categories/')
@@ -31,18 +30,15 @@ export default function News() {
 
   const toggleCategory = (categoryId) => {
     if (categoryId === "all") {
-      // When "All" is clicked, reset active state to only "all"
       setActiveCategories(["all"]);
     } else {
       setActiveCategories((prev) => {
         let newActive = prev.includes("all") ? [] : [...prev];
-        // Toggle non-"All" category
         if (newActive.includes(categoryId)) {
           newActive = newActive.filter(id => id !== categoryId);
         } else {
           newActive.push(categoryId);
         }
-        // If no non-"All" categories are active, default back to "all"
         return newActive.length ? newActive : ["all"];
       });
     }
@@ -56,9 +52,7 @@ export default function News() {
   const newestPost = sortedPosts[0];
   const nextPosts = sortedPosts.slice(1, 4);
 
-  // Helper to render creator information
   const renderCreatorInfo = (creator) => {
-    // If a creator exists, use their details; otherwise, fallback to unknown.
     const name = creator ? `${creator.first_name} ${creator.last_name}` : "Nepoznato";
     const imageSrc = creator && creator.image ? `data:image/jpeg;base64,${creator.image}` : noUser.src;
 
@@ -91,7 +85,6 @@ export default function News() {
       </div>
       <div className="drr-blog-categories">
         <div className="bot">
-          {/* "All" category */}
           <div
             key="all"
             className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
@@ -135,22 +128,32 @@ export default function News() {
             <div className="first">
               {newestPost && (
                 <div key={newestPost.id} className="drr-blogpost-container">
-                  {newestPost.cover_photo && (
-                    <img
-                      src={`data:image/jpeg;base64,${newestPost.cover_photo}`}
-                      alt="Cover"
-                      className="cover-img"
-                    />
-                  )}
+                  <div className="cover-image-container" style={{ position: 'relative' }}>
+                    {newestPost.cover_photo && (
+                      <img
+                        src={`data:image/jpeg;base64,${newestPost.cover_photo}`}
+                        alt="Cover"
+                        className="cover-img"
+                      />
+                    )}
+                    {newestPost.categories && newestPost.categories.length > 0 && (
+                      <div className="cover-overlay">
+                        {newestPost.categories.map((cat) => (
+                          <span key={cat.id} className="cover-category">
+                            <i class="fa-solid fa-star"></i> {cat.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                   <h2>{newestPost.title}</h2>
                   <p>{newestPost.short_description}</p>
-                  {/* Render creator info */}
                   {renderCreatorInfo(newestPost.creator)}
                   <p>
                     Objavljeno: {new Date(newestPost.created_at).toLocaleDateString()}
                   </p>
                   <Link href={`/news/${newestPost.slug}`}>
-                      <i class="fa-solid fa-angles-right"></i> Ceo tekst
+                    <i className="fa-solid fa-angles-right"></i> Ceo tekst
                   </Link>
                 </div>
               )}
@@ -158,7 +161,7 @@ export default function News() {
             <div className="next">
               {nextPosts.map((post) => (
                 <div key={post.id} className="drr-blogpost-container">
-                  <div className="left">
+                  <div className="cover-image-container" style={{ position: 'relative' }}>
                     {post.cover_photo && (
                       <img
                         src={`data:image/jpeg;base64,${post.cover_photo}`}
@@ -166,18 +169,26 @@ export default function News() {
                         className="cover-img"
                       />
                     )}
+                    {post.categories && post.categories.length > 0 && (
+                      <div className="cover-overlay">
+                        {post.categories.map((cat) => (
+                          <span key={cat.id} className="cover-category">
+                            <i class="fa-solid fa-star"></i> {cat.name}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                   </div>
                   <div className="right">
                     <h2>{post.title}</h2>
-                      <p>{post.short_description}</p>
-                    {/* Render creator info */}
+                    <p>{post.short_description}</p>
                     {renderCreatorInfo(post.creator)}
                     <p>
                       Objavljeno: {new Date(post.created_at).toLocaleDateString()}
                     </p>
-                      <Link href={`/news/${post.slug}`}>
-                          <i class="fa-solid fa-angles-right"></i> Ceo tekst
-                      </Link>
+                    <Link href={`/news/${post.slug}`}>
+                      <i className="fa-solid fa-angles-right"></i> Ceo tekst
+                    </Link>
                   </div>
                 </div>
               ))}
