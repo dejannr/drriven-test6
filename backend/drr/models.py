@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 
@@ -10,9 +11,16 @@ class BlogPost(models.Model):
     published = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    # Initially allow null so migrations can run without a one-off default
+    creator = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='blog_posts',
+        null=True,    # Allow null for existing rows
+        blank=True    # Allow blank values in forms
+    )
 
     def save(self, *args, **kwargs):
-        # Auto-generate slug from title if not provided
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
