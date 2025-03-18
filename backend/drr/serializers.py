@@ -16,7 +16,8 @@ class BlogPostSerializer(serializers.ModelSerializer):
             'created_at',
             'updated_at',
             'cover_photo',
-            'short_description'  # New short description field
+            'short_description',  # New short description field
+            'creator'  # Added creator field
         ]
 
     def get_cover_photo(self, obj):
