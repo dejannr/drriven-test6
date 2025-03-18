@@ -9,32 +9,41 @@ from .models import BlogPost, BlogPostCategory
 
 class BlogPostAdminForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
-    # Add a ModelMultipleChoiceField for the categories.
+    # Existing field for managing categories
     categories = forms.ModelMultipleChoiceField(
         queryset=BlogPostCategory.objects.all(),
         required=False,
         widget=admin.widgets.FilteredSelectMultiple("Categories", is_stacked=False)
     )
+    # New fields for cover photo upload/clear option
+    cover_photo_upload = forms.FileField(required=False, help_text="Upload a cover photo.")
+    clear_cover_photo = forms.BooleanField(required=False, label="Clear current cover photo")
 
     class Meta:
         model = BlogPost
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
+        super(BlogPostAdminForm, self).__init__(*args, **kwargs)
         if self.instance.pk:
             # Populate the field with the current categories (using the reverse relation)
             self.fields['categories'].initial = self.instance.categories.all()
 
     def save(self, commit=True):
-        # Save the BlogPost instance
-        instance = super().save(commit)
-        if commit:
-            # Save the many-to-many categories
-            instance.categories.set(self.cleaned_data['categories'])
-            self.save_m2m()
+        instance = super(BlogPostAdminForm, self).save(commit=False)
+        # Process cover photo upload and clear cover photo option.
+        if self.cleaned_data.get('clear_cover_photo'):
+            instance.cover_photo = None
         else:
-            # For non-committed saves, attach a callback or handle later.
+            uploaded_cover = self.cleaned_data.get('cover_photo_upload')
+            if uploaded_cover:
+                instance.cover_photo = uploaded_cover.read()
+        if commit:
+            instance.save()
+            self.save_m2m()
+            # Save many-to-many categories.
+            instance.categories.set(self.cleaned_data['categories'])
+        else:
             self.save_m2m = lambda: instance.categories.set(self.cleaned_data['categories'])
         return instance
 

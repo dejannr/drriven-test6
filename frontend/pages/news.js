@@ -112,16 +112,24 @@ export default function News() {
         {posts.length > 0 ? (
             posts.map((post) => (
                 <div key={post.id} className="drr-blogpost-container">
+                  {post.cover_photo && (
+                    <Image
+                      src={`data:image/jpeg;base64,${post.cover_photo}`}
+                      alt="Cover Image"
+                      width={300}
+                      height={150}
+                      unoptimized
+                    />
+                  )}
                   <h2>{post.title}</h2>
-                  <div dangerouslySetInnerHTML={{__html: post.content}}/>
                   <p>
-                Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
-              </p>
-              <Link href={`/news/${post.slug}`}>
-                Read More
-              </Link>
-            </div>
-          ))
+                    Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
+                  </p>
+                  <Link href={`/news/${post.slug}`}>
+                    Read More
+                  </Link>
+                </div>
+            ))
         ) : (
           <p>Trenutno nema dostupnih blog postova.</p>
         )}
