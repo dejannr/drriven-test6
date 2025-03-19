@@ -7,8 +7,8 @@ from .serializers import BlogPostSerializer, BlogPostCategorySerializer
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def blogpost_list(request):
-    # Only return published posts
-    posts = BlogPost.objects.filter(published=True)
+    # Only return published posts ordered by newest first, limiting to 4
+    posts = BlogPost.objects.filter(published=True).order_by('-created_at')[:4]
     serializer = BlogPostSerializer(posts, many=True, context={'request': request})
     return Response(serializer.data)
 

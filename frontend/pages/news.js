@@ -6,13 +6,128 @@ import porscheImg from "../../photos/porsche4.png";
 import allCategoryImg from "../../photos/all-category.jpg";
 import noUser from '../../photos/nouser.png';
 
+// Component for rendering creator information
+function CreatorInfo({ creator }) {
+  const name = creator ? `${creator.first_name} ${creator.last_name}` : "Nepoznato";
+  const imageSrc =
+    creator && creator.image
+      ? `data:image/jpeg;base64,${creator.image}`
+      : noUser.src;
+
+  return (
+    <div className="creator-info">
+      <img src={imageSrc} alt="Creator" className="creator-image" />
+      <p>{name}</p>
+    </div>
+  );
+}
+
+// Component for rendering the cover image with overlay
+function CoverImage({ coverPhoto, categories }) {
+  return (
+    <div className="cover-image-container" style={{ position: 'relative' }}>
+      {coverPhoto && (
+        <img
+          src={`data:image/jpeg;base64,${coverPhoto}`}
+          alt="Cover"
+          className="cover-img"
+        />
+      )}
+      {categories && categories.length > 0 && (
+        <div className="cover-overlay">
+          {categories.map((cat) => (
+            <span key={cat.id} className="cover-category">
+              <i className="fa-solid fa-star"></i> {cat.name}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Component for the newest blog post (.first) with its structure
+function NewestBlogPost({ post }) {
+  return (
+    <div key={post.id} className="drr-blogpost-container">
+      <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
+      <h2>{post.title}</h2>
+      <p>{post.short_description}</p>
+      <CreatorInfo creator={post.creator} />
+      <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+      <Link href={`/news/${post.slug}`}>
+        <i className="fa-solid fa-angles-right"></i> Ceo tekst
+      </Link>
+    </div>
+  );
+}
+
+// Component for the other blog posts (.next) with their structure
+function OtherBlogPost({ post }) {
+  return (
+    <div key={post.id} className="drr-blogpost-container">
+      <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
+      <div className="right">
+        <h2>{post.title}</h2>
+        <p>{post.short_description}</p>
+        <CreatorInfo creator={post.creator} />
+        <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+        <Link href={`/news/${post.slug}`}>
+          <i className="fa-solid fa-angles-right"></i> Ceo tekst
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+// Component for rendering a single category item
+function CategoryItem({ category, activeCategories, onToggle }) {
+  if (category === "all") {
+    return (
+      <div
+        key="all"
+        className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
+        onClick={() => onToggle("all")}
+      >
+        <div
+          className="category-bg"
+          style={{
+            backgroundImage: `url('${allCategoryImg.src}')`,
+            filter: 'grayscale(100%)'
+          }}
+        ></div>
+        <h3>Sve</h3>
+      </div>
+    );
+  }
+
+  return (
+    <div
+      key={category.id}
+      className={`category-item ${activeCategories.includes(category.id) ? 'active' : ''}`}
+      onClick={() => onToggle(category.id)}
+    >
+      {category.image && (
+        <div
+          className="category-bg"
+          style={{
+            backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
+          }}
+        ></div>
+      )}
+      <h3>{category.name}</h3>
+    </div>
+  );
+}
+
 export default function News() {
   const [posts, setPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategories, setActiveCategories] = useState(["all"]);
 
-  useEffect(() => {
+  // Fetch data from API endpoints
+  const fetchData = () => {
     Promise.all([
       axios.get('http://localhost:8000/api/drr/blogposts/'),
       axios.get('http://localhost:8000/api/drr/categories/')
@@ -26,8 +141,13 @@ export default function News() {
         console.error('Error fetching data:', error);
         setLoading(false);
       });
+  };
+
+  useEffect(() => {
+    fetchData();
   }, []);
 
+  // Function to toggle active categories
   const toggleCategory = (categoryId) => {
     if (categoryId === "all") {
       setActiveCategories(["all"]);
@@ -48,21 +168,12 @@ export default function News() {
     return <p>Loading...</p>;
   }
 
+
+  console.log(posts);
+  // Sorting posts and splitting into newest and next posts
   const sortedPosts = [...posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
   const newestPost = sortedPosts[0];
   const nextPosts = sortedPosts.slice(1, 4);
-
-  const renderCreatorInfo = (creator) => {
-    const name = creator ? `${creator.first_name} ${creator.last_name}` : "Nepoznato";
-    const imageSrc = creator && creator.image ? `data:image/jpeg;base64,${creator.image}` : noUser.src;
-
-    return (
-      <div className="creator-info">
-        <img src={imageSrc} alt="Creator" className="creator-image" />
-        <p>{name}</p>
-      </div>
-    );
-  };
 
   return (
     <>
@@ -76,7 +187,7 @@ export default function News() {
           </p>
         </div>
         <div className="right">
-          <img src={porscheImg.src} alt="Porsche"/>
+          <img src={porscheImg.src} alt="Porsche" />
         </div>
       </div>
       <div className="drr-blogpost-title">
@@ -85,36 +196,14 @@ export default function News() {
       </div>
       <div className="drr-blog-categories">
         <div className="bot">
-          <div
-            key="all"
-            className={`category-item ${activeCategories.includes("all") ? 'active' : ''}`}
-            onClick={() => toggleCategory("all")}
-          >
-            <div
-              className="category-bg"
-              style={{
-                backgroundImage: `url('${allCategoryImg.src}')`,
-                filter: 'grayscale(100%)'
-              }}
-            ></div>
-            <h3>Sve</h3>
-          </div>
-          {categories.map((category) => (
-            <div
-              key={category.id}
-              className={`category-item ${activeCategories.includes(category.id) ? 'active' : ''}`}
-              onClick={() => toggleCategory(category.id)}
-            >
-              {category.image && (
-                <div
-                  className="category-bg"
-                  style={{
-                    backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
-                  }}
-                ></div>
-              )}
-              <h3>{category.name}</h3>
-            </div>
+          <CategoryItem category="all" activeCategories={activeCategories} onToggle={toggleCategory} />
+          {categories.map((cat) => (
+            <CategoryItem
+              key={cat.id}
+              category={cat}
+              activeCategories={activeCategories}
+              onToggle={toggleCategory}
+            />
           ))}
         </div>
       </div>
@@ -126,71 +215,11 @@ export default function News() {
         {sortedPosts.length > 0 ? (
           <>
             <div className="first">
-              {newestPost && (
-                <div key={newestPost.id} className="drr-blogpost-container">
-                  <div className="cover-image-container" style={{ position: 'relative' }}>
-                    {newestPost.cover_photo && (
-                      <img
-                        src={`data:image/jpeg;base64,${newestPost.cover_photo}`}
-                        alt="Cover"
-                        className="cover-img"
-                      />
-                    )}
-                    {newestPost.categories && newestPost.categories.length > 0 && (
-                      <div className="cover-overlay">
-                        {newestPost.categories.map((cat) => (
-                          <span key={cat.id} className="cover-category">
-                            <i class="fa-solid fa-star"></i> {cat.name}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <h2>{newestPost.title}</h2>
-                  <p>{newestPost.short_description}</p>
-                  {renderCreatorInfo(newestPost.creator)}
-                  <p>
-                    Objavljeno: {new Date(newestPost.created_at).toLocaleDateString()}
-                  </p>
-                  <Link href={`/news/${newestPost.slug}`}>
-                    <i className="fa-solid fa-angles-right"></i> Ceo tekst
-                  </Link>
-                </div>
-              )}
+              {newestPost && <NewestBlogPost post={newestPost} />}
             </div>
             <div className="next">
               {nextPosts.map((post) => (
-                <div key={post.id} className="drr-blogpost-container">
-                  <div className="cover-image-container" style={{ position: 'relative' }}>
-                    {post.cover_photo && (
-                      <img
-                        src={`data:image/jpeg;base64,${post.cover_photo}`}
-                        alt="Cover"
-                        className="cover-img"
-                      />
-                    )}
-                    {post.categories && post.categories.length > 0 && (
-                      <div className="cover-overlay">
-                        {post.categories.map((cat) => (
-                          <span key={cat.id} className="cover-category">
-                            <i class="fa-solid fa-star"></i> {cat.name}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div className="right">
-                    <h2>{post.title}</h2>
-                    <p>{post.short_description}</p>
-                    {renderCreatorInfo(post.creator)}
-                    <p>
-                      Objavljeno: {new Date(post.created_at).toLocaleDateString()}
-                    </p>
-                    <Link href={`/news/${post.slug}`}>
-                      <i className="fa-solid fa-angles-right"></i> Ceo tekst
-                    </Link>
-                  </div>
-                </div>
+                <OtherBlogPost key={post.id} post={post} />
               ))}
             </div>
           </>

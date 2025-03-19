@@ -261,7 +261,7 @@
 
 .drr-blogposts-container .first .drr-blogpost-container {
 
-    height: 500px;
+    height: 550px;
     overflow: hidden;
 
 }
@@ -295,7 +295,7 @@
 .drr-blogposts-container .next .drr-blogpost-container .cover-img {
 
     width: 100%;
-    height: calc(460px / 3);
+    height: calc(510px / 3);
     object-fit: cover;
     border-radius: 10px;
 
@@ -322,7 +322,7 @@
 
 .drr-blogposts-container .next .drr-blogpost-container .right p {
 
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
     font-size: 14px;
 
 }
