@@ -385,3 +385,46 @@
     font-size: 10px;
 
 }
+
+.drr-blogposts-container-down {
+
+
+
+}
+
+.drr-blogposts-container-down .drr-blogpost-container {
+
+
+
+}
+
+.drr-blogposts-container-down .drr-blogpost-container .cover-image-container img {
+
+    height: 300px;
+    width: 50%;
+    object-fit: cover;
+    border-radius: 10px;
+
+}
+
+.drr-blogposts-container-down .cover-overlay {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.drr-blogposts-container-down .cover-category {
+
+    padding: 5px 10px;
+    background-color: rgba(254, 107, 1, 0.8);
+    border-radius: 6px;
+    font-size: 14px;
+    color: #fff;
+
+}

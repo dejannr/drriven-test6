@@ -28,3 +28,24 @@ def category_list(request):
     categories = BlogPostCategory.objects.all()
     serializer = BlogPostCategorySerializer(categories, many=True, context={'request': request})
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def blogpost_paginated_list(request):
+    # Retrieve the page number from query parameters (default: 1)
+    try:
+        page = int(request.query_params.get('page', 1))
+    except ValueError:
+        page = 1
+
+    # Fetch published posts ordered by newest, skip the first 4
+    posts = BlogPost.objects.filter(published=True).order_by('-created_at')[4:]
+
+    # Calculate pagination indices for 10 posts per page
+    start = (page - 1) * 10
+    end = start + 10
+    paginated_posts = posts[start:end]
+
+    serializer = BlogPostSerializer(paginated_posts, many=True, context={'request': request})
+    return Response(serializer.data)

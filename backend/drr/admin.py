@@ -50,6 +50,21 @@ class BlogPostAdmin(admin.ModelAdmin):
     form = BlogPostAdminForm
     list_display = ('title', 'slug', 'creator', 'created_at', 'published')
     prepopulated_fields = {'slug': ('title',)}
+    actions = ['duplicate_blog_posts']
+
+    @admin.action(description="Duplicate selected blog posts")
+    def duplicate_blog_posts(self, request, queryset):
+        for blog in queryset:
+            # Save original many-to-many relations
+            original_categories = list(blog.categories.all())
+            # Duplicate the blog post instance
+            blog.pk = None
+            blog.id = None  # Ensure the ID is also reset.
+            blog.title = f"{blog.title} (copy)"
+            blog.slug = ""  # Clear slug to let prepopulated_fields or custom logic create a new slug.
+            blog.save()
+            # Reassign the many-to-many relationships.
+            blog.categories.set(original_categories)
 
 class BlogPostCategoryForm(forms.ModelForm):
     image_upload = forms.FileField(required=False, help_text="Upload an image.")

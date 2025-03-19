@@ -13,7 +13,6 @@ function CreatorInfo({ creator }) {
     creator && creator.image
       ? `data:image/jpeg;base64,${creator.image}`
       : noUser.src;
-
   return (
     <div className="creator-info">
       <img src={imageSrc} alt="Creator" className="creator-image" />
@@ -121,33 +120,57 @@ function CategoryItem({ category, activeCategories, onToggle }) {
 }
 
 export default function News() {
-  const [posts, setPosts] = useState([]);
+  const [newestPosts, setNewestPosts] = useState([]);
+  const [paginatedPosts, setPaginatedPosts] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadingPaginated, setLoadingPaginated] = useState(false);
   const [activeCategories, setActiveCategories] = useState(["all"]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMorePaginated, setHasMorePaginated] = useState(true);
 
-  // Fetch data from API endpoints
-  const fetchData = () => {
+  // Fetch newest 4 posts and categories on initial load
+  useEffect(() => {
     Promise.all([
       axios.get('http://localhost:8000/api/drr/blogposts/'),
       axios.get('http://localhost:8000/api/drr/categories/')
     ])
       .then(([postsResponse, categoriesResponse]) => {
-        setPosts(postsResponse.data);
+        setNewestPosts(postsResponse.data);
         setCategories(categoriesResponse.data);
         setLoading(false);
       })
       .catch((error) => {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching newest posts or categories:', error);
         setLoading(false);
+      });
+  }, []);
+
+  // Function to fetch paginated posts 10 by 10 (skipping the first 4)
+  const fetchPaginatedPosts = (page) => {
+    setLoadingPaginated(true);
+    axios
+      .get(`http://localhost:8000/api/drr/blogposts/page/?page=${page}`)
+      .then((response) => {
+        // If returned posts are less than 10, no more pages available.
+        if (response.data.length < 10) {
+          setHasMorePaginated(false);
+        }
+        // For page 1, we set, otherwise append.
+        setPaginatedPosts((prev) => (page === 1 ? response.data : [...prev, ...response.data]));
+        setLoadingPaginated(false);
+      })
+      .catch((error) => {
+        console.error('Error fetching paginated posts:', error);
+        setLoadingPaginated(false);
       });
   };
 
+  // Fetch initial paginated posts (page 1)
   useEffect(() => {
-    fetchData();
+    fetchPaginatedPosts(1);
   }, []);
 
-  // Function to toggle active categories
   const toggleCategory = (categoryId) => {
     if (categoryId === "all") {
       setActiveCategories(["all"]);
@@ -164,16 +187,31 @@ export default function News() {
     }
   };
 
+  // Handlers for pager controls
+  const handleNextPage = () => {
+    const nextPage = currentPage + 1;
+    setCurrentPage(nextPage);
+    fetchPaginatedPosts(nextPage);
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      // For simplicity, we clear and refetch page 1 when going back from page 2.
+      // In a full solution you might store each page's data.
+      setCurrentPage(1);
+      fetchPaginatedPosts(1);
+      setHasMorePaginated(true);
+    }
+  };
+
   if (loading) {
     return <p>Loading...</p>;
   }
 
-
-  console.log(posts);
-  // Sorting posts and splitting into newest and next posts
-  const sortedPosts = [...posts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
-  const newestPost = sortedPosts[0];
-  const nextPosts = sortedPosts.slice(1, 4);
+  // Split newestPosts into the "first" (the very newest) and "next" (the subsequent three)
+  const sortedNewest = [...newestPosts].sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
+  const firstPost = sortedNewest[0];
+  const nextThreePosts = sortedNewest.slice(1, 4);
 
   return (
     <>
@@ -212,19 +250,46 @@ export default function News() {
         <h2>Najnovije</h2>
       </div>
       <div className="drr-blogposts-container">
-        {sortedPosts.length > 0 ? (
+        {sortedNewest.length > 0 ? (
           <>
             <div className="first">
-              {newestPost && <NewestBlogPost post={newestPost} />}
+              {firstPost && <NewestBlogPost post={firstPost} />}
             </div>
             <div className="next">
-              {nextPosts.map((post) => (
+              {nextThreePosts.map((post) => (
                 <OtherBlogPost key={post.id} post={post} />
               ))}
             </div>
           </>
         ) : (
           <p>Trenutno nema dostupnih blog postova.</p>
+        )}
+      </div>
+      {/* Additional paginated posts */}
+      <div className="drr-blogpost-title">
+        <div className="line"></div>
+        <h2>Sve</h2>
+      </div>
+      <div className="drr-blogposts-container-down">
+        {paginatedPosts.length > 0 ? (
+          paginatedPosts.map((post) => (
+            <OtherBlogPost key={post.id} post={post} />
+          ))
+        ) : (
+          <p>Nema više blogova.</p>
+        )}
+      </div>
+      {/* Pager controls */}
+      <div className="pager">
+        {currentPage > 1 && (
+          <button onClick={handlePrevPage} disabled={loadingPaginated}>
+            Prethodna strana
+          </button>
+        )}
+        {hasMorePaginated && (
+          <button onClick={handleNextPage} disabled={loadingPaginated}>
+            Sledeća strana
+          </button>
         )}
       </div>
     </>
