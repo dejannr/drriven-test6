@@ -252,7 +252,7 @@ export default function News() {
           </div>
           <div className="drr-blogpost-title">
               <div className="line"></div>
-              <h2>Ostalo</h2>
+              <h2>Svi Objave</h2>
           </div>
           <div className="drr-blog-categories">
               <div className="bot">
