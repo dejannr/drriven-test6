@@ -238,11 +238,34 @@
     text-align: justify;
 }
 
-.first .drr-blogpost-container {
+.first {
 
+    height: 550px;
+
+}
+
+.next {
+
+    height: 550px;
+
+}
+
+.first .drr-blogposts-container {
+
+    position: relative;
+
+}
+
+.first .drr-blogpost-container .blogpost-info {
+
+    height: 250px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: rgba(254, 107, 1, 0.1);
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
 
 }
 
@@ -271,7 +294,7 @@
     width: 100%;
     height: 300px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 0;
 
 }
 
@@ -287,6 +310,7 @@
 .drr-blogposts-container .next .drr-blogpost-container {
 
     width: 100%;
+    height: calc(510px / 3);
     display: flex;
     box-sizing: border-box;
 
@@ -297,7 +321,7 @@
     width: 100%;
     height: calc(510px / 3);
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
 
 }
 
@@ -312,6 +336,9 @@
     width: 50%;
     box-sizing: border-box;
     padding: 10px 10px 10px 10px;
+    background-color: rgba(254, 107, 1, 0.1);
+    border-radius: 0 10px 10px 0;
+    height: calc(510px / 3);
 }
 
 .drr-blogposts-container .next .drr-blogpost-container .right h2 {
@@ -349,6 +376,7 @@
 .drr-blogposts-container .first .cover-image-container {
 
     width: 100%;
+    height: 300px;
 
 }
 
@@ -391,6 +419,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    margin-top: 30px;
 
 }
 
@@ -402,11 +431,11 @@
 }
 
 .drr-blogposts-container-down p {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
-  overflow: hidden;
-  color: #333;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 3;
+      overflow: hidden;
+      color: #333;
     text-align: justify;
 }
 
@@ -414,24 +443,26 @@
 .drr-blogposts-container-down .drr-blogpost-container {
 
     display: flex;
-    gap: 20px;
 
 }
 
 .drr-blogposts-container-down .drr-blogpost-container .cover-image-container {
 
-    width: 50%;
+    width: 40%;
 
 }
 
 .drr-blogposts-container-down .drr-blogpost-container .right {
 
-    width: 50%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 20px 0;
+    padding: 20px;
     box-sizing: border-box;
+    background-color: rgba(254, 107, 1, 0.1);
+    border-radius: 0 10px 10px 0;
+    height: 300px;
 
 }
 
@@ -440,7 +471,7 @@
     height: 300px;
     width: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 10px 0 0 10px;
 
 }
 
