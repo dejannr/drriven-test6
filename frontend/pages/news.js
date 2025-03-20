@@ -232,85 +232,86 @@ export default function News() {
   const nextThreePosts = sortedNewest.slice(1, 4);
 
   return (
-    <>
-      <h1 className="drr-breadcrump">Početna {'>'} Blog</h1>
-      <div className="drr-blog-header">
-        <div className="left">
-          <h2>Blog.</h2>
-          <p>
-            Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u
-            automobilskoj industriji.
-          </p>
-        </div>
-        <div className="right">
-          <img src={porscheImg.src} alt="Porsche" />
-        </div>
-      </div>
-      <div className="drr-blogpost-title">
-        <div className="line"></div>
-        <h2>Najnovije</h2>
-      </div>
-      <div className="drr-blogposts-container-all">
-        {sortedNewest.length > 0 ? (
-          <>
-            <div className="first">
-              {firstPost && <NewestBlogPost post={firstPost} />}
-            </div>
-            <div className="next">
-              {nextThreePosts.map((post) => (
-                <OtherBlogPost key={post.id} post={post} />
-              ))}
-            </div>
-          </>
-        ) : (
-          <p>Trenutno nema dostupnih blog postova.</p>
-        )}
-      </div>
-      <div className="drr-blogpost-title">
-        <div className="line"></div>
-        <h2>Sve Objave</h2>
-      </div>
-      <div className="drr-blog-categories">
-        <div className="bot">
-          <CategoryItem category="all" activeCategories={activeCategories} onToggle={toggleCategory} />
-          {categories.map((cat) => (
-            <CategoryItem
-              key={cat.id}
-              category={cat}
-              activeCategories={activeCategories}
-              onToggle={toggleCategory}
-            />
-          ))}
-        </div>
-        <button onClick={handleApplyFilters} className="apply-filters-btn">
-          Primeni filtere
-        </button>
-      </div>
-      <div className="drr-blogposts-container-all-down">
-        {paginatedPosts.length > 0 ? (
-          paginatedPosts.map((post) => <OtherBlogPost key={post.id} post={post} />)
-        ) : (
-          <p>Trenutno nema dostupnih blog postova.</p>
-        )}
-        {loadingPaginated && (
-          <div className="loading-indicator">
-            <div className="spinner"></div>
-            <p>Učitavanje postova...</p>
+      <>
+        <h1 className="drr-breadcrump">Početna {'>'} Blog</h1>
+        <div className="drr-blog-header">
+          <div className="left">
+            <h2>Blog.</h2>
+            <p>
+              Platforma namenjena pružanju detaljnih analiza i stručnih komentara o najnovijim dešavanjima u
+              automobilskoj industriji.
+            </p>
           </div>
-        )}
-      </div>
-      <div className="drr-blogposts-pager">
-        {hasMorePaginated && (
-          <button onClick={handleNextPage} disabled={loadingPaginated}>
-            Učitaj još
+          <div className="right">
+            <img src={porscheImg.src} alt="Porsche"/>
+          </div>
+        </div>
+        <div className="drr-blogpost-title">
+          <div className="line"></div>
+          <h2>Najnovije</h2>
+        </div>
+        <div className="drr-blogposts-container-all">
+          {sortedNewest.length > 0 ? (
+              <>
+                <div className="first">
+                  {firstPost && <NewestBlogPost post={firstPost}/>}
+                </div>
+                <div className="next">
+                  {nextThreePosts.map((post) => (
+                      <OtherBlogPost key={post.id} post={post}/>
+                  ))}
+                </div>
+              </>
+          ) : (
+              <p>Trenutno nema dostupnih blog postova.</p>
+          )}
+        </div>
+        <div className="drr-blogpost-title">
+          <div className="line"></div>
+          <h2>Sve Objave</h2>
+        </div>
+        <div className="drr-blog-categories">
+          <div className="bot">
+            <CategoryItem category="all" activeCategories={activeCategories} onToggle={toggleCategory}/>
+            {categories.map((cat) => (
+                <CategoryItem
+                    key={cat.id}
+                    category={cat}
+                    activeCategories={activeCategories}
+                    onToggle={toggleCategory}
+                />
+            ))}
+          </div>
+          <button onClick={handleApplyFilters} className="apply-filters-btn">
+            Primeni filtere
           </button>
-        )}
-        {currentPage > 1 && (
-          <button onClick={handlePrevPage} disabled={loadingPaginated}>
-            Nazad na početak
-          </button>
-        )}
-      </div>
-    </>
+        </div>
+        <div className="drr-blogposts-container-all-down">
+          {paginatedPosts.map((post) => (
+              <OtherBlogPost key={post.id} post={post}/>
+          ))}
+          {loadingPaginated && (
+              <div className="loading-indicator">
+                <div className="spinner"></div>
+                <p>Učitavanje postova...</p>
+              </div>
+          )}
+          {!loadingPaginated && paginatedPosts.length === 0 && (
+              <p>Trenutno nema dostupnih blog postova.</p>
+          )}
+        </div>
+        <div className="drr-blogposts-pager">
+          {!loadingPaginated && hasMorePaginated && (
+              <button onClick={handleNextPage} disabled={loadingPaginated}>
+                Učitaj još
+              </button>
+          )}
+          {!loadingPaginated && currentPage > 1 && (
+              <button onClick={handlePrevPage} disabled={loadingPaginated}>
+                Nazad na početak
+              </button>
+          )}
+        </div>
+      </>
   );
 }
