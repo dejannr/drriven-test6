@@ -273,7 +273,7 @@ export default function News() {
                       <OtherBlogPost key={post.id} post={post}/>
                   ))
               ) : (
-                  <p>Nema više blogova.</p>
+                  <p>Trenutno nema dostupnih blog postova.</p>
               )}
           </div>
           {/* Pager controls */}
