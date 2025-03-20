@@ -440,7 +440,7 @@
 .drr-blogposts-container-all-down p {
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 3;
       overflow: hidden;
       color: #333;
     text-align: justify;
@@ -531,5 +531,13 @@
     border-radius: 6px;
     font-size: 10px;
     color: #fff;
+
+}
+
+.blogpost-info {
+
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    justify-content: space-evenly !important;
 
 }
