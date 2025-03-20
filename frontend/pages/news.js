@@ -49,7 +49,7 @@ function CoverImage({ coverPhoto, categories }) {
 function NewestBlogPost({ post }) {
   return (
     <div key={post.id} className="drr-blogpost-container">
-      <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
+        <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
         <div class="blogpost-info">
             <h2>{post.title}</h2>
             <p>{post.short_description}</p>
@@ -69,15 +69,15 @@ function OtherBlogPost({post}) {
         <div key={post.id} className="drr-blogpost-container">
             <CoverImage coverPhoto={post.cover_photo} categories={post.categories}/>
             <div className="right">
-        <h2>{post.title}</h2>
-        <p>{post.short_description}</p>
-        <CreatorInfo creator={post.creator} />
-        <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
-        <Link href={`/news/${post.slug}`}>
-          <i className="fa-solid fa-angles-right"></i> Ceo tekst
-        </Link>
-      </div>
-    </div>
+                <h2>{post.title}</h2>
+                <p>{post.short_description}</p>
+                <CreatorInfo creator={post.creator} />
+                <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+                <Link href={`/news/${post.slug}`}>
+                  <i className="fa-solid fa-angles-right"></i> Ceo tekst
+                </Link>
+            </div>
+        </div>
   );
 }
 
@@ -234,7 +234,7 @@ export default function News() {
               <div className="line"></div>
               <h2>Najnovije</h2>
           </div>
-          <div className="drr-blogposts-container">
+          <div className="drr-blogposts-container-all">
               {sortedNewest.length > 0 ? (
                   <>
                       <div className="first">
@@ -267,7 +267,7 @@ export default function News() {
                   ))}
               </div>
           </div>
-          <div className="drr-blogposts-container-down">
+          <div className="drr-blogposts-container-all-down">
               {paginatedPosts.length > 0 ? (
                   paginatedPosts.map((post) => (
                       <OtherBlogPost key={post.id} post={post}/>

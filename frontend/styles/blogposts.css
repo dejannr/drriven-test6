@@ -192,14 +192,14 @@
 
 }
 
-.drr-blogposts-container {
+.drr-blogposts-container-all {
 
     display: flex;
     gap: 20px;
 
 }
 
-.drr-blogposts-container .creator-info {
+.drr-blogposts-container-all .creator-info {
 
     width: 100%;
     height: 30px;
@@ -208,7 +208,7 @@
 
 }
 
-.drr-blogposts-container .creator-info img {
+.drr-blogposts-container-all .creator-info img {
 
     height: 100%;
     border-radius: 100px;
@@ -216,20 +216,20 @@
 
 }
 
-.drr-blogposts-container .creator-info p {
+.drr-blogposts-container-all .creator-info p {
 
     font-size: 14px;
 
 }
 
-.drr-blogposts-container h2 {
+.drr-blogposts-container-all h2 {
 
     font-size: 24px;
     font-weight: 600;
 
 }
 
-.drr-blogposts-container p {
+.drr-blogposts-container-all p {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
@@ -250,7 +250,7 @@
 
 }
 
-.first .drr-blogposts-container {
+.first .drr-blogposts-container-all {
 
     position: relative;
 
@@ -269,27 +269,27 @@
 
 }
 
-.drr-blogposts-container .first {
+.drr-blogposts-container-all .first {
 
     width: 50%;
 
 }
 
-.drr-blogposts-container .first a {
+.drr-blogposts-container-all .first a {
 
     font-weight: 500;
     font-size: 18px;
 
 }
 
-.drr-blogposts-container .first .drr-blogpost-container {
+.drr-blogposts-container-all .first .drr-blogpost-container {
 
     height: 550px;
     overflow: hidden;
 
 }
 
-.drr-blogposts-container .first .drr-blogpost-container .cover-img {
+.drr-blogposts-container-all .first .drr-blogpost-container .cover-img {
 
     width: 100%;
     height: 300px;
@@ -298,7 +298,7 @@
 
 }
 
-.drr-blogposts-container .next {
+.drr-blogposts-container-all .next {
 
     width: 50%;
     display: flex;
@@ -307,7 +307,7 @@
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container {
+.drr-blogposts-container-all .next .drr-blogpost-container {
 
     width: 100%;
     height: calc(510px / 3);
@@ -316,7 +316,7 @@
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .cover-img {
+.drr-blogposts-container-all .next .drr-blogpost-container .cover-img {
 
     width: 100%;
     height: calc(510px / 3);
@@ -325,11 +325,11 @@
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .left {
+.drr-blogposts-container-all .next .drr-blogpost-container .left {
     width: 50%;
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .right {
+.drr-blogposts-container-all .next .drr-blogpost-container .right {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -341,52 +341,52 @@
     height: calc(510px / 3);
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .right h2 {
+.drr-blogposts-container-all .next .drr-blogpost-container .right h2 {
 
     font-size: 18px;
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .right p {
+.drr-blogposts-container-all .next .drr-blogpost-container .right p {
 
   -webkit-line-clamp: 2;
     font-size: 14px;
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .right .creator-info {
+.drr-blogposts-container-all .next .drr-blogpost-container .right .creator-info {
 
     height: 20px;
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .right .creator-info p {
+.drr-blogposts-container-all .next .drr-blogpost-container .right .creator-info p {
 
     font-size: 12px;
 
 }
 
-.drr-blogposts-container .next .drr-blogpost-container .right a {
+.drr-blogposts-container-all .next .drr-blogpost-container .right a {
 
     font-size: 14px;
     font-weight: 500;
 
 }
 
-.drr-blogposts-container .first .cover-image-container {
+.drr-blogposts-container-all .first .cover-image-container {
 
     width: 100%;
     height: 300px;
 
 }
 
-.drr-blogposts-container .next .cover-image-container {
+.drr-blogposts-container-all .next .cover-image-container {
 
     width: 50%;
 
 }
 
-.drr-blogposts-container .cover-overlay {
+.drr-blogposts-container-all .cover-overlay {
 
     position: absolute;
     top: 0;
@@ -398,7 +398,7 @@
     gap: 5px;
 }
 
-.drr-blogposts-container .cover-category {
+.drr-blogposts-container-all .cover-category {
 
     padding: 5px 10px;
     background-color: rgba(254, 107, 1, 0.8);
@@ -408,13 +408,13 @@
 
 }
 
-.drr-blogposts-container .next .cover-category {
+.drr-blogposts-container-all .next .cover-category {
 
     font-size: 10px;
 
 }
 
-.drr-blogposts-container-down {
+.drr-blogposts-container-all-down {
 
     display: flex;
     flex-direction: column;
@@ -423,14 +423,14 @@
 
 }
 
-.drr-blogposts-container-down h2 {
+.drr-blogposts-container-all-down h2 {
 
     font-size: 24px;
     font-weight: 600;
 
 }
 
-.drr-blogposts-container-down p {
+.drr-blogposts-container-all-down p {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
@@ -440,19 +440,19 @@
 }
 
 
-.drr-blogposts-container-down .drr-blogpost-container {
+.drr-blogposts-container-all-down .drr-blogpost-container {
 
     display: flex;
 
 }
 
-.drr-blogposts-container-down .drr-blogpost-container .cover-image-container {
+.drr-blogposts-container-all-down .drr-blogpost-container .cover-image-container {
 
     width: 40%;
 
 }
 
-.drr-blogposts-container-down .drr-blogpost-container .right {
+.drr-blogposts-container-all-down .drr-blogpost-container .right {
 
     width: 60%;
     display: flex;
@@ -466,7 +466,7 @@
 
 }
 
-.drr-blogposts-container-down .drr-blogpost-container .cover-image-container img {
+.drr-blogposts-container-all-down .drr-blogpost-container .cover-image-container img {
 
     height: 300px;
     width: 100%;
@@ -476,7 +476,7 @@
 }
 
 
-.drr-blogposts-container-down .creator-info {
+.drr-blogposts-container-all-down .creator-info {
 
     width: 100%;
     height: 30px;
@@ -485,7 +485,7 @@
 
 }
 
-.drr-blogposts-container-down .creator-info img {
+.drr-blogposts-container-all-down .creator-info img {
 
     height: 100%;
     border-radius: 100px;
@@ -493,13 +493,13 @@
 
 }
 
-.drr-blogposts-container-down .creator-info p {
+.drr-blogposts-container-all-down .creator-info p {
 
     font-size: 14px;
 
 }
 
-.drr-blogposts-container-down .cover-overlay {
+.drr-blogposts-container-all-down .cover-overlay {
 
     position: absolute;
     top: 0;
