@@ -277,15 +277,15 @@ export default function News() {
               )}
           </div>
           {/* Pager controls */}
-          <div className="pager">
-              {currentPage > 1 && (
-                  <button onClick={handlePrevPage} disabled={loadingPaginated}>
-                      Prethodna strana
-                  </button>
-              )}
+          <div className="drr-blogposts-pager">
               {hasMorePaginated && (
                   <button onClick={handleNextPage} disabled={loadingPaginated}>
-                      Sledeća strana
+                      Učitaj još
+                  </button>
+              )}
+            {currentPage > 1 && (
+                  <button onClick={handlePrevPage} disabled={loadingPaginated}>
+                      Nazad na početak
                   </button>
               )}
           </div>
