@@ -68,7 +68,7 @@ function OtherBlogPost({post}) {
     return (
         <div key={post.id} className="drr-blogpost-container">
             <CoverImage coverPhoto={post.cover_photo} categories={post.categories}/>
-            <div className="right">
+            <div className="blogpost-info">
                 <h2>{post.title}</h2>
                 <p>{post.short_description}</p>
                 <CreatorInfo creator={post.creator} />

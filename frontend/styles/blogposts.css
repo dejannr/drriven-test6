@@ -329,7 +329,7 @@
     width: 50%;
 }
 
-.drr-blogposts-container-all .next .drr-blogpost-container .right {
+.drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -341,32 +341,32 @@
     height: calc(510px / 3);
 }
 
-.drr-blogposts-container-all .next .drr-blogpost-container .right h2 {
+.drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info h2 {
 
     font-size: 18px;
 
 }
 
-.drr-blogposts-container-all .next .drr-blogpost-container .right p {
+.drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info p {
 
   -webkit-line-clamp: 2;
     font-size: 14px;
 
 }
 
-.drr-blogposts-container-all .next .drr-blogpost-container .right .creator-info {
+.drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info .creator-info {
 
     height: 20px;
 
 }
 
-.drr-blogposts-container-all .next .drr-blogpost-container .right .creator-info p {
+.drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info .creator-info p {
 
     font-size: 12px;
 
 }
 
-.drr-blogposts-container-all .next .drr-blogpost-container .right a {
+.drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info a {
 
     font-size: 14px;
     font-weight: 500;
@@ -452,7 +452,7 @@
 
 }
 
-.drr-blogposts-container-all-down .drr-blogpost-container .right {
+.drr-blogposts-container-all-down .drr-blogpost-container .blogpost-info {
 
     width: 60%;
     display: flex;
