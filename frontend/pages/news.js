@@ -50,7 +50,7 @@ function NewestBlogPost({ post }) {
   return (
     <div key={post.id} className="drr-blogpost-container">
         <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
-        <div class="blogpost-info">
+        <div className="blogpost-info">
             <h2>{post.title}</h2>
             <p>{post.short_description}</p>
             <CreatorInfo creator={post.creator}/>
@@ -64,7 +64,7 @@ function NewestBlogPost({ post }) {
 }
 
 // Component for the other blog posts (.next) with their structure
-function OtherBlogPost({post}) {
+function OtherBlogPost({ post }) {
     return (
         <div key={post.id} className="drr-blogpost-container">
             <CoverImage coverPhoto={post.cover_photo} categories={post.categories}/>
@@ -128,6 +128,7 @@ export default function News() {
   const [loading, setLoading] = useState(true);
   const [loadingPaginated, setLoadingPaginated] = useState(false);
   const [activeCategories, setActiveCategories] = useState(["all"]);
+  const [appliedCategories, setAppliedCategories] = useState(["all"]); // stores the applied filter
   const [currentPage, setCurrentPage] = useState(1);
   const [hasMorePaginated, setHasMorePaginated] = useState(true);
 
@@ -148,17 +149,23 @@ export default function News() {
       });
   }, []);
 
-  // Function to fetch paginated posts 10 by 10 (skipping the first 4)
-  const fetchPaginatedPosts = (page) => {
+  // Function to fetch paginated posts 10 by 10 (skipping the first 4),
+  // now optionally filtered by categories.
+  const fetchPaginatedPosts = (page, categoryFilter = ["all"]) => {
     setLoadingPaginated(true);
+    let url = `http://localhost:8000/api/drr/blogposts/page/?page=${page}`;
+    if (!categoryFilter.includes("all")) {
+      // Pass categories as a comma-separated list; adjust parameter name as needed by your backend.
+      url += `&categories=${categoryFilter.join(',')}`;
+    }
     axios
-      .get(`http://localhost:8000/api/drr/blogposts/page/?page=${page}`)
+      .get(url)
       .then((response) => {
         // If returned posts are less than 10, no more pages available.
         if (response.data.length < 10) {
           setHasMorePaginated(false);
         }
-        // For page 1, we set, otherwise append.
+        // For page 1, set the posts; otherwise, append.
         setPaginatedPosts((prev) => (page === 1 ? response.data : [...prev, ...response.data]));
         setLoadingPaginated(false);
       })
@@ -168,11 +175,12 @@ export default function News() {
       });
   };
 
-  // Fetch initial paginated posts (page 1)
+  // Fetch initial paginated posts (page 1) with no filters (or "all")
   useEffect(() => {
-    fetchPaginatedPosts(1);
-  }, []);
+    fetchPaginatedPosts(1, appliedCategories);
+  }, [appliedCategories]);
 
+  // Function to toggle category selection
   const toggleCategory = (categoryId) => {
     if (categoryId === "all") {
       setActiveCategories(["all"]);
@@ -189,19 +197,27 @@ export default function News() {
     }
   };
 
-  // Handlers for pager controls
+  // Handler to apply the filters from activeCategories
+  const handleApplyFilters = () => {
+    setAppliedCategories(activeCategories);
+    setCurrentPage(1);
+    setHasMorePaginated(true);
+    // Clear current posts so that new posts appear immediately after fetching.
+    setPaginatedPosts([]);
+    fetchPaginatedPosts(1, activeCategories);
+  };
+
+  // Handlers for pager controls that now use the appliedCategories filter
   const handleNextPage = () => {
     const nextPage = currentPage + 1;
     setCurrentPage(nextPage);
-    fetchPaginatedPosts(nextPage);
+    fetchPaginatedPosts(nextPage, appliedCategories);
   };
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
-      // For simplicity, we clear and refetch page 1 when going back from page 2.
-      // In a full solution you might store each page's data.
       setCurrentPage(1);
-      fetchPaginatedPosts(1);
+      fetchPaginatedPosts(1, appliedCategories);
       setHasMorePaginated(true);
     }
   };
@@ -266,6 +282,10 @@ export default function News() {
                       />
                   ))}
               </div>
+              {/* Button to apply the selected filters */}
+              <button onClick={handleApplyFilters} className="apply-filters-btn">
+                Primeni filtere
+              </button>
           </div>
           <div className="drr-blogposts-container-all-down">
               {paginatedPosts.length > 0 ? (
