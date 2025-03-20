@@ -269,6 +269,9 @@ export default function News() {
         <div className="drr-blogpost-title">
           <div className="line"></div>
           <h2>Sve Objave</h2>
+          <button onClick={handleApplyFilters} className="apply-filters-btn">
+            <i class="fa-solid fa-filter"></i> Primeni Filtere
+          </button>
         </div>
         <div className="drr-blog-categories">
           <div className="bot">
@@ -282,9 +285,6 @@ export default function News() {
                 />
             ))}
           </div>
-          <button onClick={handleApplyFilters} className="apply-filters-btn">
-            Primeni filtere
-          </button>
         </div>
         <div className="drr-blogposts-container-all-down">
           {paginatedPosts.map((post) => (

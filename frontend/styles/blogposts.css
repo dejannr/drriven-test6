@@ -561,11 +561,6 @@
 
 }
 
-/* Accent color */
-:root {
-  --accent-color: #fe6b01;
-}
-
 /* Initial loading container (centered) */
 .initial-loading-container {
   display: flex;
@@ -580,7 +575,7 @@
 /* Spinner for initial and paginated loading */
 .spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid var(--accent-color);
+  border-top: 4px solid #fe6b01;
   border-radius: 50%;
   width: 40px;
   height: 40px;
@@ -612,17 +607,23 @@
 
 /* Styling for the apply filters button */
 .apply-filters-btn {
-  margin: 10px 0;
-  padding: 10px 20px;
-  font-size: 1rem;
-  background-color: var(--accent-color);
-  border: none;
-  border-radius: 5px;
-  color: #fff;
-  cursor: pointer;
-  transition: background-color 0.3s;
+    padding-left: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition-duration: 0.2s;
+    background-color: transparent;
+    color: #0a0a0a;
+    font-size: 14px;
 }
 
 .apply-filters-btn:hover {
-  background-color: #d95c00;
+    color: #d95c00;
+}
+
+
+.apply-filters-btn i {
+
+    color: #fe6b01;
+
 }
