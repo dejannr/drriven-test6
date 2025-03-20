@@ -473,6 +473,12 @@
 
 }
 
+.drr-blogposts-container-all-down .drr-blogpost-container .blogpost-info p {
+
+    font-size: 14px;
+
+}
+
 .drr-blogposts-container-all-down .drr-blogpost-container .cover-image-container img {
 
     height: 200px;
