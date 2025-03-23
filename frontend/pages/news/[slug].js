@@ -65,20 +65,21 @@ export default function BlogPostDetail() {
         <Link href="/news">Blog</Link> {' > '}
         <Link href={`/news/${post.slug}`}>{post.title}</Link>
       </h1>
-      <div
-        className="single-blog-header"
-        style={{
-          position: 'relative',
-          backgroundImage: `url(data:image/jpeg;base64,${post.cover_photo})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div className="overlay"></div>
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <h2>{post.title}</h2>
+        <div
+            className="single-blog-header"
+            style={{
+                position: 'relative',
+                backgroundImage: `url(data:image/jpeg;base64,${post.cover_photo})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+            }}
+        >
+            <div className="overlay"></div>
+            <div className="overlay2"></div>
+            <div style={{position: 'relative', zIndex: 1}}>
+                <h2>{post.title}</h2>
+            </div>
         </div>
-      </div>
         <div class="single-blog-info-container">
             <p className="short-desc">{post.short_description}</p>
             <div class="cont">
