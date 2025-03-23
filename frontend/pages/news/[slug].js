@@ -79,14 +79,24 @@ export default function BlogPostDetail() {
           <h2>{post.title}</h2>
         </div>
       </div>
-        <div className="single-blog-container">
+        <div class="single-blog-info-container">
             <p className="short-desc">{post.short_description}</p>
-            <CreatorInfo creator={post.creator}/>
-            <div
-                className="single-blog-html-container"
-                dangerouslySetInnerHTML={{__html: post.content}}
-            />
-            <p className="created-at">Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+            <div class="cont">
+                <CreatorInfo creator={post.creator}/>
+                <p className="created-at">Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+            </div>
+        </div>
+        <div class="single-blog-container-big">
+            <div class="left"></div>
+            <div className="single-blog-container">
+                <div
+                    className="single-blog-html-container"
+                    dangerouslySetInnerHTML={{__html: post.content}}
+                />
+            </div>
+            <div class="right"></div>
+        </div>
+        <div class="single-blog-end">
             <Link href="/news" className="back-button">Nazad na Blog</Link>
         </div>
     </>
