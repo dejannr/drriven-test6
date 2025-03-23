@@ -65,17 +65,29 @@ export default function BlogPostDetail() {
         <Link href="/news">Blog</Link> {' > '}
         <Link href={`/news/${post.slug}`}>{post.title}</Link>
       </h1>
-      <div className="single-blog-header">{post.title}</div>
-        <div class="single-blog-container">
-            <CreatorInfo creator={post.creator}/>
+      <div
+        className="single-blog-header"
+        style={{
+          position: 'relative',
+          backgroundImage: `url(data:image/jpeg;base64,${post.cover_photo})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="overlay"></div>
+        <div style={{ position: 'relative', zIndex: 1 }}>
+          <h2>{post.title}</h2>
+        </div>
+      </div>
+        <div className="single-blog-container">
             <p className="short-desc">{post.short_description}</p>
-            <div className="single-blog-html-container" dangerouslySetInnerHTML={{__html: post.content}}/>
-            <p>
-                Created on: {new Date(post.created_at).toLocaleDateString()} | Updated
-                on: {new Date(post.updated_at).toLocaleDateString()}
-            </p>
-            {/* Display the creator information after the blog content */}
-            <Link href="/news">Back to News</Link>
+            <CreatorInfo creator={post.creator}/>
+            <div
+                className="single-blog-html-container"
+                dangerouslySetInnerHTML={{__html: post.content}}
+            />
+            <p className="created-at">Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+            <Link href="/news" className="back-button">Nazad na Blog</Link>
         </div>
     </>
   );
