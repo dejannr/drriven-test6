@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
 import Image from 'next/image';
-import noUser from '../../photos/nouser.png'; // Import the image
+import noUser from '../photos/nouser.png'; // Import the image
 
 export default function RightPanel({ profile, profileLoading }) {
   const { data: session, status } = useSession();

@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import Link from 'next/link';
 import Image from 'next/image';
-import porscheImg from "../../photos/porsche4.png";
-import allCategoryImg from "../../photos/all-category.jpg";
-import noUser from '../../photos/nouser.png';
+import porscheImg from "../photos/porsche4.png";
+import allCategoryImg from "../photos/all-category.jpg";
+import noUser from '../photos/nouser.png';
 
 // Component for rendering creator information
 function CreatorInfo({ creator }) {
