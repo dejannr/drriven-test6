@@ -793,6 +793,12 @@
 
 }
 
+.single-blog-container .single-blog-html-container img {
+
+    width: 100%;
+
+}
+
 .single-blog-container .single-blog-html-container h1 {
 
     font-size: 32px;
