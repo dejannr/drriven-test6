@@ -37,8 +37,15 @@ def blogpost_paginated_list(request):
     categories_param = request.GET.get('categories', None)
 
     # Start with all published posts ordered by most recent.
-    posts = BlogPost.objects.filter(published=True).order_by('-created_at')
+    all_posts = BlogPost.objects.filter(published=True).order_by('-created_at')
 
+    # Get the IDs of the newest 4 posts.
+    newest_ids = list(all_posts.values_list('id', flat=True)[:4])
+
+    # Exclude the newest 4 posts.
+    posts = all_posts.exclude(id__in=newest_ids)
+
+    # If filtering by categories is required.
     if categories_param and categories_param.lower() != 'all':
         try:
             # Create a list of integers from the comma-separated parameter.
@@ -46,12 +53,12 @@ def blogpost_paginated_list(request):
             # Filter posts that have at least one of the provided categories.
             posts = posts.filter(categories__id__in=category_ids).distinct()
         except ValueError:
-            pass  # If conversion fails, you could also return an error or ignore the filter.
+            pass  # Optionally handle conversion errors.
 
-    # Paginate the queryset: assume 10 posts per page
+    # Paginate the queryset: assume 10 posts per page.
     paginator = Paginator(posts, 10)
     page_obj = paginator.get_page(page_number)
 
-    # Serialize posts (assuming you have a serializer set up)
+    # Serialize posts (assuming you have a serializer set up).
     serializer = BlogPostSerializer(page_obj.object_list, many=True)
     return JsonResponse(serializer.data, safe=False)
