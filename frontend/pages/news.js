@@ -233,7 +233,10 @@ export default function News() {
 
   return (
       <>
-        <h1 className="drr-breadcrump">Početna {'>'} Blog</h1>
+        <h1 className="drr-breadcrump">
+          <Link href="/">Početna</Link> {' > '}
+            <Link href="/news">Blog</Link>
+        </h1>
         <div className="drr-blog-header">
           <div className="left">
             <h2>Blog.</h2>

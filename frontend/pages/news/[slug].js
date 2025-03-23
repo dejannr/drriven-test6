@@ -24,7 +24,12 @@ export default function BlogPostDetail() {
   }, [slug]);
 
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="initial-loading-container">
+        <div className="spinner initial-spinner"></div>
+        <p>Učitavanje...</p>
+      </div>
+    );
   }
 
   if (!post) {
@@ -40,15 +45,21 @@ export default function BlogPostDetail() {
   }
 
   return (
-    <>
-      <h1>{post.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: post.content }} />
-      <p>
-        Created on: {new Date(post.created_at).toLocaleDateString()} | Updated on: {new Date(post.updated_at).toLocaleDateString()}
-      </p>
-      <Link href="/news">
-        Back to News
-      </Link>
-    </>
+      <>
+          <h1 className="drr-breadcrump">
+              <Link href="/">Početna</Link> {' > '}
+              <Link href="/news">Blog</Link> {' > '}
+              <Link href={`/news/${post.slug}`}>{post.title}</Link>
+          </h1>
+          <div className="single-blog-header">{post.title}</div>
+          <div className="single-blog-container" dangerouslySetInnerHTML={{__html: post.content}}/>
+          <p>
+              Created on: {new Date(post.created_at).toLocaleDateString()} | Updated
+              on: {new Date(post.updated_at).toLocaleDateString()}
+          </p>
+          <Link href="/news">
+              Back to News
+          </Link>
+      </>
   );
 }
