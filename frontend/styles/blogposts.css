@@ -127,10 +127,9 @@
 }
 
 .drr-blog-categories .bot {
-
     display: flex;
     gap: 30px;
-
+    overflow-x: auto; /* Enables horizontal scrolling */
 }
 
 .drr-blog-categories .bot .category-item {
@@ -148,7 +147,9 @@
     overflow: hidden;
     cursor: pointer;
     background-size: cover;
+    flex-shrink: 0; /* Prevents the item from shrinking below its width */
 }
+
 
 .drr-blog-categories .bot .category-item .category-bg {
     position: absolute;
