@@ -9,6 +9,13 @@ export default function RightPanel({ profile, profileLoading }) {
   const { data: session, status } = useSession();
   const { pathname } = useRouter();
 
+  // Handler to remove the classes and dispatch the custom event.
+  const handleLinkClick = () => {
+    document.querySelector('.drr-sidepanel')?.classList.remove('drr-mob-show');
+    document.querySelector('.drr-rightpanel')?.classList.remove('drr-mob-show');
+    document.dispatchEvent(new CustomEvent('downpanelSelectMiddle'));
+  };
+
   // While session is loading
   if (status === "loading") {
     return (
@@ -31,17 +38,25 @@ export default function RightPanel({ profile, profileLoading }) {
           </div>
           <div>
             <div className="middle">
-              <Link href="/login" className={pathname === "/login" ? "active" : ""}>
+              <Link
+                href="/login"
+                onClick={handleLinkClick}
+                className={pathname === "/login" ? "active" : ""}
+              >
                 <i className="fa-solid fa-right-to-bracket"></i> Login
               </Link>
-              <Link href="/register" className={pathname === "/register" ? "active" : ""}>
+              <Link
+                href="/register"
+                onClick={handleLinkClick}
+                className={pathname === "/register" ? "active" : ""}
+              >
                 <i className="fa-solid fa-user-plus"></i> Register
               </Link>
             </div>
           </div>
-          {/*<div>*/}
-          {/*  <div className="down"></div>*/}
-          {/*</div>*/}
+          {/*<div>
+            <div className="down"></div>
+          </div>*/}
         </div>
       </aside>
     );
@@ -63,38 +78,38 @@ export default function RightPanel({ profile, profileLoading }) {
       <div className="in">
         <div className="bubble">
           <h2>Profile Info</h2>
-          <div class="line"></div>
+          <div className="line"></div>
           <div className="cover">
             {profile?.cover_image && (
-                <Image
-                    src={`data:image/jpeg;base64,${profile.cover_image}`}
-                    alt="Cover Image"
-                    width={300}
-                    height={150}
-                    unoptimized
-                />
+              <Image
+                src={`data:image/jpeg;base64,${profile.cover_image}`}
+                alt="Cover Image"
+                width={300}
+                height={150}
+                unoptimized
+              />
             )}
           </div>
           <div className="under-cover">
             {profile?.image ? (
               <Image
-                  src={`data:image/jpeg;base64,${profile.image}`}
-                  alt="Profile Photo"
-                  width={100}
-                  height={100}
+                src={`data:image/jpeg;base64,${profile.image}`}
+                alt="Profile Photo"
+                width={100}
+                height={100}
               />
-          ) : (
+            ) : (
               <Image src={noUser} alt="No User" width={100} height={100}/>
-          )}
+            )}
             <div className="info-container">
               <h2>{profile?.first_name} {profile?.last_name}</h2>
               <p>@{profile?.username}</p>
             </div>
           </div>
         </div>
-        <div class="bubble bubble-garage">
+        <div className="bubble bubble-garage">
           <h2>Garage</h2>
-          <div class="line"></div>
+          <div className="line"></div>
         </div>
       </div>
     </aside>
