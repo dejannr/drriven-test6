@@ -36,6 +36,7 @@ export default function Sidepanel({ profile, profileLoading }) {
       // Remove mobile classes from both sidepanel and rightpanel if the link is allowed.
       document.querySelector('.drr-sidepanel')?.classList.remove('drr-mob-show');
       document.querySelector('.drr-rightpanel')?.classList.remove('drr-mob-show');
+      document.dispatchEvent(new CustomEvent('downpanelSelectMiddle'));
       return;
     }
     // Prevent navigation if not allowed

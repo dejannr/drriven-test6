@@ -149,7 +149,7 @@
 @media screen and (max-width: 768px) {
 
   .drr-sidepanel {
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: calc(100% - 80px);
     left: 0;
