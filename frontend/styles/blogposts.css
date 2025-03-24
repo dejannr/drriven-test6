@@ -1103,8 +1103,9 @@
 
     .single-blog-header {
 
-        height: 200px;
+        height: 250px;
         padding: 15px;
+        background-position: 50% calc(50% - 30px) !important;
     }
 
     .single-blog-header h2 {
