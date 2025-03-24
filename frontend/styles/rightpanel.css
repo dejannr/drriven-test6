@@ -235,3 +235,16 @@
   height: 400px;
 
 }
+
+@media screen and (max-width: 768px) {
+
+  .drr-rightpanel {
+        position: absolute;
+    width: 100%;
+    height: calc(100% - 80px);
+    left: 0;
+    top: 0;
+      visibility: hidden;
+  }
+
+}

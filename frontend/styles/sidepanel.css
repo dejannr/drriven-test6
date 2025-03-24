@@ -145,3 +145,16 @@
   white-space: nowrap;
   pointer-events: none;
 }
+
+@media screen and (max-width: 768px) {
+
+  .drr-sidepanel {
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 80px);
+    left: 0;
+    top: 0;
+      visibility: hidden;
+  }
+
+}

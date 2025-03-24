@@ -3,6 +3,11 @@
   font-weight: 400;
 }
 
+.drr-mob {
+
+  display: none;
+
+}
 /* Main container styles */
 .drr-main {
   width: calc(100% - 600px);
@@ -74,4 +79,23 @@
     opacity: 1;
     transform: scale(1.2);
   }
+}
+
+@media screen and (max-width: 768px) {
+
+  .drr-mob {
+
+    display: block;
+
+  }
+
+  .drr-main {
+
+      width: 100%;
+      margin-left: 0;
+      padding: 20px;
+      box-sizing: border-box;
+
+  }
+
 }

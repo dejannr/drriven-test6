@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Sidepanel from './Sidepanel';
 import Rightpanel from './Rightpanel';
+import Downpanel from './Downpanel';
+
 
 export default function BaseTemplate({ children }) {
   const { data: session } = useSession();
@@ -64,6 +66,7 @@ export default function BaseTemplate({ children }) {
         {children}
       </div>
       <Rightpanel profile={profile} profileLoading={profileLoading} />
+      <Downpanel profile={profile} profileLoading={profileLoading} />
     </div>
   );
 }

@@ -6,7 +6,7 @@ import '../styles/resetstyle.css';
 import '../styles/sidepanel.css';
 import '../styles/rightpanel.css';
 import '../styles/blogposts.css';
-
+import '../styles/downpanel.css'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
