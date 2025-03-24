@@ -31,10 +31,14 @@ export default function Sidepanel({ profile, profileLoading }) {
   // Handler that intercepts navigation if not allowed.
   // The parameter "canJoin" indicates if the link should be accessible by anyone.
   const handleNavigation = (e, targetPath, canJoin = false) => {
-    // Allow navigation if the link is open to all or if it's /profile and user is logged in.
-    if (canJoin || (targetPath === '/profile' && session)) {
+    const canNavigate = canJoin || (targetPath === '/profile' && session);
+    if (canNavigate) {
+      // Remove mobile classes from both sidepanel and rightpanel if the link is allowed.
+      document.querySelector('.drr-sidepanel')?.classList.remove('drr-mob-show');
+      document.querySelector('.drr-rightpanel')?.classList.remove('drr-mob-show');
       return;
     }
+    // Prevent navigation if not allowed
     e.preventDefault();
     if (session) {
       showBubble(targetPath, "Soon!");
@@ -76,8 +80,8 @@ export default function Sidepanel({ profile, profileLoading }) {
       </div>
       <div>
         <div className="links-top">
-          {renderLink("/feed", "fa-solid fa-compass", "Feed")}
-          {renderLink("/inbox", "fa-solid fa-inbox", "Inbox")}
+          {renderLink("/feed", "fa-solid fa-compass", "Feed", true)}
+          {renderLink("/inbox", "fa-solid fa-inbox", "Inbox", true)}
           {/* Here, News is accessible by everyone */}
           {renderLink("/news", "fa-solid fa-newspaper", "Blog", true)}
           {renderLink("/forum", "fa-solid fa-comments", "Forum")}

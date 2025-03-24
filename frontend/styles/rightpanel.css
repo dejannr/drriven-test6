@@ -240,11 +240,19 @@
 
   .drr-rightpanel {
         position: absolute;
-    width: 100%;
-    height: calc(100% - 80px);
-    left: 0;
-    top: 0;
+      width: 100%;
+      height: calc(100% - 80px);
+      left: 0;
+      top: 0;
       visibility: hidden;
+    z-index: 9999;
+  }
+
+    .drr-mob-show {
+
+    visibility: visible;
+
+
   }
 
 }

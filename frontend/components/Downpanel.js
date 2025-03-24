@@ -6,22 +6,22 @@ export default function Downpanel({ profile, profileLoading }) {
   const showSidepanelOnly = () => {
     const sidepanel = document.querySelector('.drr-sidepanel');
     const rightpanel = document.querySelector('.drr-rightpanel');
-    if (sidepanel) sidepanel.style.visibility = 'visible';
-    if (rightpanel) rightpanel.style.visibility = 'hidden';
+    if (sidepanel) sidepanel.classList.add('drr-mob-show');
+    if (rightpanel) rightpanel.classList.remove('drr-mob-show');
   };
 
   const hideBoth = () => {
     const sidepanel = document.querySelector('.drr-sidepanel');
     const rightpanel = document.querySelector('.drr-rightpanel');
-    if (sidepanel) sidepanel.style.visibility = 'hidden';
-    if (rightpanel) rightpanel.style.visibility = 'hidden';
+    if (sidepanel) sidepanel.classList.remove('drr-mob-show');
+    if (rightpanel) rightpanel.classList.remove('drr-mob-show');
   };
 
   const showRightpanelOnly = () => {
     const sidepanel = document.querySelector('.drr-sidepanel');
     const rightpanel = document.querySelector('.drr-rightpanel');
-    if (sidepanel) sidepanel.style.visibility = 'hidden';
-    if (rightpanel) rightpanel.style.visibility = 'visible';
+    if (sidepanel) sidepanel.classList.remove('drr-mob-show');
+    if (rightpanel) rightpanel.classList.add('drr-mob-show');
   };
 
   if (status === "loading" || profileLoading) {

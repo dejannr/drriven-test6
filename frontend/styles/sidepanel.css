@@ -154,7 +154,15 @@
     height: calc(100% - 80px);
     left: 0;
     top: 0;
-      visibility: hidden;
+    visibility: hidden;
+    z-index: 9999;
+  }
+
+  .drr-mob-show {
+
+    visibility: visible;
+
+
   }
 
 }
