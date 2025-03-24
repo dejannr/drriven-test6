@@ -1049,76 +1049,16 @@
 
     .drr-blogposts-container-all .next {
 
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container {
-
         width: 100%;
-        height: calc(510px / 3);
-        display: flex;
-        box-sizing: border-box;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container .cover-img {
-
-        width: 100%;
-        height: calc(510px / 3);
-        object-fit: cover;
-        border-radius: 10px 0 0 10px;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container .left {
-        width: 50%;
     }
 
     .drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 50%;
-        box-sizing: border-box;
-        padding: 10px 10px 10px 10px;
-        background-color: rgba(254, 107, 1, 0.1);
-        border-radius: 0 10px 10px 0;
-        height: calc(510px / 3);
+        width: 60%;
     }
 
     .drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info h2 {
 
-        font-size: 18px;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info p {
-
-      -webkit-line-clamp: 2;
-        font-size: 14px;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info .creator-info {
-
-        height: 20px;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info .creator-info p {
-
-        font-size: 12px;
-
-    }
-
-    .drr-blogposts-container-all .next .drr-blogpost-container .blogpost-info a {
-
-        font-size: 14px;
-        font-weight: 500;
+        font-size: 16px;
 
     }
 
@@ -1131,252 +1071,56 @@
 
     .drr-blogposts-container-all .next .cover-image-container {
 
-        width: 50%;
+        width: 40%;
 
-    }
-
-    .drr-blogposts-container-all .cover-overlay {
-
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 5px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
     }
 
     .drr-blogposts-container-all .cover-category {
-
-        padding: 5px 10px;
-        background-color: rgba(254, 107, 1, 0.8);
-        border-radius: 6px;
-        font-size: 14px;
-        color: #fff;
-
-    }
-
-    .drr-blogposts-container-all .next .cover-category {
 
         font-size: 10px;
 
     }
 
-    .drr-blogposts-container-all-down {
-
-        display: flex;
-        flex-wrap: wrap;
-        gap: 20px;
-        margin-top: 30px;
-
-    }
-
     .drr-blogposts-container-all-down .drr-blogpost-container {
 
-        width: calc(50% - 10px);
+        width: 100%;
         height: 200px;
 
     }
 
-    .drr-blogposts-container-all-down h2 {
-
-        font-size: 16px;
-        font-weight: 600;
-
-    }
-
     .drr-blogposts-container-all-down p {
-          display: -webkit-box;
-          -webkit-box-orient: vertical;
-          -webkit-line-clamp: 3;
-          overflow: hidden;
-          color: #333;
-        text-align: justify;
-    }
-
-
-    .drr-blogposts-container-all-down .drr-blogpost-container {
-
-        display: flex;
-
+          font-size: 14px;
     }
 
     .drr-blogposts-container-all-down .drr-blogpost-container .cover-image-container {
 
-        width: 50%;
+        width: 40%;
 
     }
 
     .drr-blogposts-container-all-down .drr-blogpost-container .blogpost-info {
 
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        padding: 10px;
-        box-sizing: border-box;
-        background-color: rgba(254, 107, 1, 0.1);
-        border-radius: 0 10px 10px 0;
-        height: 200px;
-
-    }
-
-    .drr-blogposts-container-all-down .drr-blogpost-container .blogpost-info p {
-
-        font-size: 14px;
-
-    }
-
-    .drr-blogposts-container-all-down .drr-blogpost-container .cover-image-container img {
-
-        height: 200px;
-        width: 100%;
-        object-fit: cover;
-        border-radius: 10px 0 0 10px;
-
-    }
-
-
-    .drr-blogposts-container-all-down .creator-info {
-
-        width: 100%;
-        height: 20px;
-        display: flex;
-        align-items: center;
+        width: 60%;
 
     }
 
     .drr-blogposts-container-all-down .creator-info img {
 
-        height: 25px;
-        width: 25px;
-        border-radius: 100px;
-        margin-right: 5px;
+        height: 20px;
+        width: 20px;
 
     }
 
     .drr-blogposts-container-all-down .creator-info p {
 
-        font-size: 12px;
-
-    }
-
-    .drr-blogposts-container-all-down .cover-overlay {
-
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        padding: 5px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 5px;
-    }
-
-    .drr-blogposts-container-all-down .cover-category {
-
-        padding: 5px 10px;
-        background-color: rgba(254, 107, 1, 0.8);
-        border-radius: 6px;
         font-size: 10px;
-        color: #fff;
-
-    }
-
-    .blogpost-info {
-
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
-        justify-content: space-evenly !important;
 
     }
 
     .drr-blogposts-pager  button {
-
-        background-color: transparent;
-        border: none;
-        outline: none;
-        font-size: 18px;
-        cursor: pointer;
-        margin: 10px 0 0;
-        transition-duration: 0.1s;
-
+        font-size: 16px;
     }
 
-    .drr-blogposts-pager button:hover {
-
-        color: #fe6b01;
-        text-decoration: underline;
-
-    }
-
-    /* Initial loading container (centered) */
-    .initial-loading-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 50vh;
-      text-align: center;
-      font-size: 1.2rem;
-    }
-
-    /* Spinner for initial and paginated loading */
-    .spinner {
-      border: 4px solid #f3f3f3;
-      border-top: 4px solid #fe6b01;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-      margin-bottom: 10px;
-    }
-
-    /* Additional class for a larger spinner on initial load if desired */
-    .initial-spinner {
-      width: 60px;
-      height: 60px;
-      border-width: 6px;
-    }
-
-    /* Center the loading indicator for paginated posts */
-    .loading-indicator {
-        width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin: 20px 0;
-    }
-
-    /* Spinner animation */
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Styling for the apply filters button */
-    .apply-filters-btn {
-        padding-left: 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        transition-duration: 0.2s;
-        background-color: transparent;
-        color: #0a0a0a;
-        font-size: 14px;
-    }
-
-    .apply-filters-btn:hover {
-        color: #d95c00;
-    }
-
-
-    .apply-filters-btn i {
-
-        color: #fe6b01;
-
-    }
 
 
     /*
