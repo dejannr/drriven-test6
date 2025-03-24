@@ -996,17 +996,17 @@
 
     .drr-blogposts-container-all h2 {
 
-        font-size: 20px;
+        font-size: 16px;
 
     }
 
     .drr-blogposts-container-all p {
-      /*myb font size*/
+        font-size: 14px;
     }
 
     .first {
 
-        height: 550px;
+        height: 400px;
 
     }
 
@@ -1016,22 +1016,9 @@
 
     }
 
-    .first .drr-blogposts-container-all {
-
-        position: relative;
-
-    }
-
     .first .drr-blogpost-container .blogpost-info {
 
-        height: 250px;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        background-color: rgba(254, 107, 1, 0.1);
-        box-sizing: border-box;
-        padding: 10px;
-        border-radius: 0 0 10px 10px;
+        height: 200px;
 
     }
 
@@ -1044,23 +1031,19 @@
     .drr-blogposts-container-all .first a {
 
         font-weight: 500;
-        font-size: 18px;
+        font-size: 14px;
 
     }
 
     .drr-blogposts-container-all .first .drr-blogpost-container {
 
-        height: 550px;
-        overflow: hidden;
+        height: 400px;
 
     }
 
     .drr-blogposts-container-all .first .drr-blogpost-container .cover-img {
 
-        width: 100%;
-        height: 300px;
-        object-fit: cover;
-        border-radius: 10px 10px 0 0;
+        height: 200px;
 
     }
 
@@ -1142,7 +1125,7 @@
     .drr-blogposts-container-all .first .cover-image-container {
 
         width: 100%;
-        height: 300px;
+        height: 200px;
 
     }
 
