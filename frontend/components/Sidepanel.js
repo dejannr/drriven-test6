@@ -81,8 +81,8 @@ export default function Sidepanel({ profile, profileLoading }) {
       </div>
       <div>
         <div className="links-top">
-          {renderLink("/feed", "fa-solid fa-compass", "Feed", true)}
-          {renderLink("/inbox", "fa-solid fa-inbox", "Inbox", true)}
+          {renderLink("/feed", "fa-solid fa-compass", "Feed")}
+          {renderLink("/inbox", "fa-solid fa-inbox", "Inbox")}
           {/* Here, News is accessible by everyone */}
           {renderLink("/news", "fa-solid fa-newspaper", "Blog", true)}
           {renderLink("/forum", "fa-solid fa-comments", "Forum")}
