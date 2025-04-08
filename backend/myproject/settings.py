@@ -2,6 +2,7 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+from decouple import config
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -63,11 +64,11 @@ ASGI_APPLICATION = 'myproject.asgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'drriven-test6',
-        'USER': 'postgres',
-        'PASSWORD': '2525',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': config('DATABASE_NAME'),
+        'USER': config('DATABASE_USER'),
+        'PASSWORD': config('DATABASE_PASSWORD'),
+        'HOST': config('DATABASE_HOST', default='localhost'),
+        'PORT': config('DATABASE_PORT', default='5432'),
     }
 }
 
