@@ -22,7 +22,7 @@ export default function BaseTemplate({ children }) {
   useEffect(() => {
     if (session?.access) {
       setProfileLoading(true);
-      axios.get("http://localhost:8000/api/users/profile/", {
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile/`, {
         headers: {
           Authorization: `Bearer ${session.access}`,
         },

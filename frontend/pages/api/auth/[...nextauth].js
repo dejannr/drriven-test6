@@ -5,7 +5,7 @@ import axios from "axios";
 // Function to refresh the access token using the refresh token
 async function refreshAccessToken(token) {
   try {
-    const response = await axios.post("http://localhost:8000/api/auth/jwt/refresh/", {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/jwt/refresh/`, {
       refresh: token.refresh,
     });
     // Assuming your Django endpoint returns a new access token (and optionally a new refresh token)
@@ -37,7 +37,7 @@ export default NextAuth({
       async authorize(credentials, req) {
         try {
           // Call your Django endpoint that returns JWT tokens
-          const res = await axios.post("http://localhost:8000/api/auth/jwt/create/", {
+          const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/jwt/create/`, {
             username: credentials.username,
             password: credentials.password,
           });

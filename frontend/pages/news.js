@@ -134,9 +134,11 @@ export default function News() {
 
   // Fetch newest 4 posts and categories on initial load
   useEffect(() => {
+      console.log("THIS:")
+    console.log(process.env.NEXT_PUBLIC_API_URL)
     Promise.all([
-      axios.get('http://localhost:8000/api/drr/blogposts/'),
-      axios.get('http://localhost:8000/api/drr/categories/')
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/drr/blogposts/`),
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/drr/categories/`)
     ])
       .then(([postsResponse, categoriesResponse]) => {
         setNewestPosts(postsResponse.data);
@@ -153,7 +155,7 @@ export default function News() {
   // now optionally filtered by categories.
   const fetchPaginatedPosts = (page, categoryFilter = ["all"]) => {
     setLoadingPaginated(true);
-    let url = `http://localhost:8000/api/drr/blogposts/page/?page=${page}`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/api/drr/blogposts/page/?page=${page}`;
     if (!categoryFilter.includes("all")) {
       url += `&categories=${categoryFilter.join(',')}`;
     }
