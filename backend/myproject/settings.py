@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'replace-this-with-a-secure-key'
 DEBUG = True
-ALLOWED_HOSTS = ['188.166.58.202', 'localhost']
+ALLOWED_HOSTS = ['188.166.58.202', 'localhost', 'drriven.community']
 
 # Add corsheaders to installed apps
 INSTALLED_APPS = [
