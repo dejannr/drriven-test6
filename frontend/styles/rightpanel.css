@@ -241,7 +241,7 @@
   .drr-rightpanel {
     position: fixed;
       width: 100%;
-      height: calc(100% - 80px);
+      height: calc(100% - 50px);
       left: 0;
       top: 0;
     display: none;
