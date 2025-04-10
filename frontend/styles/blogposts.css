@@ -558,6 +558,14 @@
 
 }
 
+
+.drr-blogposts-pager {
+
+    display: flex;
+    gap: 10px;
+
+}
+
 .drr-blogposts-pager  button {
 
     background-color: transparent;
@@ -566,6 +574,8 @@
     font-size: 18px;
     cursor: pointer;
     margin: 10px 0 0;
+    padding: 0;
+    color: #000;
     transition-duration: 0.1s;
 
 }
