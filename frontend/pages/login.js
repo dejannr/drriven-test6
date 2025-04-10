@@ -21,7 +21,7 @@ export default function Login() {
       console.error("Login error:", result.error);
       alert("Login failed: " + result.error);
     } else {
-      router.push("/news");
+      router.push("/blog");
     }
   };
 

@@ -38,7 +38,7 @@ export default function BlogPostDetail() {
       <>
         <h1>Blog Post Not Found</h1>
         <p>Sorry, we couldn't find the blog post you are looking for.</p>
-        <Link href="/news">Back to News</Link>
+        <Link href="/blog">Back to News</Link>
       </>
     );
   }
@@ -62,8 +62,8 @@ export default function BlogPostDetail() {
     <>
       <h1 className="drr-breadcrump">
         <Link href="/">Početna</Link> {' > '}
-        <Link href="/news">Blog</Link> {' > '}
-        <Link href={`/news/${post.slug}`}>{post.title}</Link>
+        <Link href="/blog">Blog</Link> {' > '}
+        <Link href={`/blog/${post.slug}`}>{post.title}</Link>
       </h1>
         <div
             className="single-blog-header"
@@ -98,7 +98,7 @@ export default function BlogPostDetail() {
             <div class="right"></div>
         </div>
         <div class="single-blog-end">
-            <Link href="/news" className="back-button">Nazad na Blog</Link>
+            <Link href="/blog" className="back-button">Nazad na Blog</Link>
         </div>
     </>
   );

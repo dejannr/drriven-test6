@@ -55,7 +55,7 @@ function NewestBlogPost({ post }) {
         <p>{post.short_description}</p>
         <CreatorInfo creator={post.creator} />
         <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
-        <Link href={`/news/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <i className="fa-solid fa-angles-right"></i> Ceo tekst
         </Link>
       </div>
@@ -73,7 +73,7 @@ function OtherBlogPost({ post }) {
         {/*<p>{post.short_description}</p>*/}
         <CreatorInfo creator={post.creator} />
         <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
-        <Link href={`/news/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <i className="fa-solid fa-angles-right"></i> Ceo tekst
         </Link>
       </div>
@@ -121,7 +121,7 @@ function CategoryItem({ category, activeCategories, onToggle }) {
   );
 }
 
-export default function News() {
+export default function Blog() {
   const [newestPosts, setNewestPosts] = useState([]);
   const [paginatedPosts, setPaginatedPosts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -237,7 +237,7 @@ export default function News() {
       <>
         <h1 className="drr-breadcrump">
           <Link href="/">Početna</Link> {' > '}
-            <Link href="/news">Blog</Link>
+            <Link href="/blog">Blog</Link>
         </h1>
         <div className="drr-blog-header">
           <div className="left">
