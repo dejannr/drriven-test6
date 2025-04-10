@@ -3,6 +3,20 @@
   font-weight: 400;
 }
 
+a,
+a:visited,
+a:hover,
+a:active {
+  /* Inherit font color from the parent element */
+  color: inherit;
+  /* Remove any underlines */
+  text-decoration: none;
+  /* Remove the default tap highlight (applies to iOS and some Android browsers) */
+  -webkit-tap-highlight-color: transparent;
+  /* Optionally, remove any default outline applied on focus */
+  outline: none;
+}
+
 .drr-mob {
 
   display: none;
