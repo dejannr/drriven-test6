@@ -11,6 +11,9 @@ SECRET_KEY = 'replace-this-with-a-secure-key'
 DEBUG = True
 ALLOWED_HOSTS = ['188.166.58.202', 'localhost', 'drriven.community']
 
+CSRF_TRUSTED_ORIGINS = ['https://drriven.community']
+
+
 # Add corsheaders to installed apps
 INSTALLED_APPS = [
     'django.contrib.admin',
