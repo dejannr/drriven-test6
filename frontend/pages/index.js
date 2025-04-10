@@ -1,10 +1,14 @@
 // pages/index.js
 
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: '/blog',
+      permanent: false, // or true if the redirect is permanent
+    },
+  };
+}
+
 export default function Home() {
-  return (
-    <>
-      <h1>Welcome to the App</h1>
-      {/* Additional page-specific content */}
-    </>
-  );
+  return null; // This component won't actually render because of the redirect
 }
