@@ -36,24 +36,24 @@ export default function RightPanel({ profile, profileLoading }) {
               <h2>No User</h2>
             </div>
           </div>
-          <div>
-            <div className="middle">
-              <Link
-                href="/login"
-                onClick={handleLinkClick}
-                className={pathname === "/login" ? "active" : ""}
-              >
-                <i className="fa-solid fa-right-to-bracket"></i> Login
-              </Link>
-              <Link
-                href="/register"
-                onClick={handleLinkClick}
-                className={pathname === "/register" ? "active" : ""}
-              >
-                <i className="fa-solid fa-user-plus"></i> Register
-              </Link>
-            </div>
-          </div>
+          {/*<div>*/}
+          {/*  <div className="middle">*/}
+          {/*    <Link*/}
+          {/*      href="/login"*/}
+          {/*      onClick={handleLinkClick}*/}
+          {/*      className={pathname === "/login" ? "active" : ""}*/}
+          {/*    >*/}
+          {/*      <i className="fa-solid fa-right-to-bracket"></i> Login*/}
+          {/*    </Link>*/}
+          {/*    <Link*/}
+          {/*      href="/register"*/}
+          {/*      onClick={handleLinkClick}*/}
+          {/*      className={pathname === "/register" ? "active" : ""}*/}
+          {/*    >*/}
+          {/*      <i className="fa-solid fa-user-plus"></i> Register*/}
+          {/*    </Link>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
           {/*<div>
             <div className="down"></div>
           </div>*/}
