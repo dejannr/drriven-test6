@@ -2,8 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
-    path('drr/admin/', admin.site.urls),
     path('api/', include([
+        path('drr/admin/', admin.site.urls),
         # Djoser endpoints for auth (registration, login, JWT)
         path('auth/', include('djoser.urls')),
         path('auth/', include('djoser.urls.jwt')),
