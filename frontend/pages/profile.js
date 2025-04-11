@@ -10,7 +10,7 @@ export default function Profile() {
   useEffect(() => {
     if (session && session.access) {
       axios
-        .get(`${process.env.NEXT_PUBLIC_API_URL}/api/users/profile/`, {
+        .get(`${process.env.NEXT_PUBLIC_API_URL}/bapi/users/profile/`, {
           headers: {
             Authorization: `Bearer ${session.access}`,
           },

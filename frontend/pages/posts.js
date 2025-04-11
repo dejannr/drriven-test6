@@ -25,7 +25,7 @@ export default function PostsPage() {
 
     console.log("Fetching posts with access token:", session.access);
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/`, {
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/bapi/posts/`, {
         headers: { Authorization: `Bearer ${session.access}` }
       })
       .then((response) => {
@@ -46,7 +46,7 @@ export default function PostsPage() {
       return;
     }
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/api/posts/${postId}/like/`, {}, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/bapi/posts/${postId}/like/`, {}, {
         headers: { Authorization: `Bearer ${session.access}` }
       })
       .then((response) => {

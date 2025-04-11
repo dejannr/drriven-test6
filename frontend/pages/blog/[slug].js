@@ -13,7 +13,7 @@ export default function BlogPostDetail() {
   useEffect(() => {
     if (!slug) return; // Wait until slug is available
     axios
-      .get(`${process.env.NEXT_PUBLIC_API_URL}/api/drr/blogposts/${slug}/`)
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/bapi/drr/blogposts/${slug}/`)
       .then((response) => {
         setPost(response.data);
         setLoading(false);

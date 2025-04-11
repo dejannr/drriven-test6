@@ -137,8 +137,8 @@ export default function Blog() {
       console.log("THIS:")
     console.log(process.env.NEXT_PUBLIC_API_URL)
     Promise.all([
-      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/drr/blogposts/`),
-      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/drr/categories/`)
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bapi/drr/blogposts/`),
+      axios.get(`${process.env.NEXT_PUBLIC_API_URL}/bapi/drr/categories/`)
     ])
       .then(([postsResponse, categoriesResponse]) => {
         setNewestPosts(postsResponse.data);
@@ -155,7 +155,7 @@ export default function Blog() {
   // now optionally filtered by categories.
   const fetchPaginatedPosts = (page, categoryFilter = ["all"]) => {
     setLoadingPaginated(true);
-    let url = `${process.env.NEXT_PUBLIC_API_URL}/api/drr/blogposts/page/?page=${page}`;
+    let url = `${process.env.NEXT_PUBLIC_API_URL}/bapi/drr/blogposts/page/?page=${page}`;
     if (!categoryFilter.includes("all")) {
       url += `&categories=${categoryFilter.join(',')}`;
     }

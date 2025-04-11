@@ -14,7 +14,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const response = await axios.post("/api/register", {
+      const response = await axios.post("/bapi/register", {
         username,
         email,
         password,
