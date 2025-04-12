@@ -151,7 +151,7 @@
   .drr-sidepanel {
     position: fixed;
     width: 100%;
-    height: calc(100% - 50px);
+    height: calc(100% - 60px);
     left: 0;
     top: 0;
     display: none;
