@@ -92,7 +92,7 @@ export default function Sidepanel({ profile, profileLoading }) {
       </div>
       <div>
         <div className="links-bottom">
-          {session && renderLink("/profile", "fa-solid fa-cog", "Settings")}
+          {/*{session && renderLink("/profile", "fa-solid fa-cog", "Settings")}*/}
         </div>
       </div>
     </aside>
