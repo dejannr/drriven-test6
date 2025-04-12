@@ -20,7 +20,9 @@ export default function RightPanel({ profile, profileLoading }) {
   if (status === "loading") {
     return (
       <aside className="drr-rightpanel">
-        <p>Loading...</p>
+        <div className="loading-indicator">
+          <div className="spinner"></div>
+        </div>
       </aside>
     );
   }
@@ -28,7 +30,7 @@ export default function RightPanel({ profile, profileLoading }) {
   // If there's no session, show login/register options with the image inside .bubble.
   if (!session) {
     return (
-      <aside className="drr-rightpanel">
+        <aside className="drr-rightpanel">
         <div className="out">
           <div>
             <div className="bubble">
@@ -67,7 +69,9 @@ export default function RightPanel({ profile, profileLoading }) {
   if (profileLoading) {
     return (
       <aside className="drr-rightpanel">
-        <p>Loading profile...</p>
+        <div className="loading-indicator">
+          <div className="spinner"></div>
+        </div>
       </aside>
     );
   }
