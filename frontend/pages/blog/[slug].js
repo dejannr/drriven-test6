@@ -10,6 +10,12 @@ export default function BlogPostDetail() {
   const [post, setPost] = useState(null);
   const [loading, setLoading] = useState(true);
 
+    // Format date as DD/MM/YYYY
+    const formatDate = (dateString) => {
+      const date = new Date(dateString);
+      return `${String(date.getDate()).padStart(2, '0')}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+    };
+
   useEffect(() => {
     if (!slug) return; // Wait until slug is available
     axios
@@ -84,7 +90,7 @@ export default function BlogPostDetail() {
             <p className="short-desc">{post.short_description}</p>
             <div class="cont">
                 <CreatorInfo creator={post.creator}/>
-                <p className="created-at">Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+                <p className="created-at">Objavljeno: {formatDate(post.created_at)}</p>
             </div>
         </div>
         <div class="single-blog-container-big">

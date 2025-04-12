@@ -47,6 +47,9 @@ function CoverImage({ coverPhoto, categories }) {
 
 // Component for the newest blog post (.first) with its structure
 function NewestBlogPost({ post }) {
+  const createdAt = new Date(post.created_at);
+  const formattedDate = `${String(createdAt.getDate()).padStart(2, '0')}/${String(createdAt.getMonth() + 1).padStart(2, '0')}/${createdAt.getFullYear()}`;
+
   return (
     <div key={post.id} className="drr-blogpost-container">
       <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
@@ -54,7 +57,7 @@ function NewestBlogPost({ post }) {
         <h2>{post.title}</h2>
         <p>{post.short_description}</p>
         <CreatorInfo creator={post.creator} />
-        <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+        <p>Objavljeno: {formattedDate}</p>
         <Link href={`/blog/${post.slug}`}>
           <i className="fa-solid fa-angles-right"></i> Ceo tekst
         </Link>
@@ -65,6 +68,9 @@ function NewestBlogPost({ post }) {
 
 // Component for the other blog posts (.next) with their structure
 function OtherBlogPost({ post }) {
+  const createdAt = new Date(post.created_at);
+  const formattedDate = `${String(createdAt.getDate()).padStart(2, '0')}/${String(createdAt.getMonth() + 1).padStart(2, '0')}/${createdAt.getFullYear()}`;
+
   return (
     <div key={post.id} className="drr-blogpost-container">
       <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
@@ -72,7 +78,7 @@ function OtherBlogPost({ post }) {
         <h2>{post.title}</h2>
         {/*<p>{post.short_description}</p>*/}
         <CreatorInfo creator={post.creator} />
-        <p>Objavljeno: {new Date(post.created_at).toLocaleDateString()}</p>
+        <p>Objavljeno: {formattedDate}</p>
         <Link href={`/blog/${post.slug}`}>
           <i className="fa-solid fa-angles-right"></i> Ceo tekst
         </Link>
