@@ -2,6 +2,10 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react';
+import Image from "next/image";
+import noUser from "../photos/nouser.png";
+
+import logoW from "../photos/drriven-logo-w.png";
 
 export default function Sidepanel({ profile, profileLoading }) {
   const { data: session } = useSession();
@@ -76,7 +80,7 @@ export default function Sidepanel({ profile, profileLoading }) {
     <aside className="drr-sidepanel">
       <div>
         <div className="logo">
-          drriven<span>.</span>
+            <Image src={logoW} alt="Drriven"/>
         </div>
       </div>
       <div>
