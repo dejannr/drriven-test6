@@ -42,9 +42,9 @@ export default function Sidepanel({ profile, profileLoading }) {
     // Prevent navigation if not allowed
     e.preventDefault();
     if (session) {
-      showBubble(targetPath, "Soon!");
+      showBubble(targetPath, "Uskoro!");
     } else {
-      showBubble(targetPath, "Login required!");
+      showBubble(targetPath, "Uskoro!");
     }
   };
 
@@ -81,13 +81,13 @@ export default function Sidepanel({ profile, profileLoading }) {
       </div>
       <div>
         <div className="links-top">
-          {renderLink("/feed", "fa-solid fa-compass", "Feed")}
-          {renderLink("/inbox", "fa-solid fa-inbox", "Inbox")}
+          {renderLink("/feed", "fa-solid fa-compass", "Početna")}
+          {renderLink("/inbox", "fa-solid fa-inbox", "Poruke")}
           {/* Here, News is accessible by everyone */}
           {renderLink("/blog", "fa-solid fa-newspaper", "Blog", true)}
           {renderLink("/forum", "fa-solid fa-comments", "Forum")}
-          {renderLink("/events", "fa-solid fa-calendar-alt", "Events")}
-          {renderLink("/spotting", "fa-solid fa-car", "Spotting")}
+          {renderLink("/events", "fa-solid fa-calendar-alt", "Dogadjaji")}
+          {renderLink("/spotting", "fa-solid fa-car", "Spotovanje")}
         </div>
       </div>
       <div>
