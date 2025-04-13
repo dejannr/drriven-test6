@@ -10,7 +10,6 @@ import time
 @api_view(['GET'])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def blogpost_list(request):
-    time.sleep(5)
     # Only return published posts ordered by newest first, limiting to 4
     posts = BlogPost.objects.filter(published=True).order_by('-created_at')[:4]
     serializer = BlogPostSerializer(posts, many=True, context={'request': request})
