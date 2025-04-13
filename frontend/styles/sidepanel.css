@@ -108,6 +108,24 @@
 
 }
 
+.subpage-name {
+
+  color: #000;
+  margin-top: 10px;
+  margin-left: 20px;
+  background-color: #fff;
+  border-radius: 6px;
+  padding: 5px 10px;
+
+}
+
+.subpage-name i {
+
+  color: #fe6b01;
+  margin-right: 5px;
+
+}
+
 
 .drr-sidepanel .links-bottom a {
 
