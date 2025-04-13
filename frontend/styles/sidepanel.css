@@ -92,7 +92,14 @@
 .drr-sidepanel .links-top a.active {
 
   background-color: #fff;
+  transition-duration: 0.2s;
   color: #000;
+
+}
+
+.drr-sidepanel .links-top a.active:hover {
+
+  background-color: #ccc;
 
 }
 
