@@ -54,7 +54,9 @@ function NewestBlogPost({ post }) {
     <div key={post.id} className="drr-blogpost-container">
       <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
       <div className="blogpost-info">
-        <h2>{post.title}</h2>
+        <Link href={`/blog/${post.slug}`}>
+            <h2>{post.title}</h2>
+        </Link>
         <p>{post.short_description}</p>
         <CreatorInfo creator={post.creator} />
         <p>Objavljeno: {formattedDate}</p>
@@ -75,7 +77,9 @@ function OtherBlogPost({ post }) {
     <div key={post.id} className="drr-blogpost-container">
       <CoverImage coverPhoto={post.cover_photo} categories={post.categories} />
       <div className="blogpost-info">
-        <h2>{post.title}</h2>
+        <Link href={`/blog/${post.slug}`}>
+            <h2>{post.title}</h2>
+        </Link>
         {/*<p>{post.short_description}</p>*/}
         <CreatorInfo creator={post.creator} />
         <p>Objavljeno: {formattedDate}</p>
