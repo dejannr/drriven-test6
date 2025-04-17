@@ -3,3 +3,5 @@
 .gitignore
 /venv/
 /backend/staticfiles/
+/backend/.env
+/frontend/.env

@@ -2,23 +2,33 @@ from django.conf import settings
 from django.db import models
 from django.utils.text import slugify
 
+from myproject.storages import SpacesMediaStorage
+
+
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(unique=True, blank=True)
-    cover_photo = models.BinaryField(null=True, blank=True)  # New cover photo field
-    short_description = models.TextField(blank=True)  # New short description field
+
+    # store the *path* in DB; the file lives in your Space
+    cover_photo = models.ImageField(
+        storage=SpacesMediaStorage(),
+        upload_to='cover_photos/%Y/%m/%d/',
+        blank=True,
+        null=True,
+        help_text="Cover image stored in DigitalOcean Spaces"
+    )
+
+    short_description = models.TextField(blank=True)
     content = models.TextField()
     published = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    # Initially allow null so migrations can run without a one-off default
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
         related_name='blog_posts',
-        null=True,    # Allow null for existing rows
-        blank=True    # Allow blank values in forms
+        null=True, blank=True
     )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

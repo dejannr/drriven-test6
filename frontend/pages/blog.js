@@ -26,16 +26,16 @@ function CoverImage({ coverPhoto, categories }) {
   return (
     <div className="cover-image-container" style={{ position: 'relative' }}>
       {coverPhoto && (
-        <img
-          src={`data:image/jpeg;base64,${coverPhoto}`}
-          alt="Cover"
-          className="cover-img"
-        />
+          <img
+              src={coverPhoto}    // now using the Spaces URL directly
+              alt="Cover"
+              className="cover-img"
+          />
       )}
-      {categories && categories.length > 0 && (
-        <div className="cover-overlay">
-          {categories.map((cat) => (
-            <span key={cat.id} className="cover-category">
+        {categories && categories.length > 0 && (
+            <div className="cover-overlay">
+                {categories.map((cat) => (
+                    <span key={cat.id} className="cover-category">
               <i className="fa-solid fa-star"></i> {cat.name}
             </span>
           ))}

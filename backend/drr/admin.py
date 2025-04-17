@@ -15,35 +15,28 @@ class BlogPostAdminForm(forms.ModelForm):
         required=False,
         widget=admin.widgets.FilteredSelectMultiple("Categories", is_stacked=False)
     )
-    cover_photo_upload = forms.FileField(required=False, help_text="Upload a cover photo.")
-    clear_cover_photo = forms.BooleanField(required=False, label="Clear current cover photo")
-    # Only display superusers in the creator field dropdown.
-    creator = forms.ModelChoiceField(queryset=User.objects.filter(is_superuser=True))
+    # Django will automatically give you “cover_photo” as a FileField in the form
+    creator = forms.ModelChoiceField(
+        queryset=User.objects.filter(is_superuser=True),
+        required=False
+    )
 
     class Meta:
         model = BlogPost
         fields = '__all__'
 
     def __init__(self, *args, **kwargs):
-        super(BlogPostAdminForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         if self.instance.pk:
             self.fields['categories'].initial = self.instance.categories.all()
 
     def save(self, commit=True):
-        instance = super(BlogPostAdminForm, self).save(commit=False)
-        if self.cleaned_data.get('clear_cover_photo'):
-            instance.cover_photo = None
-        else:
-            uploaded_cover = self.cleaned_data.get('cover_photo_upload')
-            if uploaded_cover:
-                instance.cover_photo = uploaded_cover.read()
+        obj = super().save(commit=False)
         if commit:
-            instance.save()
+            obj.save()
             self.save_m2m()
-            instance.categories.set(self.cleaned_data['categories'])
-        else:
-            self.save_m2m = lambda: instance.categories.set(self.cleaned_data['categories'])
-        return instance
+        return obj
+
 
 @admin.register(BlogPost)
 class BlogPostAdmin(admin.ModelAdmin):

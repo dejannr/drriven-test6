@@ -35,28 +35,30 @@ class BlogPostCategorySerializer(serializers.ModelSerializer):
 
 
 class BlogPostSerializer(serializers.ModelSerializer):
-    cover_photo = serializers.SerializerMethodField()  # New field for the cover photo
-    creator = UserSerializer(read_only=True)  # Nested user serializer
-    categories = BlogPostCategorySerializer(many=True, read_only=True)  # New field to include categories
+    cover_photo = serializers.SerializerMethodField()
+    creator     = UserSerializer(read_only=True)
+    categories  = BlogPostCategorySerializer(many=True, read_only=True)
 
     class Meta:
-        model = BlogPost
+        model  = BlogPost
         fields = [
-            'id',
-            'title',
-            'slug',
-            'content',
-            'published',
-            'created_at',
-            'updated_at',
-            'cover_photo',
-            'short_description',
-            'creator',
-            'categories'  # Added categories to the fields list
+            'id', 'title', 'slug', 'content',
+            'published', 'created_at', 'updated_at',
+            'cover_photo', 'short_description',
+            'creator', 'categories',
         ]
 
     def get_cover_photo(self, obj):
-        # Check if the blog post has a cover photo and encode it to base64
-        if obj.cover_photo:
-            return base64.b64encode(obj.cover_photo).decode('utf-8')
-        return None
+        """
+        Returns the public URL of the cover_photo stored in DO Spaces.
+        If you pass `request` into your serializer context, this will
+        return an absolute URL; otherwise a relative one.
+        """
+        if not obj.cover_photo:
+            return None
+
+        url = obj.cover_photo.url  # e.g. "/media/cover_photos/2025/04/17/foo.jpg"
+        request = self.context.get('request')
+        if request:
+            return request.build_absolute_uri(url)
+        return url
