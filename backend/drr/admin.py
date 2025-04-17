@@ -3,6 +3,7 @@ from django.contrib import admin
 from django import forms
 from django.contrib.auth import get_user_model
 from ckeditor.widgets import CKEditorWidget
+from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from .models import BlogPost, BlogPostCategory
 
@@ -80,15 +81,18 @@ class BlogPostCategoryForm(forms.ModelForm):
             self.save_m2m()
         return instance
 
+
 @admin.register(BlogPostCategory)
 class BlogPostCategoryAdmin(admin.ModelAdmin):
-    form = BlogPostCategoryForm
-    list_display = ('name', 'image_preview',)
+    list_display    = ('name', 'image_preview')
     filter_horizontal = ('blog_posts',)
+    readonly_fields = ('image_preview',)
 
-    def image_preview(self, instance):
-        if instance.image:
-            encoded = base64.b64encode(instance.image).decode('utf-8')
-            return mark_safe(f'<img src="data:image/jpeg;base64,{encoded}" width="100" />')
-        return "No image"
+    def image_preview(self, obj):
+        if obj.image:
+            return format_html(
+                '<img src="{}" width="100" style="object-fit:contain;" />',
+                obj.image.url
+            )
+        return format_html('<span style="color:#888;">(no image)</span>')
     image_preview.short_description = "Current Image"

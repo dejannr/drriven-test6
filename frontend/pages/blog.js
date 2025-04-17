@@ -122,7 +122,7 @@ function CategoryItem({ category, activeCategories, onToggle }) {
         <div
           className="category-bg"
           style={{
-            backgroundImage: `url('data:image/jpeg;base64,${category.image}')`
+            backgroundImage: `url('${category.image}')`
           }}
         ></div>
       )}

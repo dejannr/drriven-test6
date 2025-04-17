@@ -40,7 +40,13 @@ class BlogPost(models.Model):
 
 class BlogPostCategory(models.Model):
     name = models.CharField(max_length=255)
-    image = models.BinaryField(null=True, blank=True)  # Image field
+    image = models.ImageField(
+        storage=SpacesMediaStorage(),
+        upload_to='category_images/%Y/%m/%d/',
+        blank=True,
+        null=True,
+        help_text="Category image stored in DigitalOcean Spaces"
+    )
     blog_posts = models.ManyToManyField('BlogPost', related_name='categories', blank=True)
 
     def __str__(self):
