@@ -89,7 +89,7 @@ export default function BlogPostDetail() {
                 className="single-blog-header"
                 style={{
                     position: 'relative',
-                    backgroundImage: `url(data:image/jpeg;base64,${post.cover_photo})`,
+                    backgroundImage: `url(${post.cover_photo})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                 }}
