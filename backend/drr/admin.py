@@ -35,22 +35,19 @@ class BlogPostAdminForm(forms.ModelForm):
             self.fields['categories'].initial = self.instance.categories.all()
 
     def save(self, commit=True):
-        # 1) Create/update instance, but don’t write M2M yet
+        # leave as-is, only save the instance
         instance = super().save(commit=False)
-
-        # 2) If commit=True, write the main object
         if commit:
             instance.save()
-
-        # 3) Only now that instance.pk exists, set your custom M2M
-        if commit and 'categories' in self.cleaned_data:
-            instance.categories.set(self.cleaned_data['categories'])
-
-        # 4) And finally let Django save all other M2M fields
-        if commit:
-            self.save_m2m()
-
         return instance
+
+    def save_m2m(self):
+        # first let Django save any “real” M2M fields
+        super().save_m2m()
+        # **now** also set the reverse M2M for `categories`
+        cats = self.cleaned_data.get('categories')
+        if cats is not None:
+            self.instance.categories.set(cats)
 
 
 @admin.register(BlogPost)
@@ -63,16 +60,21 @@ class BlogPostAdmin(admin.ModelAdmin):
     @admin.action(description="Duplicate selected blog posts")
     def duplicate_blog_posts(self, request, queryset):
         for blog in queryset:
-            # Save original many-to-many relations
             original_categories = list(blog.categories.all())
-            # Duplicate the blog post instance
             blog.pk = None
-            blog.id = None  # Ensure the ID is also reset.
+            blog.id = None
             blog.title = f"{blog.title} (copy)"
-            blog.slug = ""  # Clear slug to let prepopulated_fields or custom logic create a new slug.
+            blog.slug = ""
             blog.save()
-            # Reassign the many-to-many relationships.
             blog.categories.set(original_categories)
+
+    def save_related(self, request, form, formsets, change):
+        # 1) Let Django save regular M2M and inlines
+        super().save_related(request, form, formsets, change)
+        # 2) Now explicitly set your reverse-M2M 'categories'
+        cats = form.cleaned_data.get('categories')
+        if cats is not None:
+            form.instance.categories.set(cats)
 
 class BlogPostCategoryForm(forms.ModelForm):
     image_upload = forms.FileField(required=False, help_text="Upload an image.")
