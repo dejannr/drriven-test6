@@ -43,9 +43,14 @@ class UserDetails(models.Model):
         on_delete=models.CASCADE,
         related_name='details'
     )
-    # if you still want to keep a raw binary field for some reason, you can—
-    # otherwise you might remove this entirely once you migrate.
-    image = models.BinaryField(null=True, blank=True)
+
+    image = models.ImageField(
+        storage=SpacesMediaStorage(),
+        upload_to=UploadToPath("user_image"),
+        blank=True,
+        null=True,
+        help_text="Image stored in DigitalOcean Spaces"
+    )
 
     cover_image = models.ImageField(
         storage=SpacesMediaStorage(),
