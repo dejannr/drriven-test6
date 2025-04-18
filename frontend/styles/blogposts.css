@@ -818,18 +818,21 @@
 .single-blog-container .single-blog-html-container h1 {
 
     font-size: 38px;
+    padding-bottom: 20px;
 
 }
 
 .single-blog-container .single-blog-html-container h2 {
 
     font-size: 32px;
+    padding-bottom: 20px;
 
 }
 
 .single-blog-container .single-blog-html-container h3 {
 
     font-size: 26px;
+    padding-bottom: 20px;
 
 }
 
@@ -849,7 +852,7 @@
 
 .single-blog-container .single-blog-html-container p {
 
-    padding: 20px 0;
+    padding-bottom: 20px;
     font-size: 18px;
     line-height: 22px;
 
@@ -1209,18 +1212,21 @@
     .single-blog-container .single-blog-html-container h1 {
 
         font-size: 28px;
+        padding-bottom: 15px;
 
     }
 
     .single-blog-container .single-blog-html-container h2 {
 
         font-size: 24px;
+        padding-bottom: 15px;
 
     }
 
     .single-blog-container .single-blog-html-container h3 {
 
         font-size: 20px;
+        padding-bottom: 15px;
 
     }
 
@@ -1228,6 +1234,7 @@
 
         font-size: 14px;
         line-height: 20px;
+        padding-bottom: 15px;
 
     }
 
