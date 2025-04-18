@@ -11,7 +11,7 @@ function CreatorInfo({ creator }) {
   const name = creator ? `${creator.first_name} ${creator.last_name}` : "Nepoznato";
   const imageSrc =
     creator && creator.image
-      ? `data:image/jpeg;base64,${creator.image}`
+      ? `${creator.image}`
       : noUser.src;
   return (
     <div className="creator-info">

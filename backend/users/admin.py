@@ -1,4 +1,5 @@
-import base64
+# admin.py
+import os, uuid
 from django import forms
 from django.contrib import admin
 from django.contrib.auth import get_user_model
@@ -9,58 +10,71 @@ from .models import UserDetails
 User = get_user_model()
 
 class UserDetailsForm(forms.ModelForm):
-    image_upload = forms.FileField(required=False, help_text="Upload a photo.")
-    cover_image_upload = forms.FileField(required=False, help_text="Upload a cover image.")
+    image_upload = forms.ImageField(required=False, help_text="Upload a photo.")
+    cover_image_upload = forms.ImageField(required=False, help_text="Upload a cover image.")
     clear_image = forms.BooleanField(required=False, label="Clear current photo")
     clear_cover_image = forms.BooleanField(required=False, label="Clear current cover image")
 
     class Meta:
         model = UserDetails
-        fields = ('image_upload', 'cover_image_upload', 'clear_image', 'clear_cover_image',)
+        fields = (
+            'image_upload', 'clear_image',
+            'cover_image_upload', 'clear_cover_image',
+        )
 
     def save(self, commit=True):
-        instance = super().save(commit=False)
-        # Check if clear option is set, otherwise process upload
-        if self.cleaned_data.get('clear_image'):
-            instance.image = None
-        else:
-            uploaded_image = self.cleaned_data.get('image_upload')
-            if uploaded_image:
-                instance.image = uploaded_image.read()
+        inst = super().save(commit=False)
 
-        if self.cleaned_data.get('clear_cover_image'):
-            instance.cover_image = None
+        # PHOTO
+        if self.cleaned_data.get('clear_image'):
+            inst.image.delete(save=False)
         else:
-            uploaded_cover = self.cleaned_data.get('cover_image_upload')
-            if uploaded_cover:
-                instance.cover_image = uploaded_cover.read()
+            img = self.cleaned_data.get('image_upload')
+            if img:
+                # give it a unique filename, if you like
+                name = f"{uuid.uuid4().hex}{os.path.splitext(img.name)[1]}"
+                inst.image.save(name, img, save=False)
+
+        # COVER
+        if self.cleaned_data.get('clear_cover_image'):
+            inst.cover_image.delete(save=False)
+        else:
+            cov = self.cleaned_data.get('cover_image_upload')
+            if cov:
+                name = f"{uuid.uuid4().hex}{os.path.splitext(cov.name)[1]}"
+                inst.cover_image.save(name, cov, save=False)
 
         if commit:
-            instance.save()
-        return instance
+            inst.save()
+        return inst
+
 
 class UserDetailsInline(admin.StackedInline):
     model = UserDetails
     form = UserDetailsForm
     can_delete = False
     verbose_name_plural = 'User Details'
+    # show real <img src> previews
     readonly_fields = ('image_preview', 'cover_image_preview',)
 
     def image_preview(self, instance):
         if instance.image:
-            encoded = base64.b64encode(instance.image).decode('utf-8')
-            return mark_safe(f'<img src="data:image/jpeg;base64,{encoded}" width="100" />')
-        return "No image"
+            return mark_safe(
+                f'<img src="{instance.image.url}" width="100" />'
+            )
+        return "No photo"
     image_preview.short_description = "Current Photo"
 
     def cover_image_preview(self, instance):
         if instance.cover_image:
-            encoded = base64.b64encode(instance.cover_image).decode('utf-8')
-            return mark_safe(f'<img src="data:image/jpeg;base64,{encoded}" width="100" />')
+            return mark_safe(
+                f'<img src="{instance.cover_image.url}" width="100" />'
+            )
         return "No cover image"
     cover_image_preview.short_description = "Current Cover Image"
 
-# Unregister the existing User admin if registered
+
+# replace the default UserAdmin
 try:
     admin.site.unregister(User)
 except admin.sites.NotRegistered:

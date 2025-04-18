@@ -7,17 +7,11 @@ from .models import BlogPost, BlogPostCategory
 User = get_user_model()
 
 class UserSerializer(serializers.ModelSerializer):
-    image = serializers.SerializerMethodField()
+    image = serializers.ImageField(source='details.image', read_only=True)
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'image']
-
-    def get_image(self, obj):
-        # Check if the user has associated details and an image exists.
-        if hasattr(obj, 'details') and obj.details.image:
-            return base64.b64encode(obj.details.image).decode('utf-8')
-        return None
 
 
 class BlogPostCategorySerializer(serializers.ModelSerializer):

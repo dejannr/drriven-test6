@@ -87,7 +87,7 @@ export default function RightPanel({ profile, profileLoading }) {
           <div className="cover">
             {profile?.cover_image && (
               <Image
-                src={`data:image/jpeg;base64,${profile.cover_image}`}
+                src={`${profile.cover_image}`}
                 alt="Cover Image"
                 width={300}
                 height={150}
@@ -98,7 +98,7 @@ export default function RightPanel({ profile, profileLoading }) {
           <div className="under-cover">
             {profile?.image ? (
               <Image
-                src={`data:image/jpeg;base64,${profile.image}`}
+                src={`${profile.image}`}
                 alt="Profile Photo"
                 width={100}
                 height={100}
