@@ -32,14 +32,18 @@ class BlogPostAdminForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         if self.instance.pk:
+            # pre‑fill the custom field from the reverse M2M
             self.fields['categories'].initial = self.instance.categories.all()
 
     def save(self, commit=True):
-        obj = super().save(commit=False)
+        # first save the BlogPost itself
+        instance = super().save(commit=False)
         if commit:
-            obj.save()
-            self.save_m2m()
-        return obj
+            instance.save()
+        # now write your custom M2M back to the instance
+        if 'categories' in self.cleaned_data:
+            instance.categories.set(self.cleaned_data['categories'])
+        return instance
 
 
 @admin.register(BlogPost)
