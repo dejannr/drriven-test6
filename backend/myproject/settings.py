@@ -130,3 +130,5 @@ AWS_S3_OBJECT_PARAMETERS = {
 
 # tell Django to use S3 for media files
 DEFAULT_FILE_STORAGE = 'myproject.storages.SpacesMediaStorage'
+
+STORAGE_FOLDER = config("STORAGE_FOLDER")
