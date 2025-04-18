@@ -855,6 +855,7 @@
     padding-bottom: 20px;
     font-size: 18px;
     line-height: 22px;
+    text-align: justify;
 
 }
 
@@ -1177,6 +1178,7 @@
 
         font-size: 16px;
         line-height: 22px;
+        text-align: justify;
 
     }
 
