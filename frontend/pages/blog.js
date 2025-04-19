@@ -285,11 +285,11 @@ export default function Blog() {
                         <div className="first">
                         {firstPost && <NewestBlogPost post={firstPost}/>}
                 </div>
-                {/*<div className="next">*/}
-                {/*  {nextThreePosts.map((post) => (*/}
-                {/*      <OtherBlogPost key={post.id} post={post}/>*/}
-                {/*  ))}*/}
-                {/*</div>*/}
+                <div className="next">
+                  {nextThreePosts.map((post) => (
+                      <OtherBlogPost key={post.id} post={post}/>
+                  ))}
+                </div>
               </>
           ) : (
               <p>Trenutno nema dostupnih blog postova.</p>
