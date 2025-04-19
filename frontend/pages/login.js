@@ -19,7 +19,11 @@ export default function Login() {
       redirect: false,
     });
     if (result.error) {
-      showNotification({ type: "error", message: result.error, duration: 4000 });
+      if (result.error === 'CredentialsSignin') {
+        showNotification({ type: "error", message: 'Uneli ste pogrešne kredencijale!', duration: 4000 });
+      } else {
+        showNotification({ type: "error", message: result.error, duration: 4000 });
+      }
     } else {
       showNotification({ type: "success", message: "Login successful!", duration: 2000 });
       router.push("/blog");
