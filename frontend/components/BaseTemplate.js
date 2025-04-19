@@ -5,6 +5,7 @@ import axios from 'axios';
 import Sidepanel from './Sidepanel';
 import Rightpanel from './Rightpanel';
 import Downpanel from './Downpanel';
+import { NotificationProvider } from "./NotificationContext";
 
 export default function BaseTemplate({ children }) {
   const { data: session } = useSession();
@@ -43,11 +44,13 @@ export default function BaseTemplate({ children }) {
   }, [session, profile]); // Include profile in the dependency array
 
   return (
-    <div className="base-container">
-      <Sidepanel profile={profile} profileLoading={profileLoading} />
-      <div className="drr-main">{children}</div>
-      <Rightpanel profile={profile} profileLoading={profileLoading} />
-      <Downpanel profile={profile} profileLoading={profileLoading} />
-    </div>
+      <NotificationProvider>
+        <div className="base-container">
+          <Sidepanel profile={profile} profileLoading={profileLoading}/>
+          <div className="drr-main">{children}</div>
+          <Rightpanel profile={profile} profileLoading={profileLoading}/>
+          <Downpanel profile={profile} profileLoading={profileLoading}/>
+        </div>
+      </NotificationProvider>
   );
 }

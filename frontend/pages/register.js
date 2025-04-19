@@ -3,34 +3,35 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
-import Notification from "../components/Notification";
+import { useNotification } from "../components/NotificationContext";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [notification, setNotification] = useState(null);
+  const { showNotification } = useNotification();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL_FRONT}/api/register`, {
-        username,
-        email,
-        password,
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL_FRONT}/api/register`,
+        { username, email, password }
+      );
+      showNotification({
+        type: "success",
+        message: response.data.message,
+        duration: 3000,
       });
-      setNotification({ type: "success", message: response.data.message, duration: 3000 });
 
-      setTimeout(() => {
-        router.push("/login");
-      }, 3000);
+      router.push("/login");
     } catch (error) {
       const errMap = error.response?.data.error ?? {};
-      const errorMsg = Object.values(errMap)[0]  //
+      const errorMsg = Object.values(errMap)[0];
       console.error("Registration error:", errorMsg[0]);
-      setNotification({
+      showNotification({
         type: "error",
         message: "Registration failed: " + errorMsg[0],
         duration: 4000,
@@ -40,15 +41,6 @@ export default function Register() {
 
   return (
     <>
-      {notification && (
-        <Notification
-          type={notification.type}
-          message={notification.message}
-          duration={notification.duration}
-          onClose={() => setNotification(null)}
-        />
-      )}
-
       <h1>Register</h1>
       <form onSubmit={handleSubmit}>
         <div>
