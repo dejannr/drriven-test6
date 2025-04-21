@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'replace-this-with-a-secure-key'
 DEBUG = True
-ALLOWED_HOSTS = ['188.166.58.202', 'localhost', 'drriven.community']
+ALLOWED_HOSTS = ['188.166.58.202', 'localhost', 'drriven.community', 'dev.drriven.community']
 
 CSRF_TRUSTED_ORIGINS = ['https://drriven.community']
 
