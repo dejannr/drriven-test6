@@ -11,7 +11,7 @@ SECRET_KEY = 'replace-this-with-a-secure-key'
 DEBUG = True
 ALLOWED_HOSTS = ['188.166.58.202', 'localhost', 'drriven.community', 'dev.drriven.community']
 
-CSRF_TRUSTED_ORIGINS = ['https://drriven.community']
+CSRF_TRUSTED_ORIGINS = ['https://drriven.community', 'https://dev.drriven.community']
 
 
 # Add corsheaders to installed apps
