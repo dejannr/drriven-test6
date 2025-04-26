@@ -97,7 +97,8 @@
       margin-left: 0;
       padding: 20px;
       box-sizing: border-box;
-      margin-bottom: 80px;
+      margin-bottom: 60px;
+      min-height: calc(100vh - 60px);
 
   }
 
