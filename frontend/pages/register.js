@@ -6,29 +6,35 @@ import Link from "next/link";
 import { useNotification } from "../components/NotificationContext";
 
 export default function Register() {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const { showNotification } = useNotification();
-  const router = useRouter();
+  const [username, setUsername]   = useState("");
+  const [email, setEmail]         = useState("");
+  const [password, setPassword]   = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName]   = useState("");
+  const { showNotification }      = useNotification();
+  const router                    = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL_FRONT}/api/register`,
-        { username, email, password }
+        {
+          username,
+          email,
+          password,
+          first_name: firstName,
+          last_name: lastName,
+        }
       );
       showNotification({
         type: "success",
         message: response.data.message,
         duration: 3000,
       });
-
       router.push("/login");
     } catch (error) {
-      const errMap = error.response?.data.error ?? {};
+      const errMap  = error.response?.data.error ?? {};
       const errorMsg = Object.values(errMap)[0];
       console.error("Registration error:", errorMsg[0]);
       showNotification({
@@ -48,7 +54,7 @@ export default function Register() {
           <input
             type="text"
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={e => setUsername(e.target.value)}
             required
           />
         </div>
@@ -57,7 +63,25 @@ export default function Register() {
           <input
             type="email"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={e => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>First Name:</label>
+          <input
+            type="text"
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Last Name:</label>
+          <input
+            type="text"
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
             required
           />
         </div>
@@ -66,7 +90,7 @@ export default function Register() {
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={e => setPassword(e.target.value)}
             required
           />
         </div>
