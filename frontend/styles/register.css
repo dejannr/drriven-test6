@@ -84,3 +84,14 @@
 .register-container a:hover {
   text-decoration: underline;
 }
+
+@media screen and (max-width: 900px) {
+
+  .drr-main.page-register {
+
+    align-items: flex-start;
+    padding-top: 40px;
+
+  }
+
+}
