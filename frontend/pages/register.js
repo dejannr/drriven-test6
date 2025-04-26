@@ -34,7 +34,7 @@ export default function Register() {
       });
       router.push("/login");
     } catch (error) {
-      const errMap  = error.response?.data.error ?? {};
+      const errMap   = error.response?.data.error ?? {};
       const errorMsg = Object.values(errMap)[0];
       console.error("Registration error:", errorMsg[0]);
       showNotification({
@@ -46,59 +46,61 @@ export default function Register() {
   };
 
   return (
-    <>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Username:</label>
-          <input
-            type="text"
-            value={username}
-            onChange={e => setUsername(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>First Name:</label>
-          <input
-            type="text"
-            value={firstName}
-            onChange={e => setFirstName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Last Name:</label>
-          <input
-            type="text"
-            value={lastName}
-            onChange={e => setLastName(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>Password:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <button type="submit">Register</button>
-      </form>
-      <p>
-        Already have an account? <Link href="/login">Login here</Link>.
-      </p>
-    </>
+      <div className="register-container">
+        <h1>Registracija</h1>
+        <form className="register-form" onSubmit={handleSubmit}>
+          <div>
+            <label>Korisničko ime:</label>
+            <input
+                type="text"
+                value={username}
+                onChange={e => setUsername(e.target.value)}
+                required
+            />
+          </div>
+          <div>
+            <label>Email:</label>
+            <input
+                type="email"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+                required
+            />
+          </div>
+          <div>
+            <label>Ime:</label>
+            <input
+                type="text"
+                value={firstName}
+                onChange={e => setFirstName(e.target.value)}
+                required
+            />
+          </div>
+          <div>
+            <label>Prezime:</label>
+            <input
+                type="text"
+                value={lastName}
+                onChange={e => setLastName(e.target.value)}
+                required
+            />
+          </div>
+          <div>
+            <label>Lozinka:</label>
+            <input
+                type="password"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
+                required
+            />
+          </div>
+          <button type="submit" className="register-button">
+            Potvrdite
+          </button>
+        </form>
+        <p>
+          Već imate nalog? <Link href="/login">Prijavite se</Link>.
+        </p>
+      </div>
   );
 }

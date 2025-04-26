@@ -10,6 +10,7 @@ import '../styles/rightpanel.css';
 import '../styles/blogposts.css';
 import '../styles/downpanel.css';
 import '../styles/notification.css';
+import '../styles/register.css';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
