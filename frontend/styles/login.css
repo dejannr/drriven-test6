@@ -6,8 +6,9 @@
   background-size: cover;
   background-position: bottom;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  padding-top: 60px;
 }
 
 .login-container {
@@ -87,7 +88,6 @@
 
   .drr-main.page-login {
 
-    align-items: flex-start;
     padding-top: 40px;
 
   }
