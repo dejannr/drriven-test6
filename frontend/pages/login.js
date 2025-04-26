@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import { useNotification } from "../components/NotificationContext";
-
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -19,24 +19,35 @@ export default function Login() {
       redirect: false,
     });
     if (result.error) {
-      if (result.error === 'CredentialsSignin') {
-        showNotification({ type: "error", message: 'Uneli ste pogrešne kredencijale!', duration: 4000 });
+      if (result.error === "CredentialsSignin") {
+        showNotification({
+          type: "error",
+          message: "Uneli ste pogrešne kredencijale!",
+          duration: 4000,
+        });
       } else {
-        showNotification({ type: "error", message: result.error, duration: 4000 });
+        showNotification({
+          type: "error",
+          message: result.error,
+          duration: 4000,
+        });
       }
     } else {
-      showNotification({ type: "success", message: "Login successful!", duration: 2000 });
+      showNotification({
+        type: "success",
+        message: "Uspešna prijava!",
+        duration: 2000,
+      });
       router.push("/blog");
     }
   };
 
-
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
+    <div className="login-container">
+      <h1>Prijava</h1>
+      <form className="login-form" onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <label>Korisničko ime:</label>
           <input
             type="text"
             value={username}
@@ -45,7 +56,7 @@ export default function Login() {
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Lozinka:</label>
           <input
             type="password"
             value={password}
@@ -53,8 +64,13 @@ export default function Login() {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" className="login-button">
+          Prijavite se
+        </button>
       </form>
-    </>
+      <p>
+        Nemate nalog? <Link href="/register">Registrujte se</Link>.
+      </p>
+    </div>
   );
 }
