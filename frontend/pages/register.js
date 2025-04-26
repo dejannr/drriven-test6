@@ -3,27 +3,39 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 import Link from "next/link";
+import { useNotification } from "../components/NotificationContext";
 
 export default function Register() {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { showNotification } = useNotification();
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/api/register`, {
-        username,
-        email,
-        password,
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL_FRONT}/api/register`,
+        { username, email, password }
+      );
+      showNotification({
+        type: "success",
+        message: response.data.message,
+        duration: 3000,
       });
-      alert(response.data.message);
+
       router.push("/login");
     } catch (error) {
-      console.error("Registration error:", error.response?.data || error.message);
-      alert("Registration failed: " + JSON.stringify(error.response?.data));
+      const errMap = error.response?.data.error ?? {};
+      const errorMsg = Object.values(errMap)[0];
+      console.error("Registration error:", errorMsg[0]);
+      showNotification({
+        type: "error",
+        message: "Registration failed: " + errorMsg[0],
+        duration: 4000,
+      });
     }
   };
 
