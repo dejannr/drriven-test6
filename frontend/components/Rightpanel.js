@@ -36,7 +36,7 @@ export default function RightPanel({ profile, profileLoading }) {
             <div className="bubble">
               <Image src={noUser} alt="No User" />
               <h2>Niste prijavljeni</h2>
-              <p>Prijava će uskoro biti omogućena.</p>
+              {/*<p>Prijava će uskoro biti omogućena.</p>*/}
             </div>
           </div>
           <div>
@@ -46,14 +46,14 @@ export default function RightPanel({ profile, profileLoading }) {
                 onClick={handleLinkClick}
                 className={pathname === "/login" ? "active" : ""}
               >
-                <i className="fa-solid fa-right-to-bracket"></i> Login
+                <i className="fa-solid fa-right-to-bracket"></i> Prijava
               </Link>
               <Link
                 href="/register"
                 onClick={handleLinkClick}
                 className={pathname === "/register" ? "active" : ""}
               >
-                <i className="fa-solid fa-user-plus"></i> Register
+                <i className="fa-solid fa-user-plus"></i> Registracija
               </Link>
             </div>
           </div>
